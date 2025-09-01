@@ -40,25 +40,79 @@
         .search-container {
             background: transparent;
         }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .wishlist-icon {
+            transition: all 0.2s ease;
+        }
+        
+        .wishlist-icon:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+        
+        .add-to-cart-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #0ea5e9;
+            transform: translateY(-2px);
+        }
+
+        .article-card {
+            transition: all 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .why-choose-card {
+            transition: all 0.3s ease;
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-white">
     <!-- Header placeholder -->
     <div id="header-placeholder"></div>
 
-  
     <!-- Banner Section with Search -->
     <section class="relative w-full h-[300px] md:h-[450px] lg:h-[550px] mt-4">
         <!-- Background image -->
-          <img src="IMG/Farmasi 1st Banner.jpg" 
+        <img src="IMG/Farmasi 1st Banner.jpg" 
              alt="Pharmacy Banner" 
              class="w-full h-full object-cover rounded-lg">
         
-        
-        <!-- Search Container - Moved upward by adjusting pt-* values -->
-        <div class="absolute inset-0 flex items-start justify-center px-4 pt-8 md:pt-12"> <!-- Reduced pt values -->
+        <!-- Search Container -->
+        <div class="absolute inset-0 flex items-start justify-center px-4 pt-8 md:pt-12">
             <div class="search-container w-full max-w-2xl p-6 rounded-2xl">
-                <h1 class="text-white text-2xl md:text-4xl font-bold text-center mb-6 md:mb-8 drop-shadow-lg"> <!-- Reduced mb value -->
+                <h1 class="text-white text-2xl md:text-4xl font-bold text-center mb-6 md:mb-8 drop-shadow-lg">
                     Find Your Medications
                 </h1>
                 
@@ -142,8 +196,13 @@
         </div>
     </div>
 
-    <!-- New Shop by Products Section -->
-    <div class="container mx-auto py-14">
+    <!-- Banner Section -->
+    <section class="py-4 flex items-center justify-center">
+        <img src="/IMG/pharmacy 2.png" alt="WhatsApp Order Banner" class="max-h-84 w-full">
+    </section>
+
+    <!-- Shop by Products Section -->
+    <div class="container mx-auto py-4">
         <h2 class="text-2xl font-bold text-center mb-6">Shop by Products</h2>
         <div class="relative">
             <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 p-2 rounded-full z-10">
@@ -158,11 +217,114 @@
         </div>
     </div>
 
+    <!-- Banner Section (Repeated) -->
+    <section class="py-4 flex items-center justify-center">
+        <img src="/IMG/pharmacy bann.png" alt="WhatsApp Order Banner" class="max-h-84 w-full">
+    </section>
 
-    <!-- Banner Section at the Bottom -->
-<section class="  py-4 flex items-center justify-center">
-    <img src="/IMG/pharmacy bann.png" alt="WhatsApp Order Banner" class="max-h-84 w-full">
-</section>
+    <!-- Articles Section -->
+    <section class="container mx-auto py-14">
+        <h2 class="text-2xl font-bold text-center mb-6">Health & Wellness Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="article-card bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="/IMG/article1.jpg" alt="Healthy Diet" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Tips for a Balanced Diet</h3>
+                    <p class="text-gray-600 mb-4">Learn how to maintain a balanced diet with our expert tips on nutrition and meal planning.</p>
+                    <a href="#" class="text-primary hover:text-secondary font-medium">Read More</a>
+                </div>
+            </div>
+            <div class="article-card bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="/IMG/article2.jpg" alt="Exercise Benefits" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Benefits of Regular Exercise</h3>
+                    <p class="text-gray-600 mb-4">Discover how regular physical activity can improve your health and well-being.</p>
+                    <a href="#" class="text-primary hover:text-secondary font-medium">Read More</a>
+                </div>
+            </div>
+            <div class="article-card bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="/IMG/article3.jpg" alt="Mental Health" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Mental Health Matters</h3>
+                    <p class="text-gray-600 mb-4">Explore strategies to support your mental health and reduce stress in daily life.</p>
+                    <a href="#" class="text-primary hover:text-secondary font-medium">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-10">Why Choose MediCare?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="why-choose-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="relative inline-block mb-6">
+                        <i class="fas fa-shipping-fast text-5xl text-accent"></i>
+                        <div class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Fast & Reliable Delivery</h3>
+                    <p class="text-gray-600">Enjoy swift and dependable delivery of your medications right to your doorstep, ensuring you never miss a dose.</p>
+                </div>
+                <div class="why-choose-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="relative inline-block mb-6">
+                        <i class="fas fa-shield-alt text-5xl text-accent"></i>
+                        <div class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Trusted Quality Products</h3>
+                    <p class="text-gray-600">We partner with certified suppliers to provide only the highest-quality medications and health products.</p>
+                </div>
+                <div class="why-choose-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="relative inline-block mb-6">
+                        <i class="fas fa-headset text-5xl text-accent"></i>
+                        <div class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">24/7 Expert Support</h3>
+                    <p class="text-gray-600">Our dedicated team is available around the clock to answer your questions and provide personalized assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">MediCare Pharmacy</h3>
+                    <p class="text-gray-300">Your trusted source for quality medications and health products.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary">Shop</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: support@medicarepharmacy.com</p>
+                    <p class="text-gray-300">Phone: (123) 456-7890</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-300 hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400">
+                <p>&copy; 2025 MediCare Pharmacy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Load the header content
@@ -180,6 +342,6 @@
                 `;
             });
     </script>
-<script src="index.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

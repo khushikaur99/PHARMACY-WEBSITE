@@ -1,4 +1,4 @@
-        // Comprehensive pharmacy categories and products
+  // Comprehensive pharmacy categories and products
         const pharmacyCategories = {
             'Medicines & Healthcare': {
                 icon: '💊',
@@ -339,20 +339,64 @@
             { name: "Wellness", image: "https://i.pinimg.com/1200x/13/5e/73/135e735adc0539ef080fc3ab5f26edf2.jpg" },
         ];
 
-        // Sample data for products
+        // Updated sample data for products with proper images for feminine products
         const products = [
-            { name: "Stayfree Secure Cottony Soft Cover", image: "https://via.placeholder.com/100?text=Stayfree+Secure" },
-            { name: "Stayfree Dry Max Ultra-Dry Wings 16's", image: "https://via.placeholder.com/100?text=Dry+Max" },
-            { name: "Dynamic Newmom Maternity Pads", image: "https://via.placeholder.com/100?text=Newmom" },
-            { name: "Stayfree Secure Ultra Thin Dry Cover", image: "https://via.placeholder.com/100?text=Ultra+Thin" },
-            { name: "Stayfree Secure Cottony with Wings", image: "https://via.placeholder.com/100?text=Cottony+Wings" },
-            { name: "Briyo Elderberry Plus Vitamin C", image: "https://via.placeholder.com/100?text=Elderberry" },
-            { name: "Inlife Natural Vitamin C + Zinc", image: "https://via.placeholder.com/100?text=Vitamin+C+Zinc" },
-            { name: "Inlife Natural Vitamin C Amla", image: "https://via.placeholder.com/100?text=Amla" },
-             { name: "Stayfree Secure Cottony with Wings", image: "https://via.placeholder.com/100?text=Cottony+Wings" },
-            { name: "Briyo Elderberry Plus Vitamin C", image: "https://via.placeholder.com/100?text=Elderberry" },
-            { name: "Inlife Natural Vitamin C + Zinc", image: "https://via.placeholder.com/100?text=Vitamin+C+Zinc" },
-            { name: "Inlife Natural Vitamin C Amla", image: "https://via.placeholder.com/100?text=Amla" },
+            { 
+                name: "Stayfree Secure Cottony Soft Cover", 
+                image: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹249",
+                originalPrice: "₹299",
+                discount: "17% off"
+            },
+            { 
+                name: "Stayfree Dry Max Ultra-Dry Wings", 
+                image: "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹275",
+                originalPrice: "₹325",
+                discount: "15% off"
+            },
+            { 
+                name: "Dynamic Newmom Maternity Pads", 
+                image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹199",
+                originalPrice: "₹249",
+                discount: "20% off"
+            },
+            { 
+                name: "Stayfree Secure Ultra Thin Dry", 
+                image: "https://images.unsplash.com/photo-1593537612370-474d0f5e085d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹299",
+                originalPrice: "₹349",
+                discount: "14% off"
+            },
+            { 
+                name: "Briyo Elderberry Plus Vitamin C", 
+                image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹599",
+                originalPrice: "₹699",
+                discount: "14% off"
+            },
+            { 
+                name: "Inlife Natural Vitamin C + Zinc", 
+                image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹449",
+                originalPrice: "₹549",
+                discount: "18% off"
+            },
+            { 
+                name: "Inlife Natural Vitamin C Amla", 
+                image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹399",
+                originalPrice: "₹499",
+                discount: "20% off"
+            },
+            { 
+                name: "Femfresh Intimate Wash", 
+                image: "https://images.unsplash.com/photo-1593537612370-474d0f5e085d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                price: "₹349",
+                originalPrice: "₹399",
+                discount: "13% off"
+            }
         ];
 
         // Function to render categories dynamically
@@ -374,13 +418,35 @@
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = ''; // Clear existing content
+            
             products.forEach(product => {
                 const card = document.createElement('div');
-                card.className = 'bg-pink-100 rounded-lg p-2 text-center shadow-md hover:shadow-lg transition-shadow min-w-[120px]';
+                card.className = 'product-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300 min-w-[250px] flex flex-col';
+                
                 card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-24 object-cover rounded-md mb-1">
-                    <p class="text-gray-800 font-medium text-xs">${product.name}</p>
+                    <div class="relative mb-3">
+                        <div class="absolute top-2 right-2 z-10">
+                            <button class="wishlist-icon bg-white p-2 rounded-full shadow-md text-gray-400 hover:text-red-500">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-40 object-contain rounded-md mb-2">
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h3 class="text-sm font-semibold text-gray-800 mb-2">${product.name}</h3>
+                        <div class="mt-auto">
+                            <div class="flex items-center justify-center mb-2">
+                                <span class="text-lg font-bold text-gray-900">${product.price}</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">${product.originalPrice}</span>
+                                <span class="text-sm font-semibold text-green-600 ml-2">${product.discount}</span>
+                            </div>
+                            <button class="add-to-cart-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors">
+                                <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
                 `;
+                
                 grid.appendChild(card);
             });
 
