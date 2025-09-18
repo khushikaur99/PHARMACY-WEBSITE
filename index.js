@@ -574,7 +574,7 @@ function renderCategories() {
     });
 }
 
-// Function to render products dynamically with scrolling
+// Replace your renderProducts function with this fixed version
 function renderProducts() {
     const grid = document.getElementById('productGrid');
     if (!grid) return;
@@ -602,16 +602,29 @@ function renderProducts() {
                         <span class="text-sm text-gray-500 line-through ml-2">${product.originalPrice}</span>
                         <span class="text-sm font-semibold text-green-600 ml-2">${product.discount}</span>
                     </div>
-                    <button class="view-details-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors">
+                    <button class="view-details-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors" data-product-id="${product.id}">
                         <i class="fas fa-info-circle mr-2"></i>View Details
                     </button>
                 </div>
             </div>
         `;
         
-        card.querySelector('.view-details-btn').addEventListener('click', () => {
-            showProductDetails(product);
-        });
+        // FIXED: More specific event listener with error handling
+        const viewBtn = card.querySelector('.view-details-btn');
+        if (viewBtn) {
+            viewBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Button clicked for product:', product.name);
+                
+                try {
+                    showProductDetails(product);
+                } catch (error) {
+                    console.error('Error showing product details:', error);
+                    alert('Error loading product details. Please try again.');
+                }
+            });
+        }
         
         grid.appendChild(card);
     });
@@ -632,6 +645,7 @@ function renderProducts() {
     }
 }
 
+// Replace your renderMedicines function with this fixed version
 function renderMedicines() {
     const grid = document.getElementById('medicineGrid');
     if (!grid) return;
@@ -659,16 +673,29 @@ function renderMedicines() {
                         <span class="text-sm text-gray-500 line-through ml-2">${product.originalPrice}</span>
                         <span class="text-sm font-semibold text-green-600 ml-2">${product.discount}</span>
                     </div>
-                    <button class="view-details-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors">
+                    <button class="view-details-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors" data-product-id="${product.id}">
                         <i class="fas fa-info-circle mr-2"></i>View Details
                     </button>
                 </div>
             </div>
         `;
         
-        card.querySelector('.view-details-btn').addEventListener('click', () => {
-            showProductDetails(product);
-        });
+        // FIXED: More specific event listener with error handling
+        const viewBtn = card.querySelector('.view-details-btn');
+        if (viewBtn) {
+            viewBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Medicine button clicked for:', product.name);
+                
+                try {
+                    showProductDetails(product);
+                } catch (error) {
+                    console.error('Error showing product details:', error);
+                    alert('Error loading product details. Please try again.');
+                }
+            });
+        }
         
         grid.appendChild(card);
     });
@@ -689,10 +716,54 @@ function renderMedicines() {
     }
 }
 
-// Call all functions when the page loads
-window.onload = () => {
-    updateCartCount(); // Initialize cart count
-    renderCategories();
-    renderProducts();
-    renderMedicines();
-};
+// FIXED: Update the global click listener to exclude product buttons
+document.addEventListener('click', (e) => {
+    // Don't interfere with product detail buttons
+    if (e.target.closest('.view-details-btn') || 
+        e.target.closest('.product-card')) {
+        return;
+    }
+    
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsContainer = document.getElementById('suggestions');
+    
+    if (searchInput && suggestionsContainer && 
+        !searchInput.contains(e.target) && 
+        !suggestionsContainer.contains(e.target)) {
+        suggestionsContainer.classList.add('hidden');
+    }
+});
+
+// FIXED: Add better error handling to showProductDetails
+function showProductDetails(product) {
+    console.log('showProductDetails called with:', product);
+    
+    if (!product || !product.id) {
+        console.error('Invalid product data:', product);
+        alert('Invalid product data');
+        return;
+    }
+    
+    try {
+        // Encode product data to pass as query parameters
+        const queryParams = new URLSearchParams({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            originalPrice: product.originalPrice,
+            discount: product.discount,
+            description: product.description
+        }).toString();
+
+        const targetURL = `productDetails.html?${queryParams}`;
+        console.log('Redirecting to:', targetURL);
+        
+        // Redirect to productDetails.html with query parameters
+        window.location.href = targetURL;
+        
+    } catch (error) {
+        console.error('Error in showProductDetails:', error);
+        alert('Error loading product details: ' + error.message);
+    }
+}
