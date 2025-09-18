@@ -200,9 +200,9 @@ const products = [
         image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
         thumbnails: [
             'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-            'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-            'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-            'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+            'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+            'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+            'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg'
         ],
         prescriptionRequired: false,
         description: 'Sanitary pads with wings for superior protection and comfort.',

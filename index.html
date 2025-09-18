@@ -22,39 +22,6 @@
             }
         }
     </script>
-    <style>
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body class="bg-white" onload="initializePage()">
     <!-- Common Header -->
@@ -447,7 +414,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Carousel Container - Now integrated in the same section -->
+                <!-- Carousel Container -->
                 <div class="w-full max-w-5xl mx-auto">
                     <div class="carousel-container p-4 rounded-2xl shadow-xl">
                         <!-- Carousel -->
@@ -624,15 +591,8 @@
                 </div>
             </div>
         </footer>
-        <!-- Product Details Modal -->
-        <div id="productModal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <button id="closeProductModal" class="modal-close">×</button>
-                <div id="productDetails"></div>
-            </div>
-        </div>
-        <script src="header.js"></script>
-        <script src="index.js"></script>
     </div>
+    <script src="header.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

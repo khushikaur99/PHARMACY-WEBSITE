@@ -1,3 +1,19 @@
+// Initialize cart count from localStorage
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        const cartCount = localStorage.getItem('cartCount') || 0;
+        cartCountElement.textContent = cartCount;
+    }
+}
+
+// Listen for storage changes to update cart count dynamically
+window.addEventListener('storage', (event) => {
+    if (event.key === 'cartCount') {
+        updateCartCount();
+    }
+});
+
 // Carousel functionality
 const carousel = document.getElementById("carousel");
 const slides = carousel.children.length;
@@ -372,8 +388,10 @@ const categories = [
     { name: "Wellness", image: "https://i.pinimg.com/1200x/13/5e/73/135e735adc0539ef080fc3ab5f26edf2.jpg" },
 ];
 
+// Sample data for Feminine Hygiene Products with IDs starting from 40
 const products = [
     { 
+        id: 40,
         name: "Whisper Ultra Clean Wings", 
         image: "https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg",
         price: "₹279",
@@ -382,6 +400,7 @@ const products = [
         description: "Whisper Ultra Clean Wings provide superior protection with a comfortable fit, designed for heavy flow days."
     },
     { 
+        id: 41,
         name: "Sofy Anti-Bacteria Extra Long", 
         image: "https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg",
         price: "₹259",
@@ -390,6 +409,7 @@ const products = [
         description: "Sofy Anti-Bacteria Extra Long pads offer extended coverage and antibacterial protection for all-day comfort."
     },
     { 
+        id: 42,
         name: "Bella Regular Soft Pads", 
         image: "https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg",
         price: "₹189",
@@ -398,6 +418,7 @@ const products = [
         description: "Bella Regular Soft Pads are gentle on skin, providing reliable protection and comfort."
     },
     { 
+        id: 43,
         name: "Tampax Pearl Regular Tampons", 
         image: "https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg",
         price: "₹399",
@@ -406,6 +427,7 @@ const products = [
         description: "Tampax Pearl Regular Tampons offer smooth insertion and reliable leak protection."
     },
     { 
+        id: 44,
         name: "Carefree Panty Liners", 
         image: "https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg",
         price: "₹149",
@@ -414,6 +436,7 @@ const products = [
         description: "Carefree Panty Liners are thin and comfortable, perfect for daily freshness."
     },
     { 
+        id: 45,
         name: "Sirona Reusable Menstrual Cup", 
         image: "https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg",
         price: "₹499",
@@ -422,6 +445,7 @@ const products = [
         description: "Sirona Reusable Menstrual Cup is eco-friendly and provides up to 12 hours of leak-free protection."
     },
     { 
+        id: 46,
         name: "Nua Cramp Comfort Heat Patches", 
         image: "https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg",
         price: "₹299",
@@ -430,6 +454,7 @@ const products = [
         description: "Nua Cramp Comfort Heat Patches provide soothing relief from menstrual cramps."
     },
     { 
+        id: 47,
         name: "VWash Plus Intimate Hygiene Wash", 
         image: "https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg",
         price: "₹229",
@@ -439,9 +464,10 @@ const products = [
     }
 ];
 
-// Common Medicines and Devices products
+// Common Medicines and Devices products with IDs continuing from 48
 const medicines = [
     { 
+        id: 48,
         name: "Paracetamol 500mg", 
         image: "https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg",
         price: "₹49",
@@ -450,6 +476,7 @@ const medicines = [
         description: "Paracetamol 500mg tablets provide effective relief from pain and fever."
     },
     { 
+        id: 49,
         name: "Ibuprofen Tablets", 
         image: "https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg",
         price: "₹89",
@@ -458,6 +485,7 @@ const medicines = [
         description: "Ibuprofen Tablets help reduce inflammation, pain, and fever."
     },
     { 
+        id: 50,
         name: "Digital Thermometer", 
         image: "https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg",
         price: "₹199",
@@ -466,6 +494,7 @@ const medicines = [
         description: "Digital Thermometer provides accurate and quick temperature readings."
     },
     { 
+        id: 51,
         name: "Blood Pressure Monitor", 
         image: "https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg",
         price: "₹1299",
@@ -474,6 +503,7 @@ const medicines = [
         description: "Blood Pressure Monitor for easy and accurate home monitoring."
     },
     { 
+        id: 52,
         name: "Vitamin C Supplements", 
         image: "https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg",
         price: "₹299",
@@ -482,6 +512,7 @@ const medicines = [
         description: "Vitamin C Supplements boost immunity and support overall health."
     },
     { 
+        id: 53,
         name: "Diabetes Test Strips", 
         image: "https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg",
         price: "₹499",
@@ -490,6 +521,7 @@ const medicines = [
         description: "Diabetes Test Strips for accurate blood glucose monitoring."
     },
     { 
+        id: 54,
         name: "First Aid Kit", 
         image: "https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg",
         price: "₹349",
@@ -498,6 +530,7 @@ const medicines = [
         description: "First Aid Kit with essential supplies for emergency care."
     },
     { 
+        id: 55,
         name: "Asthma Inhaler", 
         image: "https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg",
         price: "₹189",
@@ -506,6 +539,23 @@ const medicines = [
         description: "Asthma Inhaler for quick relief from asthma symptoms."
     }
 ];
+
+// Function to show product details by redirecting to productDetails.html
+function showProductDetails(product) {
+    // Encode product data to pass as query parameters
+    const queryParams = new URLSearchParams({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        discount: product.discount,
+        description: product.description
+    }).toString();
+
+    // Redirect to productDetails.html with query parameters
+    window.location.href = `productDetails.html?${queryParams}`;
+}
 
 // Function to render categories dynamically
 function renderCategories() {
@@ -522,36 +572,6 @@ function renderCategories() {
         `;
         grid.appendChild(card);
     });
-}
-
-// Function to show product details in a modal
-function showProductDetails(product) {
-    const modal = document.getElementById('productModal');
-    const productDetails = document.getElementById('productDetails');
-    
-    productDetails.innerHTML = `
-        <h2 class="text-2xl font-bold mb-4">${product.name}</h2>
-        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-contain rounded-md mb-4">
-        <p class="text-gray-600 mb-4">${product.description}</p>
-        <div class="flex items-center justify-between mb-4">
-            <div>
-                <span class="text-lg font-bold text-gray-900">${product.price}</span>
-                <span class="text-sm text-gray-500 line-through ml-2">${product.originalPrice}</span>
-                <span class="text-sm font-semibold text-green-600 ml-2">${product.discount}</span>
-            </div>
-            <button class="add-to-cart-btn bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors">
-                <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
-            </button>
-        </div>
-    `;
-    
-    modal.classList.remove('hidden');
-}
-
-// Function to close product modal
-function closeProductModal() {
-    const modal = document.getElementById('productModal');
-    modal.classList.add('hidden');
 }
 
 // Function to render products dynamically with scrolling
@@ -669,18 +689,9 @@ function renderMedicines() {
     }
 }
 
-// Close product modal event listener
-document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
-
-// Close modal when clicking outside the content
-document.getElementById('productModal').addEventListener('click', (e) => {
-    if (e.target.id === 'productModal') {
-        closeProductModal();
-    }
-});
-
 // Call all functions when the page loads
 window.onload = () => {
+    updateCartCount(); // Initialize cart count
     renderCategories();
     renderProducts();
     renderMedicines();
