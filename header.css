@@ -1,0 +1,372 @@
+/* Dropdown and navigation styles */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+    display: block;
+}
+.dropdown, .dropdown-menu {
+    z-index: 60;
+}
+nav.bg-white {
+    z-index: 50;
+}
+.nav-dropdown-menu {
+    width: 250px;
+}
+
+/* Body and language-specific fonts */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body[lang="hi"], body[lang="mr"] {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* Location modal */
+.modal1 {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+}
+.modal-content1 {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+.modal-content1 input, .modal-content1 button {
+    margin: 10px;
+}
+
+
+/* Language modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+}
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    height: 300px;
+    text-align: center;
+}
+.modal-content input{
+    margin: 10px;
+}
+
+.language-btn{
+    width: 90px;
+ 
+}
+/* Forget password modal */
+.forgetpasswordmodal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 98;
+}
+.modal-content2 {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+}
+.modal-content2 input, .modal-content2-sendResetLink   {
+    margin: 10px;
+    width: 80px;
+}
+
+/* Close button for forget password modal */
+#closeForgetModal {
+    width: 80px;
+    padding: 8px; /* Smaller padding for compact look */
+    background-color: #6b7280; /* Gray to differentiate from send reset */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px; /* Slightly smaller font */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#closeForgetModal:hover {
+    background-color: #ef4444; /* Red hover effect for "close" */
+}
+
+
+
+/* Auth slider for login and signup */
+#auth-slider {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 380px;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    overflow-y: auto;
+}
+#auth-slider.active {
+    transform: translateX(0);
+}
+.auth-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+.auth-overlay.active {
+    display: block;
+}
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+}
+.auth-tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 3px solid transparent;
+}
+.auth-tab.active {
+    color: #56DFCF;
+    border-bottom-color: #56DFCF;
+}
+.auth-form {
+    padding: 20px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #374151;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #56DFCF;
+    box-shadow: 0 0 0 3px rgba(86, 223, 207, 0.2);
+}
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #56DFCF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.auth-btn:hover {
+    background-color: #45c9b9;
+}
+.auth-footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+}
+.auth-footer a {
+    color: #56DFCF;
+    text-decoration: none;
+    font-size: 14px;
+}
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+.close-auth{
+    color: #10b981;
+}
+/* Forgot password link */
+#forgotPasswordLink {
+    color: #56DFCF;
+    text-decoration: none;
+    font-size: 14px;
+}
+#forgotPasswordLink:hover {
+    text-decoration: underline;
+}
+
+/* Checkbox for terms and remember me */
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+.form-group label.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* Location display and delivery info */
+#locationDisplay {
+    font-size: 0.85rem;
+    color: #374151;
+    font-weight: 500;
+}
+#deliveryInfo {
+    font-size: 0.75rem;
+    color: #10b981;
+    background: #ecfdf5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+#deliveryInfo.hidden {
+    display: none;
+}
+
+/* Language button */
+.language-btn {
+    transition: background-color 0.2s ease;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+.language-btn:hover {
+    background-color: #f1f5f9;
+}
+
+/* Other existing styles */
+.search-container {
+    background: transparent;
+}
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.suggestion-item:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+.search-suggestions {
+    background: rgba(255, 255, 255, 0.95);
+}
+.search-suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+.search-suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 0 10px 0;
+}
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 4px;
+}
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+.carousel-image {
+    height: 300px;
+    object-fit: cover;
+}
+@media (min-width: 768px) {
+    .carousel-image {
+        height: 300px;
+    }
+}
+@media (min-width: 1024px) {
+    .carousel-image {
+        height: 300px;
+    }
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.product-card {
+    transition: all 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.wishlist-icon {
+    transition: all 0.2s ease;
+}
+.wishlist-icon:hover {
+    color: #ef4444;
+    transform: scale(1.1);
+}
+.add-to-cart-btn {
+    transition: all 0.3s ease;
+}
+.add-to-cart-btn:hover {
+    background-color: #0ea5e9;
+    transform: translateY(-2px);
+}
+.article-card {
+    transition: all 0.3s ease;
+}
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.why-choose-card {
+    transition: all 0.3s ease;
+}
+.why-choose-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
