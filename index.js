@@ -380,12 +380,12 @@ document.addEventListener('click', (e) => {
 
 // Sample data for 6 categories
 const categories = [
-    { name: "Medicines and Healthcare", image: "https://i.pinimg.com/736x/5f/2a/27/5f2a2756630109eff806d9d0016c8753.jpg" },
-    { name: "Ayurvedic Products", image: "https://i.pinimg.com/736x/69/7a/e6/697ae6759c62b242373dbec1c479b8c3.jpg" },
-    { name: "Mother Care", image: "https://i.pinimg.com/736x/cc/51/7c/cc517c8747a0811de78f92910f4e0d90.jpg" },
-    { name: "Baby Care", image: "https://i.pinimg.com/736x/dc/67/ec/dc67ec35b8779bd048ec4845b5cbaccd.jpg" },
-    { name: "Monitoring Devices", image: "https://i.pinimg.com/736x/81/d4/dd/81d4ddbaa09ad53d075f96a95a2d5d26.jpg" },
-    { name: "Wellness", image: "https://i.pinimg.com/1200x/13/5e/73/135e735adc0539ef080fc3ab5f26edf2.jpg" },
+    { name: "Medicines and Healthcare", image: "/IMG/Medicines & Healthcare.jpg" },
+    { name: "Ayurvedic Products", image: "/IMG/Ayurvedic Products.jpg" },
+    { name: "Mother Care", image: "/IMG/Mother_Care[1].jpg" },
+    { name: "Baby Care", image: "/IMG/Baby Care.jpg" },
+    { name: "Monitoring Devices", image: "/IMG/Monitoring Devices.jpg" },
+    { name: "Wellness", image: "/IMG/Wellness.jpg" },
 ];
 
 // Sample data for Feminine Hygiene Products with IDs starting from 40

@@ -775,8 +775,33 @@ function initCart() {
     const buyNowButton = document.querySelector('.btn-buy-now');
     if (buyNowButton) {
         buyNowButton.addEventListener('click', () => {
-            alert('Proceeding to checkout!');
-            // Add checkout logic here
+            const params = getUrlParams();
+            const productId = params.id || '1';
+            const product = products.find(p => p.id == productId);
+            if (product) {
+                const selectedVariant = document.querySelector('.variant-btn.border-pharmacy-blue')?.textContent || 'Default';
+                const selectedAge = document.querySelector('.age-btn.border-pharmacy-blue')?.textContent || null;
+                const selectedSize = document.querySelector('.size-btn.border-pharmacy-blue')?.textContent || null;
+                const cartItem = {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    variant: selectedVariant,
+                    age: selectedAge,
+                    size: selectedSize,
+                    prescriptionRequired: product.prescriptionRequired,
+                    brand: product.brand,
+                    quantity: 1
+                };
+                addToCart(cartItem); // Add to cart before redirecting
+            } else {
+                console.error('Product not found');
+                alert('Product not found. Please try again.');
+                return;
+            }
+            // Redirect to checkout.html
+            window.location.href = 'checkout.html';
         });
     }
 }

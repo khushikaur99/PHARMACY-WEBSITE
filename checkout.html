@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        .main-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #36C2CE;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #36C2CE;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #36C2CE;
+            padding-bottom: 10px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #36C2CE;
+            box-shadow: 0 0 0 3px rgba(232, 184, 109, 0.1);
+        }
+        
+        .address-option {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .address-option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .address-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .address-content input[type="radio"] {
+            margin: 0;
+        }
+        
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .add-address-btn {
+            background: transparent;
+            color: #666;
+            border: 1px dashed #ccc;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .add-address-btn:hover {
+            background: #f8f9fa;
+            border-color: #36C2CE;
+            color: #36C2CE;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .payment-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 100px;
+            gap: 15px;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #7dd3d3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-qty {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .coupon-section {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .coupon-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .apply-btn {
+            background: #36C2CE;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .order-totals {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .total-row.final {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .place-order-btn {
+            width: 100%;
+            background: #36C2CE;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .place-order-btn:hover {
+            background: #d4a055;
+        }
+        
+        .policy-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        
+        .policy-links a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .payment-icon.visa { background: #1a1f71; color: white; }
+        .payment-icon.mastercard { background: #eb001b; color: white; }
+        .payment-icon.paypal { background: #003087; color: white; }
+        .payment-icon.razorpay { background: #528ff0; color: white; }
+        
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .card-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="main-section">
+            <form id="checkoutForm">
+                <!-- Customer Information -->
+                <section>
+                    <h2 class="section-title">Customer Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number</label>
+                            <input type="tel" id="whatsapp" name="whatsapp">
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Shipping Address -->
+                <section style="margin-top: 40px;">
+                    <h2 class="section-title">Shipping Address</h2>
+                    <div id="addressList">
+                        <div class="address-option selected">
+                            <div class="address-content">
+                                <input type="radio" name="selectedAddress" value="1" checked
+                                       data-address="123 MG Road" 
+                                       data-city="Pune" 
+                                       data-state="Maharashtra" 
+                                       data-pincode="411001" 
+                                       data-country="India">
+                                <span>Address 1<br>123 MG Road, Pune, Maharashtra - 411001</span>
+                            </div>
+                            <button type="button" class="delete-btn" onclick="deleteAddress(1)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-address-btn" onclick="showAddressForm()">+ Add New Address</button>
+                    
+                    <!-- New Address Form (Hidden by default) -->
+                    <div id="newAddressForm" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newAddress">Street Address</label>
+                                <input type="text" id="newAddress" name="newAddress">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCity">City</label>
+                                <input type="text" id="newCity" name="newCity">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newState">State</label>
+                                <input type="text" id="newState" name="newState">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPincode">Pincode</label>
+                                <input type="text" id="newPincode" name="newPincode">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newCountry">Country</label>
+                                <input type="text" id="newCountry" name="newCountry" value="India">
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button type="button" onclick="addNewAddress()" style="background: #36C2CE; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Add Address</button>
+                            <button type="button" onclick="hideAddressForm()" style="background: #ccc; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Cancel</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Payment Method -->
+                <section style="margin-top: 40px;">
+                    <h2 class="section-title">Payment Method</h2>
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" checked>
+                            <label for="creditCard">Credit Card</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="razorpay" name="paymentMethod" value="razorpay">
+                            <label for="razorpay">Razorpay</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="cod" name="paymentMethod" value="cod">
+                            <label for="cod">COD(Cash On Delivery)</label>
+                        </div>
+                    </div>
+                    
+                    <div id="cardDetails">
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="nameOnCard">Name on Card</label>
+                            <input type="text" id="nameOnCard" name="nameOnCard">
+                        </div>
+                        <div class="card-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 class="section-title">Order Summary</h2>
+            
+            <div id="orderItems">
+                <!-- Order items will be dynamically loaded here -->
+            </div>
+            
+            <div class="coupon-section">
+                <input type="text" class="coupon-input" placeholder="Enter coupon code" id="couponCode">
+                <button type="button" class="apply-btn" onclick="applyCoupon()">Apply</button>
+            </div>
+            
+            <div class="order-totals">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping</span>
+                    <span id="shipping">₹0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="total-row" id="discountRow" style="display: none;">
+                    <span>Discount</span>
+                    <span id="discount" class="text-green-600">-₹0.00</span>
+                </div>
+                <div class="total-row final">
+                    <span>Total</span>
+                    <span id="total">₹0.00</span>
+                </div>
+            </div>
+            
+            <button type="button" class="place-order-btn" onclick="placeOrder()">Place Order</button>
+            
+            <div class="policy-links">
+                <a href="#" onclick="showPolicy('privacy')">Privacy Policy</a>
+                <a href="#" onclick="showPolicy('cancellation')">Cancellation Policy</a>
+                <a href="#" onclick="showPolicy('shipping')">Shipping Policy</a>
+            </div>
+            
+            <div class="payment-icons">
+                <div class="payment-icon visa">VISA</div>
+                <div class="payment-icon mastercard">MC</div>
+                <div class="payment-icon paypal">PayPal</div>
+                <div class="payment-icon razorpay">Razor</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Product data (full list from productdetails for consistency)
+        const products = [
+            { 
+                id: 1, 
+                name: 'Diabetes Care Kit', 
+                price: 268.80, 
+                originalPrice: 329, 
+                discount: '16% off', 
+                category: 'Diabetes', 
+                brand: 'BrandX', 
+                image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg'
+                ],
+                prescriptionRequired: false,
+                description: 'Comprehensive diabetes care kit containing all essential items for daily diabetes management.',
+                ingredients: 'Glucometer, test strips, lancets, control solution, carrying case',
+                benefits: 'Helps in regular blood sugar monitoring, convenient all-in-one kit, portable for travel',
+                directions: 'Use as directed by your physician. Perform blood sugar tests as recommended.'
+            },
+            { 
+                id: 2, 
+                name: 'Glucose Monitor', 
+                price: 312.50, 
+                originalPrice: 625, 
+                discount: '50% off', 
+                category: 'Diabetes', 
+                brand: 'BrandY', 
+                image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg'
+                ],
+                prescriptionRequired: false,
+                description: 'Advanced glucose monitoring system with high accuracy and easy-to-use interface.',
+                ingredients: 'Electronic monitoring device, user manual, batteries',
+                benefits: 'Accurate readings, large display, memory function to track readings',
+                directions: 'Insert test strip, apply blood sample, wait for results. Calibrate as needed.'
+            },
+            { 
+                id: 3, 
+                name: 'Insulin Pen', 
+                price: 180, 
+                originalPrice: 220, 
+                discount: '18% off', 
+                category: 'Diabetes', 
+                brand: 'BrandZ', 
+                image: 'https://via.placeholder.com/500x400/0ea5e9/FFFFFF?text=Insulin+Pen',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/0ea5e9/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: true,
+                description: 'Pre-filled insulin pen for convenient and accurate insulin administration.',
+                ingredients: 'Insulin solution, pen device, needles',
+                benefits: 'Easy to use, precise dosing, discreet administration',
+                directions: 'Prime pen before use, select dose, inject as directed by healthcare provider.'
+            },
+            { 
+                id: 4, 
+                name: 'Blood Sugar Test Strips', 
+                price: 75, 
+                originalPrice: null, 
+                discount: '', 
+                category: 'Diabetes', 
+                brand: 'BrandW', 
+                image: 'https://via.placeholder.com/500x400/10b981/FFFFFF?text=Test+Strips',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/10b981/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: false,
+                description: 'High-quality test strips for accurate blood glucose measurement.',
+                ingredients: 'Test strips, quality control solution',
+                benefits: 'Accurate results, compatible with most glucometers, easy to use',
+                directions: 'Insert strip into meter, apply blood sample, wait for results.'
+            },
+            { 
+                id: 5, 
+                name: 'BP Monitor', 
+                price: 420, 
+                originalPrice: null, 
+                discount: '', 
+                category: 'Hypertension', 
+                brand: 'BrandZ', 
+                image: 'https://via.placeholder.com/500x400/ff6b6b/FFFFFF?text=BP+Monitor',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/ff6b6b/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: false,
+                description: 'Digital blood pressure monitor for accurate at-home readings.',
+                ingredients: 'Electronic monitor, cuff, user manual',
+                benefits: 'Easy to use, memory function, irregular heartbeat detection',
+                directions: 'Wrap cuff around arm, press start button, remain still during measurement.'
+            },
+            { 
+                id: 6, 
+                name: 'Hypertension Pills', 
+                price: 105, 
+                originalPrice: null, 
+                discount: '', 
+                category: 'Hypertension', 
+                brand: 'BrandW', 
+                image: 'https://via.placeholder.com/500x400/36C2CE/FFFFFF?text=Hypertension+Pills',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg'
+                ],
+                prescriptionRequired: true,
+                description: 'Medication for managing high blood pressure.',
+                ingredients: 'Active pharmaceutical ingredients as prescribed',
+                benefits: 'Lowers blood pressure, reduces risk of heart attack and stroke',
+                directions: 'Take as directed by your physician, usually once daily.'
+            },
+            { 
+                id: 7, 
+                name: 'Heart Health Supplement', 
+                price: 300, 
+                originalPrice: 350, 
+                discount: '14% off', 
+                category: 'Cardiac', 
+                brand: 'BrandX', 
+                image: 'https://via.placeholder.com/500x400/0ea5e9/FFFFFF?text=Heart+Supplement',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/0ea5e9/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: false,
+                description: 'Natural supplement to support cardiovascular health.',
+                ingredients: 'Omega-3 fatty acids, CoQ10, Hawthorn extract',
+                benefits: 'Supports heart function, improves circulation, antioxidant properties',
+                directions: 'Take two capsules daily with meals.'
+            },
+            { 
+                id: 8, 
+                name: 'Inhaler', 
+                price: 200, 
+                originalPrice: 250, 
+                discount: '20% off', 
+                category: 'Asthma', 
+                brand: 'BrandZ', 
+                image: 'https://via.placeholder.com/500x400/10b981/FFFFFF?text=Inhaler',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/10b981/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: true,
+                description: 'Relief inhaler for asthma symptoms.',
+                ingredients: 'Medicated aerosol as prescribed',
+                benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+                directions: 'Shake well before use, inhale deeply as directed.'
+            },
+            { 
+                id: 9, 
+                name: 'Thyroid Supplement', 
+                price: 120, 
+                originalPrice: 150, 
+                discount: '20% off', 
+                category: 'Thyroid', 
+                brand: 'BrandX', 
+                image: 'https://via.placeholder.com/500x400/ff6b6b/FFFFFF?text=Thyroid+Supplement',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/ff6b6b/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: false,
+                description: 'Natural supplement to support thyroid function.',
+                ingredients: 'Iodine, Selenium, Zinc, Ashwagandha',
+                benefits: 'Supports thyroid health, improves energy levels, regulates metabolism',
+                directions: 'Take one tablet daily with food.'
+            },
+            { 
+                id: 40, 
+                name: 'Whisper Ultra Clean Wings', 
+                price: 279, 
+                originalPrice: 329, 
+                discount: '15% off', 
+                category: 'Feminine Care', 
+                brand: 'Whisper', 
+                image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg'
+                ],
+                prescriptionRequired: false,
+                description: 'Sanitary pads with wings for superior protection and comfort.',
+                ingredients: 'Cotton, absorbent polymer, adhesive',
+                benefits: 'Leak-proof protection, comfortable fit, odor control',
+                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
+                variants: ['Small', 'Medium', 'Large'] // Added variants for size selection
+            },
+            { 
+                id: 41, 
+                name: 'Sofy Anti-Bacteria Extra Long', 
+                price: 259, 
+                originalPrice: 310, 
+                discount: '16% off', 
+                category: 'Feminine Care', 
+                brand: 'Sofy', 
+                image: 'https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Extra-long sanitary pads with anti-bacterial properties for enhanced hygiene.',
+                ingredients: 'Cotton, absorbent gel, anti-bacterial layer',
+                benefits: 'Anti-bacterial protection, long-lasting absorbency, soft on skin',
+                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
+                variants: ['Medium', 'Large', 'Extra Large']
+            },
+            { 
+                id: 42, 
+                name: 'Bella Regular Soft Pads', 
+                price: 189, 
+                originalPrice: 239, 
+                discount: '21% off', 
+                category: 'Feminine Care', 
+                brand: 'Bella', 
+                image: 'https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Soft and comfortable sanitary pads for regular flow.',
+                ingredients: 'Cotton, absorbent core, breathable layer',
+                benefits: 'Soft and breathable, reliable absorbency, skin-friendly',
+                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
+                variants: ['Small', 'Medium']
+            },
+            { 
+                id: 43, 
+                name: 'Tampax Pearl Regular Tampons', 
+                price: 399, 
+                originalPrice: 459, 
+                discount: '13% off', 
+                category: 'Feminine Care', 
+                brand: 'Tampax', 
+                image: 'https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Regular tampons with smooth applicator for comfortable insertion.',
+                ingredients: 'Cotton, rayon, plastic applicator',
+                benefits: 'Comfortable insertion, reliable protection, leak-proof',
+                directions: 'Insert using applicator, change every 4-8 hours.',
+                variants: ['Regular', 'Super']
+            },
+            { 
+                id: 44, 
+                name: 'Carefree Panty Liners', 
+                price: 149, 
+                originalPrice: 179, 
+                discount: '17% off', 
+                category: 'Feminine Care', 
+                brand: 'Carefree', 
+                image: 'https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Thin and discreet panty liners for everyday freshness.',
+                ingredients: 'Cotton, absorbent layer, adhesive',
+                benefits: 'Discreet protection, breathable, odor control',
+                directions: 'Use daily for freshness, change as needed.'
+            },
+            { 
+                id: 45, 
+                name: 'Sirona Reusable Menstrual Cup', 
+                price: 499, 
+                originalPrice: 599, 
+                discount: '17% off', 
+                category: 'Feminine Care', 
+                brand: 'Sirona', 
+                image: 'https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Reusable silicone menstrual cup for eco-friendly period protection.',
+                ingredients: 'Medical-grade silicone',
+                benefits: 'Eco-friendly, cost-effective, comfortable for up to 12 hours',
+                directions: 'Sterilize before use, insert and remove as per instructions, clean after each use.',
+                variants: ['Small', 'Medium', 'Large']
+            },
+            { 
+                id: 46, 
+                name: 'Nua Cramp Comfort Heat Patches', 
+                price: 299, 
+                originalPrice: 349, 
+                discount: '14% off', 
+                category: 'Feminine Care', 
+                brand: 'Nua', 
+                image: 'https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Heat patches for soothing menstrual cramps.',
+                ingredients: 'Iron powder, activated carbon, salt',
+                benefits: 'Relieves menstrual cramps, portable, long-lasting heat',
+                directions: 'Apply to lower abdomen, use for up to 8 hours.'
+            },
+            { 
+                id: 47, 
+                name: 'VWash Plus Intimate Hygiene Wash', 
+                price: 229, 
+                originalPrice: 269, 
+                discount: '15% off', 
+                category: 'Feminine Care', 
+                brand: 'VWash', 
+                image: 'https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg',
+                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Gentle wash for intimate hygiene and pH balance.',
+                ingredients: 'Tea tree oil, aloe vera, lactic acid',
+                benefits: 'Maintains pH balance, prevents odor, gentle cleansing',
+                directions: 'Use during bathing, apply to intimate area, rinse thoroughly.'
+            },
+            { 
+                id: 48, 
+                name: 'Paracetamol 500mg', 
+                price: 49, 
+                originalPrice: 59, 
+                discount: '17% off', 
+                category: 'General Medicine', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Pain reliever and fever reducer for mild to moderate pain.',
+                ingredients: 'Paracetamol',
+                benefits: 'Reduces pain and fever, fast-acting, widely used',
+                directions: 'Take 1-2 tablets every 4-6 hours as needed, do not exceed 4g daily.'
+            },
+            { 
+                id: 49, 
+                name: 'Ibuprofen Tablets', 
+                price: 89, 
+                originalPrice: 99, 
+                discount: '10% off', 
+                category: 'General Medicine', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Anti-inflammatory drug for pain relief and inflammation.',
+                ingredients: 'Ibuprofen',
+                benefits: 'Relieves pain, reduces inflammation, effective for headaches and muscle pain',
+                directions: 'Take 1 tablet every 4-6 hours with food, do not exceed 3.2g daily.'
+            },
+            { 
+                id: 50, 
+                name: 'Digital Thermometer', 
+                price: 199, 
+                originalPrice: 249, 
+                discount: '20% off', 
+                category: 'Medical Devices', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Accurate digital thermometer for measuring body temperature.',
+                ingredients: 'Electronic device, battery',
+                benefits: 'Fast and accurate readings, easy to use, portable',
+                directions: 'Place under tongue or armpit, wait for reading, clean after use.'
+            },
+            { 
+                id: 51, 
+                name: 'Blood Pressure Monitor', 
+                price: 1299, 
+                originalPrice: 1499, 
+                discount: '13% off', 
+                category: 'Medical Devices', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Digital blood pressure monitor for accurate at-home readings.',
+                ingredients: 'Electronic monitor, cuff, user manual',
+                benefits: 'Easy to use, memory function, irregular heartbeat detection',
+                directions: 'Wrap cuff around arm, press start button, remain still during measurement.'
+            },
+            { 
+                id: 52, 
+                name: 'Vitamin C Supplements', 
+                price: 299, 
+                originalPrice: 349, 
+                discount: '14% off', 
+                category: 'Supplements', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Vitamin C supplements to boost immunity and overall health.',
+                ingredients: 'Vitamin C, fillers',
+                benefits: 'Boosts immunity, supports skin health, antioxidant properties',
+                directions: 'Take one tablet daily with water.'
+            },
+            { 
+                id: 53, 
+                name: 'Diabetes Test Strips', 
+                price: 499, 
+                originalPrice: 599, 
+                discount: '17% off', 
+                category: 'Diabetes', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'High-quality test strips for accurate blood glucose measurement.',
+                ingredients: 'Test strips, quality control solution',
+                benefits: 'Accurate results, compatible with most glucometers, easy to use',
+                directions: 'Insert strip into meter, apply blood sample, wait for results.'
+            },
+            { 
+                id: 54, 
+                name: 'First Aid Kit', 
+                price: 349, 
+                originalPrice: 399, 
+                discount: '13% off', 
+                category: 'Medical Devices', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: false,
+                description: 'Compact first aid kit for minor injuries and emergencies.',
+                ingredients: 'Bandages, antiseptic wipes, gauze, adhesive tape',
+                benefits: 'Portable, comprehensive, essential for emergencies',
+                directions: 'Use as needed for minor injuries, follow instructions for each item.'
+            },
+            { 
+                id: 55, 
+                name: 'Asthma Inhaler', 
+                price: 189, 
+                originalPrice: 219, 
+                discount: '14% off', 
+                category: 'Asthma', 
+                brand: 'Generic', 
+                image: 'https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
+                ],
+                prescriptionRequired: true,
+                description: 'Relief inhaler for asthma symptoms.',
+                ingredients: 'Medicated aerosol as prescribed',
+                benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+                directions: 'Shake well before use, inhale deeply as directed.'
+            }
+        ];
+
+        // Initialize cart from localStorage or create sample cart
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // If cart is empty, add sample items for demo
+        if (cart.length === 0) {
+            cart = [
+                {
+                    id: 40,
+                    name: 'Whisper Ultra Clean Wings',
+                    price: 279,
+                    image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
+                    variant: 'Medium',
+                    size: 'Medium',
+                    quantity: 2,
+                    brand: 'Whisper'
+                },
+                {
+                    id: 48,
+                    name: 'Paracetamol 500mg',
+                    price: 49,
+                    image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
+                    variant: 'Default',
+                    quantity: 1,
+                    brand: 'Generic'
+                }
+            ];
+        }
+
+        let addressCounter = 1;
+        
+        // Function to load cart items
+        function loadCartItems() {
+            const orderItemsContainer = document.getElementById('orderItems');
+            if (!orderItemsContainer) return;
+            
+            orderItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                orderItemsContainer.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
+                updateOrderTotals();
+                return;
+            }
+            
+            cart.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                
+                // Get full product details if available
+                const fullProduct = products.find(p => p.id === item.id);
+                const displayName = fullProduct ? fullProduct.name : item.name;
+                const displayImage = fullProduct ? fullProduct.image : item.image;
+                const displayBrand = fullProduct ? fullProduct.brand : (item.brand || '');
+                
+                orderItem.innerHTML = `
+                    <div class="item-image">
+                        <img src="${displayImage}" alt="${displayName}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">${displayName}</div>
+                        <div class="item-brand" style="font-size: 11px; color: #888; margin: 2px 0;">${displayBrand}</div>
+                        <div class="item-qty">Qty: ${item.quantity}</div>
+                        ${item.variant && item.variant !== 'Default' ? `<div class="item-variant" style="font-size: 11px; color: #666;">Variant: ${item.variant}</div>` : ''}
+                        ${item.size ? `<div class="item-size" style="font-size: 11px; color: #666;">Size: ${item.size}</div>` : ''}
+                    </div>
+                    <div class="item-actions" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <div class="item-price">₹${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="quantity-controls" style="display: flex; align-items: center; gap: 8px;">
+                            <button onclick="updateQuantity(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}', -1)" 
+                                    style="width: 24px; height: 24px; border: 1px solid #ddd; background: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">-</button>
+                            <span style="min-width: 20px; text-align: center;">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}', 1)" 
+                                    style="width: 24px; height: 24px; border: 1px solid #ddd; background: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">+</button>
+                        </div>
+                        <button onclick="removeFromCart(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}')" 
+                                style="color: #ff4444; font-size: 12px; background: none; border: none; cursor: pointer;">Remove</button>
+                    </div>
+                `;
+                
+                orderItemsContainer.appendChild(orderItem);
+            });
+            
+            updateOrderTotals();
+        }
+
+        // Function to update item quantity
+        function updateQuantity(id, variant, size, change) {
+            const item = cart.find(item => 
+                item.id === id && 
+                (item.variant || 'Default') === variant && 
+                (item.size || '') === size
+            );
+            
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id, variant, size);
+                } else {
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCartItems();
+                }
+            }
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(id, variant, size) {
+            cart = cart.filter(item => 
+                !(item.id === id && 
+                  (item.variant || 'Default') === variant && 
+                  (item.size || '') === size)
+            );
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // Function to calculate and update order totals
+        function updateOrderTotals() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 500 ? 0 : 50; // Free shipping over ₹500
+            const tax = subtotal * 0.18; // 18% GST
+            const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
+            const finalTotal = subtotal + shipping + tax - discount;
+            
+            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `₹${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `₹${finalTotal.toFixed(2)}`;
+            
+            // Show/hide discount row
+            const discountRow = document.getElementById('discountRow');
+            if (discount > 0) {
+                document.getElementById('discount').textContent = `-₹${discount.toFixed(2)}`;
+                discountRow.style.display = 'flex';
+            } else {
+                discountRow.style.display = 'none';
+            }
+        }
+
+        // Function to apply coupon
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+            const validCoupons = {
+                'SAVE10': 10,
+                'WELCOME20': 20,
+                'HEALTH15': 15,
+                'FIRST50': 50
+            };
+            
+            if (validCoupons[couponCode]) {
+                const discount = validCoupons[couponCode];
+                localStorage.setItem('appliedDiscount', discount.toString());
+                updateOrderTotals();
+                alert(`Coupon applied! You saved ₹${discount}`);
+            } else {
+                alert('Invalid coupon code');
+            }
+        }
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardDetails = document.getElementById('cardDetails');
+                if (this.value === 'creditCard') {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
+            });
+        });
+        
+        // Show add address form
+        function showAddressForm() {
+            document.getElementById('newAddressForm').style.display = 'block';
+        }
+        
+        // Hide add address form
+        function hideAddressForm() {
+            document.getElementById('newAddressForm').style.display = 'none';
+            clearAddressForm();
+        }
+        
+        // Clear address form
+        function clearAddressForm() {
+            document.getElementById('newAddress').value = '';
+            document.getElementById('newCity').value = '';
+            document.getElementById('newState').value = '';
+            document.getElementById('newPincode').value = '';
+            document.getElementById('newCountry').value = 'India';
+        }
+        
+        // Add new address
+        function addNewAddress() {
+            const address = document.getElementById('newAddress').value;
+            const city = document.getElementById('newCity').value;
+            const state = document.getElementById('newState').value;
+            const pincode = document.getElementById('newPincode').value;
+            const country = document.getElementById('newCountry').value;
+            
+            if (!address || !city || !state || !pincode) {
+                alert('Please fill all address fields');
+                return;
+            }
+            
+            addressCounter++;
+            // Format address to match the API structure
+            const fullAddress = `${address}, ${city}, ${state} - ${pincode}`;
+            
+            const addressHtml = `
+                <div class="address-option">
+                    <div class="address-content">
+                        <input type="radio" name="selectedAddress" value="${addressCounter}" 
+                               data-address="${address}" 
+                               data-city="${city}" 
+                               data-state="${state}" 
+                               data-pincode="${pincode}" 
+                               data-country="${country}">
+                        <span>Address ${addressCounter}<br>${fullAddress}</span>
+                    </div>
+                    <button type="button" class="delete-btn" onclick="deleteAddress(${addressCounter})">×</button>
+                </div>
+            `;
+            
+            document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
+            hideAddressForm();
+        }
+        
+        // Delete address
+        function deleteAddress(addressId) {
+            const addressElements = document.querySelectorAll('.address-option');
+            if (addressElements.length <= 1) {
+                alert('At least one address is required');
+                return;
+            }
+            
+            event.target.closest('.address-option').remove();
+            
+            // If deleted address was selected, select the first remaining one
+            const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+            if (!selectedAddress) {
+                const firstAddress = document.querySelector('input[name="selectedAddress"]');
+                if (firstAddress) {
+                    firstAddress.checked = true;
+                    firstAddress.closest('.address-option').classList.add('selected');
+                }
+            }
+        }
+        
+        // Handle address selection
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'selectedAddress') {
+                document.querySelectorAll('.address-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                e.target.closest('.address-option').classList.add('selected');
+            }
+        });
+        
+        // Show policy
+        function showPolicy(type) {
+            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} Policy - This would typically open in a modal or new page`);
+        }
+        
+        // Place order function
+        function placeOrder() {
+            const form = document.getElementById('checkoutForm');
+            const formData = new FormData(form);
+            
+            // Get selected address details
+            const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+            let addressDetails = {
+                shippingAddress: '',
+                shippingCity: '',
+                shippingState: '',
+                shippingPincode: '',
+                shippingCountry: 'India'
+            };
+            
+            if (selectedAddress) {
+                // Get address details from data attributes
+                addressDetails = {
+                    shippingAddress: selectedAddress.dataset.address || '',
+                    shippingCity: selectedAddress.dataset.city || '',
+                    shippingState: selectedAddress.dataset.state || '',
+                    shippingPincode: selectedAddress.dataset.pincode || '',
+                    shippingCountry: selectedAddress.dataset.country || 'India'
+                };
+            }
+            
+            // Create payload exactly matching your API structure
+            const orderItems = cart.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                variant: item.variant || 'Default',
+                size: item.size || null,
+                image: item.image
+            }));
+            
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 500 ? 0 : 50;
+            const tax = subtotal * 0.18;
+            const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
+            const finalTotal = subtotal + shipping + tax - discount;
+            
+            const payload = {
+                shippingId: Math.floor(Math.random() * 1000) + 1,
+                user: {
+                    userId: 123, // This would typically come from authenticated user session
+                    username: (formData.get('fullName') || '').toLowerCase().replace(/\s+/g, '_'),
+                    email: formData.get('email') || ''
+                },
+                customerPhone: formData.get('phone') || '',
+                customerEmail: formData.get('email') || '',
+                shippingAddress: addressDetails.shippingAddress,
+                shippingCity: addressDetails.shippingCity,
+                shippingState: addressDetails.shippingState, 
+                shippingPincode: addressDetails.shippingPincode,
+                shippingCountry: addressDetails.shippingCountry,
+                paymentMethod: formData.get('paymentMethod') || 'creditCard',
+                orderItems: orderItems,
+                orderTotals: {
+                    subtotal: subtotal,
+                    shipping: shipping,
+                    tax: tax,
+                    discount: discount,
+                    total: finalTotal
+                }
+            };
+            
+            console.log('Shipping Payload (matching your API):', JSON.stringify(payload, null, 2));
+            
+            // Here you would send this exact payload to your backend
+            // fetch('/api/shipping', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(payload)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Success:', data);
+            //     // Handle successful order placement
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            // });
+            
+            // Clear cart after successful order (uncomment when implementing real API)
+            // localStorage.removeItem('cart');
+            // localStorage.removeItem('appliedDiscount');
+            
+            alert('Order placed successfully! Check console for the complete API payload with cart items.');
+        }
+        
+        // Format card number input
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            if (value.length > 16) formattedValue = formattedValue.substring(0, 19);
+            e.target.value = formattedValue;
+        });
+        
+        // Format expiry date input
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+        
+        // Format CVV input
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        // Load cart items and update totals on page load
+        loadCartItems();
+    </script>
+</body>
+</html>
