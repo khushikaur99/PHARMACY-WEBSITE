@@ -696,3 +696,33 @@ window.onload = () => {
     renderProducts();
     renderMedicines();
 };
+
+
+
+
+ // Open Upload Prescription modal
+  document.querySelectorAll('a[href="#upload-prescription"]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('uploadModal').classList.remove('hidden');
+    });
+  });
+
+  // Close Upload modal when clicking backdrop
+  document.getElementById('uploadModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.add('hidden');
+    }
+  });
+
+  // Open Valid Prescription Modal
+  document.getElementById('validPrescriptionBtn').addEventListener('click', function() {
+    document.getElementById('validPrescriptionModal').classList.remove('hidden');
+  });
+
+  // Close Valid Prescription modal when clicking backdrop
+  document.getElementById('validPrescriptionModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.add('hidden');
+    }
+  });

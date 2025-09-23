@@ -71,12 +71,12 @@ const products = [
         discount: '', 
         category: 'Diabetes', 
         brand: 'BrandW', 
-        image: 'https://via.placeholder.com/500x400/10b981/FFFFFF?text=Test+Strips',
+        image: 'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg',
         thumbnails: [
-            'https://via.placeholder.com/80x80/10b981/FFFFFF?text=Thumb1',
-            'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-            'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-            'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+            'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg',
+            'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg',
+            'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg',
+            'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg'
         ],
         prescriptionRequired: false,
         description: 'High-quality test strips for accurate blood glucose measurement.',

@@ -7,46 +7,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // ================
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  const products = [
-    // Diabetes Category (6 products)
-    { id: 1, name: 'Diabetes Care Kit', price: 268.80, originalPrice: 329, discount: '16% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg', prescriptionRequired: false },
-    { id: 2, name: 'Glucose Monitor', price: 312.50, originalPrice: 625, discount: '50% off', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg', prescriptionRequired: false },
-    { id: 3, name: 'Insulin Pen', price: 180, originalPrice: 220, discount: '18% off', category: 'Diabetes', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/8c/98/c0/8c98c0b824d4297ac6ef98d31313e68a.jpg', prescriptionRequired: true },
-    { id: 4, name: 'Blood Sugar Test Strips', price: 75, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandW', image: 'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg', prescriptionRequired: false },
-    { id: 5, name: 'Diabetic Foot Cream', price: 120, originalPrice: 150, discount: '20% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/b1/3c/0a/b13c0a3f378c929991359e31b2c98b0a.jpg', prescriptionRequired: false },
-    { id: 6, name: 'Glucose Tablets', price: 50, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/46/13/15/46131555c6994d407730f268ee6390ef.jpg', prescriptionRequired: false },
+ const products = [
+  // 1. Wound & Skin Care
+  { id: 60, name: 'First Aid Kit', price: 350, originalPrice: 450, discount: '22% off', category: 'Wound & Skin Care', brand: 'MediSafe', image: 'https://i.pinimg.com/736x/61/9a/32/619a32263f4636f0d73a884c91fc0f19.jpg', prescriptionRequired: false },
+  { id: 61, name: 'Burn Relief Spray', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound & Skin Care', brand: 'CarePlus', image: 'https://i.pinimg.com/736x/2f/f8/95/2ff8950c3e85d1ee7aeb06d73284f5a6.jpg', prescriptionRequired: false },
+  { id: 62, name: 'Antiseptic Wipes (Pack of 50)', price: 130, originalPrice: 160, discount: '19% off', category: 'Wound & Skin Care', brand: 'CleanPlus', image: 'https://i.pinimg.com/736x/29/48/74/2948745c04e66318f0a7d41c74d365e7.jpg', prescriptionRequired: false },
+  { id: 63, name: 'Hemostatic Gauze', price: 250, originalPrice: 300, discount: '17% off', category: 'Wound & Skin Care', brand: 'QuickClot', image: 'https://i.pinimg.com/736x/22/1f/59/221f59529b5cf90fa96070e71a1a18b6.jpg', prescriptionRequired: false },
 
-    // Hypertension Category (6 products)
-    { id: 7, name: 'BP Monitor', price: 420, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg', prescriptionRequired: false },
-    { id: 8, name: 'Hypertension Pills', price: 105, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandW', image: 'https://tribuneonlineng.com/wp-content/uploads/2019/10/hypertension-medication.jpg', prescriptionRequired: true },
-    { id: 9, name: 'Wrist BP Monitor', price: 350, originalPrice: 400, discount: '12% off', category: 'Hypertension', brand: 'BrandX', image: 'https://i.pinimg.com/736x/73/1d/44/731d44443cdca68c78d5140fbd54602b.jpg', prescriptionRequired: false },
-    { id: 11, name: 'Digital BP Cuff', price: 380, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://rukminim2.flixcart.com/image/292/360/kbs9k7k0/bp-monitor-cuff/h/y/c/adult-size-digital-blood-pressure-monitor-cuff-psm-original-imaft25hkpp3rmyn.jpeg?q=90&crop=false', prescriptionRequired: false },
-    { id: 12, name: 'Hypertension Tea', price: 90, originalPrice: 120, discount: '25% off', category: 'Hypertension', brand: 'BrandW', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUIWfND9G-a5jv7Sg6oenF-im9IFPwG9M0A&s', prescriptionRequired: false },
+  // 2. Pain & Fever Relief
+  { id: 64, name: 'Instant Cold Pack', price: 75, originalPrice: 100, discount: '25% off', category: 'Pain & Fever Relief', brand: 'MediCare', image: 'https://i.pinimg.com/736x/5d/dc/45/5ddc457c50407cf84bfbeb1a1b214934.jpg', prescriptionRequired: false },
+  { id: 65, name: 'Hot Water Bag', price: 180, originalPrice: 220, discount: '18% off', category: 'Pain & Fever Relief', brand: 'HeatEase', image: 'https://i.pinimg.com/736x/f5/f6/1d/f5f61df6f35146c50c7eb9cda06f497a.jpg', prescriptionRequired: false },
+  { id: 66, name: 'Paracetamol 500mg (10 Tablets)', price: 40, originalPrice: 50, discount: '20% off', category: 'Pain & Fever Relief', brand: 'MediSafe', image: 'https://i.pinimg.com/736x/53/2d/1f/532d1fcf6d7ff70b7c8236425cf144fe.jpg', prescriptionRequired: false },
 
-    // Cardiac Category (6 products)
-    { id: 13, name: 'Heart Health Supplement', price: 300, originalPrice: 350, discount: '14% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/736x/84/25/86/842586edc3d1515a35a5071dd16f9fb9.jpg', prescriptionRequired: false },
-    { id: 14, name: 'Cardiac Monitor', price: 450, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/9a/64/da/9a64da44712c93da0dd7fefebe3c4f2f.jpg', prescriptionRequired: false },
-    { id: 15, name: 'Omega-3 Capsules', price: 250, originalPrice: 300, discount: '17% off', category: 'Cardiac', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f3/e8/4c/f3e84c84576fb11c8edf2ed7442e6da2.jpg', prescriptionRequired: false },
-    { id: 16, name: 'Heart Rate Tracker', price: 320, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/e9/bc/b7/e9bcb7f63c77a9220832993dbdbcad72.jpg', prescriptionRequired: false },
-    { id: 17, name: 'Cholesterol Test Kit', price: 110, originalPrice: 140, discount: '21% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/6f/02/2e/6f022e5b238c1720823d99468e7c3fd9.jpg', prescriptionRequired: false },
-    { id: 18, name: 'CoQ10 Supplement', price: 280, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/d6/8d/00/d68d006919f9062fdd79953cb91d413f.jpg', prescriptionRequired: true },
+  // 3. Allergy & Itch Relief
+  { id: 67, name: 'Anti-Allergy Tablets (Cetirizine 10mg, Pack of 10)', price: 60, originalPrice: 80, discount: '25% off', category: 'Allergy & Itch Relief', brand: 'AllerCare', image: 'https://i.pinimg.com/736x/28/f6/8b/28f68bcd9b4a7e1a12a53d2b6a6e25f8.jpg', prescriptionRequired: false },
+  { id: 68, name: 'Itch Relief Cream', price: 90, originalPrice: 110, discount: '18% off', category: 'Allergy & Itch Relief', brand: 'CarePlus', image: 'https://i.pinimg.com/736x/2d/62/b8/2d62b8fddf20a9a9dbf40a7d547772ec.jpg', prescriptionRequired: false },
 
-    // Asthma Category (6 products)
-    { id: 19, name: 'Inhaler', price: 200, originalPrice: 250, discount: '20% off', category: 'Asthma', brand: 'BrandZ', image: 'https://via.placeholder.com/150/inhaler.jpg', prescriptionRequired: true },
-    { id: 20, name: 'Asthma Relief Spray', price: 150, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandW', image: 'https://via.placeholder.com/150/asthma-spray.jpg', prescriptionRequired: true },
-    { id: 21, name: 'Nebulizer', price: 500, originalPrice: 600, discount: '17% off', category: 'Asthma', brand: 'BrandX', image: 'https://via.placeholder.com/150/nebulizer.jpg', prescriptionRequired: false },
-    { id: 22, name: 'Peak Flow Meter', price: 80, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandY', image: 'https://via.placeholder.com/150/peak-flow-meter.jpg', prescriptionRequired: false },
-    { id: 23, name: 'Asthma Spacer', price: 120, originalPrice: 150, discount: '20% off', category: 'Asthma', brand: 'BrandZ', image: 'https://via.placeholder.com/150/asthma-spacer.jpg', prescriptionRequired: false },
-    { id: 24, name: 'Breathing Exercise Device', price: 100, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandW', image: 'https://via.placeholder.com/150/breathing-device.jpg', prescriptionRequired: false },
+  // 4. Digestive & Hydration
+  { id: 69, name: 'ORS Sachets (Pack of 5)', price: 45, originalPrice: 60, discount: '25% off', category: 'Digestive & Hydration', brand: 'HydraLife', image: 'https://i.pinimg.com/736x/90/3d/7c/903d7c1d61e94816c51c88671ad245d2.jpg', prescriptionRequired: false },
+  { id: 70, name: 'Antacid Suspension (Mint Flavor, 200ml)', price: 95, originalPrice: 120, discount: '21% off', category: 'Digestive & Hydration', brand: 'DigiCare', image: 'https://i.pinimg.com/736x/6b/8a/6d/6b8a6d84fa15d3c5b23e17e8f6fa3c1c.jpg', prescriptionRequired: false },
 
-    // Thyroid Category (6 products)
-    { id: 25, name: 'Thyroid Supplement', price: 120, originalPrice: 150, discount: '20% off', category: 'Thyroid', brand: 'BrandX', image: 'https://via.placeholder.com/150/thyroid-supplement.jpg', prescriptionRequired: false },
-    { id: 26, name: 'Thyroid Test Kit', price: 90, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandY', image: 'https://via.placeholder.com/150/thyroid-test.jpg', prescriptionRequired: false },
-    { id: 27, name: 'Iodine Drops', price: 70, originalPrice: 90, discount: '22% off', category: 'Thyroid', brand: 'BrandZ', image: 'https://via.placeholder.com/150/iodine-drops.jpg', prescriptionRequired: false },
-    { id: 28, name: 'Thyroid Support Capsules', price: 140, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandW', image: 'https://via.placeholder.com/150/thyroid-capsules.jpg', prescriptionRequired: true },
-    { id: 29, name: 'Selenium Supplement', price: 110, originalPrice: 130, discount: '15% off', category: 'Thyroid', brand: 'BrandX', image: 'https://via.placeholder.com/150/selenium-supplement.jpg', prescriptionRequired: false },
-    { id: 30, name: 'Thyroid Monitoring Device', price: 200, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandY', image: 'https://via.placeholder.com/150/thyroid-monitor.jpg', prescriptionRequired: false }
-  ];
+  // 5. Eye, Nose, & Throat
+  { id: 71, name: 'Emergency Eye Wash Bottle', price: 180, originalPrice: null, discount: '', category: 'Eye, Nose, & Throat', brand: 'EyeSafe', image: 'https://i.pinimg.com/736x/dc/f7/0c/dcf70c5a9f589e9340b4f2c94b2bfcfa.jpg', prescriptionRequired: false },
+  { id: 72, name: 'Nasal Decongestant Spray', price: 130, originalPrice: 160, discount: '19% off', category: 'Eye, Nose, & Throat', brand: 'NasoClear', image: 'https://i.pinimg.com/736x/aa/f2/30/aaf2302468c8aa7a8d7c61eaa132a012.jpg', prescriptionRequired: false },
+
+  // 6. Muscle, Joint, & Symptom Relief
+  { id: 73, name: 'Pain Relief Spray', price: 150, originalPrice: 190, discount: '21% off', category: 'Muscle, Joint, & Symptom Relief', brand: 'FlexiCare', image: 'https://i.pinimg.com/736x/10/22/77/102277ae6327885a6d358a7d1aeb0c89.jpg', prescriptionRequired: false },
+  { id: 74, name: 'Elastic Bandage (Pack of 2)', price: 110, originalPrice: 140, discount: '21% off', category: 'Muscle, Joint, & Symptom Relief', brand: 'RescuePro', image: 'https://i.pinimg.com/736x/3a/54/b5/3a54b5869e558db1e835d3e0f7df6c3b.jpg', prescriptionRequired: false },
+
+  // 7. Emergency-Specific Medications (Prescription Required)
+  { id: 75, name: 'Emergency Oxygen Cylinder (Portable)', price: 950, originalPrice: 1200, discount: '21% off', category: 'Emergency-Specific Medications', brand: 'OxyLife', image: 'https://i.pinimg.com/736x/8c/9b/46/8c9b463f91a6f57b0b126aeb3e2b7a5d.jpg', prescriptionRequired: true },
+  { id: 76, name: 'Adrenaline Auto-Injector (EpiPen)', price: 2500, originalPrice: 2800, discount: '11% off', category: 'Emergency-Specific Medications', brand: 'LifeSaver', image: 'https://i.pinimg.com/736x/11/5c/42/115c42ddfb31a038d9141f7de5f8b8b7.jpg', prescriptionRequired: true },
+  { id: 77, name: 'Emergency Stretcher (Foldable)', price: 1200, originalPrice: 1500, discount: '20% off', category: 'Emergency-Specific Medications', brand: 'RescueMate', image: 'https://i.pinimg.com/736x/c4/82/5d/c4825dd422d1aa9e2d8f3dfb31d8b8a2.jpg', prescriptionRequired: true }
+];
+
 
   // ================
   // DOM Elements

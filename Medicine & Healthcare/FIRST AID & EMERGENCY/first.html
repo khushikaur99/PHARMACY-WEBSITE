@@ -330,65 +330,129 @@
     </div>
   </header>
 
-  <div class="container mx-auto px-1 py-6">
-    <div class="flex flex-col md:flex-row gap-6">
-      <!-- Sidebar with Scroll -->
-      <div class="w-full md:w-1/6 md:h-[calc(100vh-4rem)] md:sticky md:top-16 overflow-y-auto bg-white p-3 rounded-lg shadow">
-        <div class="mb-4">
-          <h2 class="text-lg font-bold mb-2">Categories</h2>
-          <ul id="categoryList" class="space-y-2">
-            <li>
-              <a href="#" class="category-link font-medium">Diabetes</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-            <li>
-              <a href="#" class="category-link font-medium">Cardiac</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-            <li>
-              <a href="#" class="category-link font-medium">Asthma</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-            <li>
-              <a href="#" class="category-link font-medium">Thyroid</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-            <li>
-              <a href="#" class="category-link font-medium">Hypertension</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-          </ul>
-        </div>
-        <!-- Brands -->
-        <div>
-          <h2 class="text-lg font-bold mb-2">
-            Brands <span class="expand-toggle cursor-pointer">+</span>
-          </h2>
-          <ul id="brandList" class="hidden space-y-2">
-            <li><label><input type="checkbox" class="brand-filter" value="BrandX"> BrandX</label></li>
-            <li><label><input type="checkbox" class="brand-filter" value="BrandY"> BrandY</label></li>
-            <li><label><input type="checkbox" class="brand-filter" value="BrandZ"> BrandZ</label></li>
-            <li><label><input type="checkbox" class="brand-filter" value="BrandW"> BrandW</label></li>
-          </ul>
-        </div>
+ <div class="container mx-auto px-1 py-6">
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Sidebar with Scroll -->
+    <div class="w-full md:w-1/6 md:h-[calc(100vh-4rem)] md:sticky md:top-16 overflow-y-auto bg-white p-3 rounded-lg shadow">
+      
+      <!-- Categories -->
+      <div class="mb-4">
+        <h2 class="text-lg font-bold mb-2">Categories</h2>
+        <ul id="categoryList" class="space-y-2">
+
+          <!-- Wound & Skin Care -->
+          <li>
+            <a href="#" class="category-link font-medium">Wound & Skin Care</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>First Aid Kit</li>
+              <li>Burn Relief Spray</li>
+              <li>Antiseptic Wipes</li>
+              <li>Hemostatic Gauze</li>
+            </ul>
+          </li>
+
+          <!-- Pain & Fever Relief -->
+          <li>
+            <a href="#" class="category-link font-medium">Pain & Fever Relief</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>Instant Cold Pack</li>
+              <li>Hot Water Bag</li>
+              <li>Paracetamol 500mg</li>
+            </ul>
+          </li>
+
+          <!-- Allergy & Itch Relief -->
+          <li>
+            <a href="#" class="category-link font-medium">Allergy & Itch Relief</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>Anti-Allergy Tablets</li>
+              <li>Itch Relief Cream</li>
+            </ul>
+          </li>
+
+          <!-- Digestive & Hydration -->
+          <li>
+            <a href="#" class="category-link font-medium">Digestive & Hydration</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>ORS Sachets</li>
+              <li>Antacid Suspension</li>
+            </ul>
+          </li>
+
+          <!-- Eye, Nose, & Throat -->
+          <li>
+            <a href="#" class="category-link font-medium">Eye, Nose, & Throat</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>Emergency Eye Wash</li>
+              <li>Nasal Decongestant Spray</li>
+            </ul>
+          </li>
+
+          <!-- Muscle, Joint, & Symptom Relief -->
+          <li>
+            <a href="#" class="category-link font-medium">Muscle, Joint, & Symptom Relief</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm">
+              <li>Pain Relief Spray</li>
+              <li>Elastic Bandage</li>
+            </ul>
+          </li>
+
+          <!-- Emergency-Specific Medications -->
+          <li>
+            <a href="#" class="category-link font-medium text-red-600">Emergency-Specific Medications (Rx Required)</a>
+            <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
+            <ul class="subcategory hidden ml-4 mt-2 space-y-1 text-sm text-red-600">
+              <li>Emergency Oxygen Cylinder</li>
+              <li>Adrenaline Auto-Injector</li>
+              <li>Emergency Stretcher</li>
+            </ul>
+          </li>
+
+        </ul>
       </div>
-      <!-- Product Section -->
-      <section class="w-full md:w-5/6">
-        <!-- Sorting -->
-        <div class="flex justify-end mb-6">
-          <select class="border border-gray-300 p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" id="sortSelect">
-            <option>Sort By: Relevance</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-          </select>
-        </div>
-        <!-- Product Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid">
-          <!-- Products populated by JS -->
-        </div>
-      </section>
+
+      <!-- Brands -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">
+          Brands <span class="expand-toggle cursor-pointer">+</span>
+        </h2>
+        <ul id="brandList" class="hidden space-y-2">
+          <li><label><input type="checkbox" class="brand-filter" value="MediSafe"> MediSafe</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="CarePlus"> CarePlus</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="QuickClot"> QuickClot</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="OxyLife"> OxyLife</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="RescuePro"> RescuePro</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="SafeGuard"> SafeGuard</label></li>
+          <li><label><input type="checkbox" class="brand-filter" value="EyeSafe"> EyeSafe</label></li>
+        </ul>
+      </div>
     </div>
+
+    <!-- Product Section -->
+    <section class="w-full md:w-5/6">
+      <!-- Sorting -->
+      <div class="flex justify-end mb-6">
+        <select class="border border-gray-300 p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" id="sortSelect">
+          <option>Sort By: Relevance</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid">
+        <!-- Products populated by JS -->
+      </div>
+    </section>
   </div>
+</div>
+
 
 <!-- Upload Prescription Modal -->
 <div id="uploadModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -537,6 +601,6 @@
 </div>
   
   <script src="/header.js"></script>
-  <script src="../CHRONIC/chronic.js"></script>
+  <script src="../FIRST AID & EMERGENCY/first.js"></script>
 </body>
 </html>
