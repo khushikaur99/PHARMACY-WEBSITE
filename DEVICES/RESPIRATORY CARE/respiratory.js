@@ -1,5 +1,4 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
+ // Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
 
 document.addEventListener('DOMContentLoaded', () => {
   // ================
@@ -8,38 +7,37 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Nebulizers & Accessories
+    { id: 440, name: 'Portable Nebulizer', price: 85, originalPrice: 100, discount: '15% off', category: 'Nebulizers & Accessories', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg', prescriptionRequired: false },
+    { id: 441, name: 'Nebulizer Mask Kit', price: 60, originalPrice: null, discount: '', category: 'Nebulizers & Accessories', brand: 'BrandZ', image: 'https://via.placeholder.com/150/nebulizer-mask.jpg', prescriptionRequired: false },
+    { id: 442, name: 'Ultrasonic Nebulizer', price: 95, originalPrice: null, discount: '', category: 'Nebulizers & Accessories', brand: 'BrandW', image: 'https://via.placeholder.com/150/ultrasonic-nebulizer.jpg', prescriptionRequired: false },
+    { id: 443, name: 'Nebulizer Filters', price: 50, originalPrice: null, discount: '', category: 'Nebulizers & Accessories', brand: 'BrandY', image: 'https://via.placeholder.com/150/nebulizer-filters.jpg', prescriptionRequired: false },
+    { id: 444, name: 'Compressor Nebulizer', price: 40, originalPrice: null, discount: '', category: 'Nebulizers & Accessories', brand: 'BrandX', image: 'https://via.placeholder.com/150/compressor-nebulizer.jpg', prescriptionRequired: false },
+    { id: 445, name: 'Nebulizer Tubing', price: 120, originalPrice: 150, discount: '20% off', category: 'Nebulizers & Accessories', brand: 'BrandZ', image: 'https://via.placeholder.com/150/nebulizer-tubing.jpg', prescriptionRequired: false },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Vaporizers & Steam Inhalers
+    { id: 446, name: 'Facial Steam Inhaler', price: 120, originalPrice: 150, discount: '20% off', category: 'Vaporizers & Steam Inhalers', brand: 'BrandY', image: 'https://via.placeholder.com/150/facial-inhaler.jpg', prescriptionRequired: false },
+    { id: 447, name: 'Portable Vaporizer', price: 100, originalPrice: null, discount: '', category: 'Vaporizers & Steam Inhalers', brand: 'BrandW', image: 'https://via.placeholder.com/150/portable-vaporizer.jpg', prescriptionRequired: false },
+    { id: 448, name: 'Steam Inhaler Kit', price: 150, originalPrice: 180, discount: '17% off', category: 'Vaporizers & Steam Inhalers', brand: 'BrandX', image: 'https://via.placeholder.com/150/steam-kit.jpg', prescriptionRequired: false },
+    { id: 449, name: 'Electric Vaporizer', price: 90, originalPrice: null, discount: '', category: 'Vaporizers & Steam Inhalers', brand: 'BrandY', image: 'https://via.placeholder.com/150/electric-vaporizer.jpg', prescriptionRequired: false },
+    { id: 450, name: 'Handheld Steam Inhaler', price: 250, originalPrice: 300, discount: '17% off', category: 'Vaporizers & Steam Inhalers', brand: 'BrandZ', image: 'https://via.placeholder.com/150/handheld-inhaler.jpg', prescriptionRequired: false },
+    { id: 451, name: 'Aromatherapy Vaporizer', price: 110, originalPrice: null, discount: '', category: 'Vaporizers & Steam Inhalers', brand: 'BrandW', image: 'https://via.placeholder.com/150/aroma-vaporizer.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Oxygen Cylinders & Concentrators
+    { id: 452, name: 'Portable Oxygen Cylinder', price: 50, originalPrice: null, discount: '', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandY', image: 'https://via.placeholder.com/150/oxygen-cylinder.jpg', prescriptionRequired: false },
+    { id: 453, name: 'Oxygen Concentrator', price: 450, originalPrice: 80, discount: '12% off', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandZ', image: 'https://via.placeholder.com/150/oxygen-concentrator.jpg', prescriptionRequired: false },
+    { id: 454, name: 'Home Oxygen System', price: 120, originalPrice: null, discount: '', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandW', image: 'https://via.placeholder.com/150/home-oxygen.jpg', prescriptionRequired: false },
+    { id: 455, name: 'Oxygen Mask', price: 100, originalPrice: 120, discount: '145% off', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandX', image: 'https://via.placeholder.com/150/oxygen-mask.jpg', prescriptionRequired: false },
+    { id: 456, name: 'Portable Oxygen Concentrator', price: 95, originalPrice: null, discount: '', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandY', image: 'https://via.placeholder.com/150/portable-concentrator.jpg', prescriptionRequired: false },
+    { id: 457, name: 'Oxygen Regulator', price: 130, originalPrice: 150, discount: '13% off', category: 'Oxygen Cylinders & Concentrators', brand: 'BrandZ', image: 'https://via.placeholder.com/150/oxygen-regulator.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
-
-    // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    // CPAP/BIPAP Machines
+    { id: 458, name: 'CPAP Machine', price: 500, originalPrice: 600, discount: '145% off', category: 'CPAP/BIPAP Machines', brand: 'BrandX', image: 'https://via.placeholder.com/150/cpap-machine.jpg', prescriptionRequired: false },
+    { id: 459, name: 'BIPAP Machine', price: 300, originalPrice: null, discount: '', category: 'CPAP/BIPAP Machines', brand: 'BrandY', image: 'https://via.placeholder.com/150/bipap-machine.jpg', prescriptionRequired: false },
+    { id: 460, name: 'Auto CPAP Device', price: 4600, originalPrice: 1000, discount: '20% off', category: 'CPAP/BIPAP Machines', brand: 'BrandZ', image: 'https://via.placeholder.com/150/auto-cpap.jpg', prescriptionRequired: false },
+    { id: 461, name: 'CPAP Mask', price: 400, originalPrice: null, discount: '', category: 'CPAP/BIPAP Machines', brand: 'BrandW', image: 'https://via.placeholder.com/150/cpap-mask.jpg', prescriptionRequired: false },
+    { id: 462, name: 'BIPAP Accessories', price: 600, originalPrice: 4500, discount: '14% off', category: 'CPAP/BIPAP Machines', brand: 'BrandX', image: 'https://via.placeholder.com/150/bipap-accessories.jpg', prescriptionRequired: false },
+    { id: 463, name: 'Portable CPAP', price: 1200, originalPrice: null, discount: '', category: 'CPAP/BIPAP Machines', brand: 'BrandY', image: 'https://via.placeholder.com/150/portable-cpap.jpg', prescriptionRequired: false }
   ];
 
   // ================
@@ -495,19 +493,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
   }
 
-  // We stored escaped JSON string in data-product (escapeHtml used earlier), recover it:
-  function unescapeHtmlForJSON(escapedStr) {
-    if (!escapedStr) return escapedStr;
-    // replace HTML entities that were used on JSON string
-    return escapedStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // parse helper used earlier in event delegation
-  function unescapeHtml(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
   // safe JSON parse wrapper
   function safeParseProductData(attr) {
     if (!attr) return null;
@@ -518,14 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
   }
-
-  // earlier we referenced unescapeHtml in delegation; ensure a function exists
-  function unescapeHtmlForDelegation(s) {
-    return safeParseProductData(s) ? safeParseProductData(s) : null;
-  }
-
-  // Small fix: the delegation earlier used unescapeHtml/unescapeHtmlForJSON - replace with safeParseProductData call
-  // So adjust the delegation code above to use safeParseProductData (we already attempted parsing with unescapeHtml in the upload handler).
 
   // ================
   // Finalize & Expose

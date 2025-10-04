@@ -1,6 +1,3 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
-
 document.addEventListener('DOMContentLoaded', () => {
   // ================
   // Data
@@ -8,38 +5,49 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Toothpaste & Powders
+    { id: 260, name: 'Fluoride Toothpaste', price: 100, originalPrice: 120, discount: '17% off', category: 'Toothpaste & Powders', brand: 'BrandX', image: 'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg', prescriptionRequired: false },
+    { id: 261, name: 'Herbal Toothpowder', price: 80, originalPrice: null, discount: '', category: 'Toothpaste & Powders', brand: 'BrandY', image: 'https://i.pinimg.com/736x/12/34/56/123456789abcdef0123456789abcdef.jpg', prescriptionRequired: false },
+    { id: 262, name: 'Whitening Toothpaste', price: 150, originalPrice: 180, discount: '17% off', category: 'Toothpaste & Powders', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/23/45/67/23456789abcdef0123456789abcdef0.jpg', prescriptionRequired: false },
+    { id: 263, name: 'Sensitive Teeth Paste', price: 120, originalPrice: null, discount: '', category: 'Toothpaste & Powders', brand: 'BrandW', image: 'https://i.pinimg.com/736x/34/56/78/3456789abcdef0123456789abcdef01.jpg', prescriptionRequired: false },
+    { id: 264, name: 'Ayurvedic Toothpowder', price: 90, originalPrice: 110, discount: '18% off', category: 'Toothpaste & Powders', brand: 'BrandX', image: 'https://i.pinimg.com/736x/45/67/89/456789abcdef0123456789abcdef012.jpg', prescriptionRequired: false },
+    { id: 265, name: 'Prescription Toothpaste', price: 200, originalPrice: null, discount: '', category: 'Toothpaste & Powders', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/56/78/90/567890abcdef0123456789abcdef0123.jpg', prescriptionRequired: true },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Mouthwash
+    { id: 266, name: 'Antiseptic Mouthwash', price: 150, originalPrice: 180, discount: '17% off', category: 'Mouthwash', brand: 'BrandY', image: 'https://i.pinimg.com/736x/67/89/ab/6789abcdef0123456789abcdef01234.jpg', prescriptionRequired: false },
+    { id: 267, name: 'Fluoride Mouthwash', price: 120, originalPrice: null, discount: '', category: 'Mouthwash', brand: 'BrandW', image: 'https://i.pinimg.com/736x/78/90/bc/7890bcdef0123456789abcdef012345.jpg', prescriptionRequired: false },
+    { id: 268, name: 'Herbal Mouthwash', price: 100, originalPrice: 120, discount: '17% off', category: 'Mouthwash', brand: 'BrandX', image: 'https://i.pinimg.com/736x/89/ab/cd/89abcdef0123456789abcdef0123456.jpg', prescriptionRequired: false },
+    { id: 269, name: 'Alcohol-Free Mouthwash', price: 130, originalPrice: null, discount: '', category: 'Mouthwash', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/90/bc/de/90bcdef0123456789abcdef01234567.jpg', prescriptionRequired: false },
+    { id: 270, name: 'Medicated Mouthwash', price: 200, originalPrice: 250, discount: '20% off', category: 'Mouthwash', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ab/cd/ef/abcdef0123456789abcdef012345678.jpg', prescriptionRequired: true },
+    { id: 271, name: 'Whitening Mouthwash', price: 140, originalPrice: null, discount: '', category: 'Mouthwash', brand: 'BrandW', image: 'https://i.pinimg.com/736x/bc/de/f0/bcdef0123456789abcdef0123456789.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Toothbrushes
+    { id: 272, name: 'Electric Toothbrush', price: 500, originalPrice: 600, discount: '17% off', category: 'Toothbrushes', brand: 'BrandX', image: 'https://i.pinimg.com/736x/cd/ef/01/cdef0123456789abcdef0123456789a.jpg', prescriptionRequired: false },
+    { id: 273, name: 'Soft Bristle Toothbrush', price: 50, originalPrice: null, discount: '', category: 'Toothbrushes', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/de/f0/12/def0123456789abcdef0123456789ab.jpg', prescriptionRequired: false },
+    { id: 274, name: 'Kids Toothbrush', price: 40, originalPrice: 50, discount: '20% off', category: 'Toothbrushes', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ef/01/23/ef0123456789abcdef0123456789abc.jpg', prescriptionRequired: false },
+    { id: 275, name: 'Orthodontic Toothbrush', price: 60, originalPrice: null, discount: '', category: 'Toothbrushes', brand: 'BrandW', image: 'https://i.pinimg.com/736x/f0/12/34/f0123456789abcdef0123456789abcd.jpg', prescriptionRequired: false },
+    { id: 276, name: 'Bamboo Toothbrush', price: 70, originalPrice: 80, discount: '13% off', category: 'Toothbrushes', brand: 'BrandX', image: 'https://i.pinimg.com/736x/01/23/45/0123456789abcdef0123456789abcde.jpg', prescriptionRequired: false },
+    { id: 277, name: 'Sonic Toothbrush', price: 400, originalPrice: null, discount: '', category: 'Toothbrushes', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/12/34/56/123456789abcdef0123456789abcdef.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
+    // Dental Floss & Interdental Care
+    { id: 278, name: 'Waxed Dental Floss', price: 100, originalPrice: 120, discount: '17% off', category: 'Dental Floss & Interdental Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/45/67/23456789abcdef0123456789abcdef0.jpg', prescriptionRequired: false },
+    { id: 279, name: 'Interdental Brushes', price: 150, originalPrice: null, discount: '', category: 'Dental Floss & Interdental Care', brand: 'BrandW', image: 'https://i.pinimg.com/736x/34/56/78/3456789abcdef0123456789abcdef01.jpg', prescriptionRequired: false },
+    { id: 280, name: 'Floss Picks', price: 80, originalPrice: 100, discount: '20% off', category: 'Dental Floss & Interdental Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/45/67/89/456789abcdef0123456789abcdef012.jpg', prescriptionRequired: false },
+    { id: 281, name: 'Water Flosser', price: 500, originalPrice: null, discount: '', category: 'Dental Floss & Interdental Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/56/78/90/567890abcdef0123456789abcdef0123.jpg', prescriptionRequired: false },
+    { id: 282, name: 'Mint Flavored Floss', price: 90, originalPrice: 110, discount: '18% off', category: 'Dental Floss & Interdental Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/67/89/ab/6789abcdef0123456789abcdef01234.jpg', prescriptionRequired: false },
+    { id: 283, name: 'Orthodontic Floss', price: 120, originalPrice: null, discount: '', category: 'Dental Floss & Interdental Care', brand: 'BrandW', image: 'https://i.pinimg.com/736x/78/90/bc/7890bcdef0123456789abcdef012345.jpg', prescriptionRequired: false },
+
+    // Oral Pain Relief
+    { id: 284, name: 'Oral Gel', price: 100, originalPrice: 120, discount: '17% off', category: 'Oral Pain Relief', brand: 'BrandX', image: 'https://i.pinimg.com/736x/89/ab/cd/89abcdef0123456789abcdef0123456.jpg', prescriptionRequired: false },
+    { id: 285, name: 'Pain Relief Mouth Spray', price: 150, originalPrice: null, discount: '', category: 'Oral Pain Relief', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/90/bc/de/90bcdef0123456789abcdef01234567.jpg', prescriptionRequired: false },
+    { id: 286, name: 'Clove Oil', price: 80, originalPrice: 100, discount: '20% off', category: 'Oral Pain Relief', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ab/cd/ef/abcdef0123456789abcdef012345678.jpg', prescriptionRequired: false },
+    { id: 287, name: 'Benzocaine Gel', price: 120, originalPrice: null, discount: '', category: 'Oral Pain Relief', brand: 'BrandW', image: 'https://i.pinimg.com/736x/bc/de/f0/bcdef0123456789abcdef0123456789.jpg', prescriptionRequired: true },
+    { id: 288, name: 'Teething Gel', price: 90, originalPrice: 110, discount: '18% off', category: 'Oral Pain Relief', brand: 'BrandX', image: 'https://i.pinimg.com/736x/cd/ef/01/cdef0123456789abcdef0123456789a.jpg', prescriptionRequired: false },
+    { id: 289, name: 'Prescription Oral Pain Relief', price: 200, originalPrice: null, discount: '', category: 'Oral Pain Relief', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/de/f0/12/def0123456789abcdef0123456789ab.jpg', prescriptionRequired: true },
 
     // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    { id: 290, name: 'Prescription Mouthwash', price: 250, originalPrice: null, discount: '', category: 'Mouthwash', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ef/01/23/ef0123456789abcdef0123456789abc.jpg', prescriptionRequired: true },
+    { id: 291, name: 'Prescription Oral Gel', price: 180, originalPrice: 220, discount: '18% off', category: 'Oral Pain Relief', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f0/12/34/f0123456789abcdef0123456789abcd.jpg', prescriptionRequired: true }
   ];
 
   // ================

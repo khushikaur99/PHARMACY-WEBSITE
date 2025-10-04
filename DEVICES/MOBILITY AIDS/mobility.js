@@ -1,4 +1,3 @@
-// first.js
 // Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,38 +7,37 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Wheelchairs
+    { id: 414, name: 'Manual Wheelchair', price: 250, originalPrice: 300, discount: '17% off', category: 'Wheelchairs', brand: 'BrandX', image: 'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg', prescriptionRequired: false },
+    { id: 415, name: 'Electric Wheelchair', price: 800, originalPrice: 1000, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/electric-wheelchair.jpg', prescriptionRequired: false },
+    { id: 416, name: 'Foldable Wheelchair', price: 350, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandW', image: 'https://via.placeholder.com/150/foldable-wheelchair.jpg', prescriptionRequired: false },
+    { id: 417, name: 'Lightweight Wheelchair', price: 400, originalPrice: 450, discount: '11% off', category: 'Wheelchairs', brand: 'BrandY', image: 'https://via.placeholder.com/150/lightweight-wheelchair.jpg', prescriptionRequired: false },
+    { id: 418, name: 'Pediatric Wheelchair', price: 300, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandX', image: 'https://via.placeholder.com/150/pediatric-wheelchair.jpg', prescriptionRequired: false },
+    { id: 419, name: 'Wheelchair Cushion', price: 80, originalPrice: 100, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/wheelchair-cushion.jpg', prescriptionRequired: false },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Walkers & Walking Sticks
+    { id: 420, name: 'Folding Walker', price: 120, originalPrice: 150, discount: '20% off', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/folding-walker.jpg', prescriptionRequired: false },
+    { id: 421, name: 'Adjustable Walking Stick', price: 50, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/walking-stick.jpg', prescriptionRequired: false },
+    { id: 422, name: 'Rollator Walker', price: 200, originalPrice: 240, discount: '17% off', category: 'Walkers & Walking Sticks', brand: 'BrandX', image: 'https://via.placeholder.com/150/rollator-walker.jpg', prescriptionRequired: false },
+    { id: 423, name: 'Quad Cane', price: 60, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/quad-cane.jpg', prescriptionRequired: false },
+    { id: 424, name: 'Walker with Seat', price: 180, originalPrice: 220, discount: '18% off', category: 'Walkers & Walking Sticks', brand: 'BrandZ', image: 'https://via.placeholder.com/150/walker-seat.jpg', prescriptionRequired: false },
+    { id: 425, name: 'Ergonomic Walking Stick', price: 70, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/ergo-stick.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Crutches
+    { id: 426, name: 'Underarm Crutches', price: 40, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/underarm-crutches.jpg', prescriptionRequired: false },
+    { id: 427, name: 'Forearm Crutches', price: 60, originalPrice: 75, discount: '20% off', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/forearm-crutches.jpg', prescriptionRequired: false },
+    { id: 428, name: 'Adjustable Crutches', price: 50, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandW', image: 'https://via.placeholder.com/150/adjustable-crutches.jpg', prescriptionRequired: false },
+    { id: 429, name: 'Crutch Pads', price: 20, originalPrice: 25, discount: '20% off', category: 'Crutches', brand: 'BrandX', image: 'https://via.placeholder.com/150/crutch-pads.jpg', prescriptionRequired: false },
+    { id: 430, name: 'Lightweight Crutches', price: 70, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/light-crutches.jpg', prescriptionRequired: false },
+    { id: 431, name: 'Crutch Grips', price: 15, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/crutch-grips.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
-
-    // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    // Support Belts & Braces
+    { id: 432, name: 'Lumbar Support Belt', price: 45, originalPrice: 55, discount: '18% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/lumbar-belt.jpg', prescriptionRequired: false },
+    { id: 433, name: 'Knee Brace', price: 35, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/knee-brace.jpg', prescriptionRequired: false },
+    { id: 434, name: 'Ankle Support', price: 30, originalPrice: 40, discount: '25% off', category: 'Support Belts & Braces', brand: 'BrandZ', image: 'https://via.placeholder.com/150/ankle-support.jpg', prescriptionRequired: false },
+    { id: 435, name: 'Back Brace', price: 60, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandW', image: 'https://via.placeholder.com/150/back-brace.jpg', prescriptionRequired: false },
+    { id: 436, name: 'Wrist Support', price: 25, originalPrice: 30, discount: '17% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/wrist-support.jpg', prescriptionRequired: false },
+    { id: 437, name: 'Posture Corrector', price: 50, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/posture-corrector.jpg', prescriptionRequired: false }
   ];
 
   // ================
@@ -495,19 +493,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
   }
 
-  // We stored escaped JSON string in data-product (escapeHtml used earlier), recover it:
-  function unescapeHtmlForJSON(escapedStr) {
-    if (!escapedStr) return escapedStr;
-    // replace HTML entities that were used on JSON string
-    return escapedStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // parse helper used earlier in event delegation
-  function unescapeHtml(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
   // safe JSON parse wrapper
   function safeParseProductData(attr) {
     if (!attr) return null;
@@ -518,14 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
   }
-
-  // earlier we referenced unescapeHtml in delegation; ensure a function exists
-  function unescapeHtmlForDelegation(s) {
-    return safeParseProductData(s) ? safeParseProductData(s) : null;
-  }
-
-  // Small fix: the delegation earlier used unescapeHtml/unescapeHtmlForJSON - replace with safeParseProductData call
-  // So adjust the delegation code above to use safeParseProductData (we already attempted parsing with unescapeHtml in the upload handler).
 
   // ================
   // Finalize & Expose

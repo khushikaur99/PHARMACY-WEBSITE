@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Alok Gandhi - Obstetrician & Gynecologist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #ec4899 0%, #3b82f6 100%);
+    }
+    .section-divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ec4899, #3b82f6, transparent);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #eb2588 0%, #df77b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .pink-bg {
+      background-color: #fdf2f8;
+    }
+    .blue-bg {
+      background-color: #eff6ff;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header Section with Background Image - Centered Content -->
+<header class="relative text-white h-[300px] flex items-center justify-center" 
+        style="background: url('IMG/BG3.jpg') no-repeat center center/cover;">
+  <div class="absolute inset-0 bg-black bg-opacity-10"></div> <!-- Dark overlay for readability -->
+  
+  <div class="text-center relative z-10 max-w-3xl px-8">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Dr. Alok Gandhi</h1>
+    <p class="text-xl md:text-2xl mb-4">Obstetrician & Gynecologist</p>
+    <p class="text-lg opacity-100 mb-6">Specializing in maternal healthcare, infertility, and high-risk pregnancies with over 8 years of dedicated practice.</p>
+    
+ 
+  </div>
+
+  
+</header>
+
+
+  <!-- Stats Section -->
+  <section class="py-1 bg-white">
+    <div class="container mx-auto px-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="p-6">
+          <p class="stat-number">8+</p>
+          <p class="text-gray-600 font-medium">Years Experience</p>
+        </div>
+        <div class="p-6">
+          <p class="stat-number">8,000+</p>
+          <p class="text-gray-600 font-medium">Successful Deliveries</p>
+        </div>
+        <div class="p-6">
+          <p class="stat-number">1000+</p>
+          <p class="text-gray-600 font-medium">Happy Families</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- About + Qualifications Section with Animated Medical Background -->
+<section class="relative py-16" id="about-qualifications" style="background: url('IMG/BG3.jpg') no-repeat center center/cover;">
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+
+  <!-- Animated icons in background -->
+  <div class="absolute inset-0 overflow-hidden">
+    <!-- Example floating pills -->
+    <i class="fas fa-pills text-pink-500 text-2xl absolute animate-float" style="top:10%; left:15%;"></i>
+    <i class="fas fa-baby text-blue-400 text-3xl absolute animate-float" style="top:40%; left:70%;"></i>
+    <i class="fas fa-stethoscope text-white text-2xl absolute animate-float" style="top:70%; left:25%;"></i>
+    <i class="fas fa-heartbeat text-red-500 text-3xl absolute animate-float" style="top:20%; left:80%;"></i>
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <h2 class="text-3xl font-bold text-center mb-4 text-white">About & Qualifications</h2>
+    <div class="section-divider w-24 mx-auto mb-12 bg-gradient-to-r from-pink-500 to-blue-500"></div>
+
+    <!-- Big Rectangle: About + Clinical Experience -->
+    <div class="bg-white/30 backdrop-blur-md rounded-2xl shadow-xl p-10 mb-8">
+      <h3 class="text-2xl font-semibold text-white mb-4">About Dr. Gandhi</h3>
+      <p class="text-white text-lg leading-relaxed mb-4">
+        Dr. Alok Gandhi is committed to delivering compassionate, patient-centered care combined with clinical excellence. He specializes in advanced obstetric and gynecological procedures, including laparoscopy and sonography, ensuring accurate diagnosis and optimal outcomes.
+      </p>
+      <p class="text-white text-lg leading-relaxed mb-6">
+        He actively participates in seminars, workshops, and medical conferences to stay updated with the latest advancements in reproductive medicine. Dr. Gandhi's approach emphasizes evidence-based practice, personalized care, and holistic support, helping patients navigate even the most complex pregnancies with confidence and safety.
+      </p>
+
+      <div class="bg-white/20 backdrop-blur-md rounded-xl p-6 border-l-4 border-pink-500">
+        <h4 class="text-xl font-semibold mb-3 text-white">Clinical Experience</h4>
+        <p class="text-white leading-relaxed mb-2">
+          With over 8 years of dedicated practice in maternal and reproductive healthcare, Dr. Gandhi has extensive expertise in managing high-risk pregnancies and complicated deliveries.
+        </p>
+        <p class="text-white leading-relaxed">
+          He has performed over 8,000 successful deliveries, including cesarean, vaginal, forceps, vacuum-assisted, preterm, and post-date cases.
+        </p>
+      </div>
+    </div>
+
+    <!-- Small Cards for Qualifications & Awards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white/30 backdrop-blur-md rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300">
+        <i class="fas fa-graduation-cap text-pink-600 text-4xl mb-3"></i>
+        <p class="text-xl font-bold text-white">MBBS</p>
+        <p class="text-white text-sm mt-1">Bachelor of Medicine, Bachelor of Surgery</p>
+      </div>
+      <div class="bg-white/30 backdrop-blur-md rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300">
+        <i class="fas fa-user-md text-pink-600 text-4xl mb-3"></i>
+        <p class="text-xl font-bold text-white">DGO</p>
+        <p class="text-white text-sm mt-1">Diploma in Obstetrics & Gynecology</p>
+      </div>
+      <div class="bg-white/30 backdrop-blur-md rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300">
+        <i class="fas fa-hand-holding-medical text-pink-600 text-4xl mb-3"></i>
+        <p class="text-xl font-bold text-white">IMA</p>
+        <p class="text-white text-sm mt-1">Indian Medical Association Membership</p>
+      </div>
+      <div class="bg-white/20 backdrop-blur-md rounded-2xl p-6 text-center border-l-4 border-pink-500 shadow-lg hover:scale-105 transition-transform duration-300">
+        <i class="fas fa-trophy text-yellow-500 text-4xl mb-3"></i>
+        <p class="text-xl font-bold text-white">Award</p>
+        <p class="text-white text-sm mt-1">Recipient of MyFm Sangli's Award for excellence in infertility management</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Floating animation for background icons */
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity:0.8; }
+      50% { transform: translateY(-15px) rotate(10deg); opacity:1; }
+      100% { transform: translateY(0) rotate(0deg); opacity:0.8; }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</section>
+
+
+
+  <!-- Specializations Section -->
+  <section class="py-16 blue-bg" id="specializations">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Specializations</h2>
+      <div class="section-divider w-24 mx-auto mb-12"></div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-baby text-pink-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Infertility Management</h3>
+          <p class="text-gray-600">Advanced treatments and compassionate care for couples facing fertility challenges.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-procedures text-blue-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">High-Risk Pregnancies</h3>
+          <p class="text-gray-600">Expert management of complex pregnancies ensuring safety for mother and baby.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-stethoscope text-pink-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Complicated Deliveries</h3>
+          <p class="text-gray-600">Skilled in cesarean, vaginal, forceps, vacuum-assisted, preterm, and post-date deliveries.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-laptop-medical text-blue-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Laparoscopy</h3>
+          <p class="text-gray-600">Minimally invasive surgical procedures for faster recovery and better outcomes.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-wave-square text-pink-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Sonography</h3>
+          <p class="text-gray-600">Advanced ultrasound imaging for accurate diagnosis and monitoring during pregnancy.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-award text-blue-600 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Award-Winning Care</h3>
+          <p class="text-gray-600">Recipient of MyFm Sangli's Award for excellence in infertility management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

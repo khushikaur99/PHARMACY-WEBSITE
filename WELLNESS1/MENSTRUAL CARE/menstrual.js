@@ -1,5 +1,4 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
+ // Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
 
 document.addEventListener('DOMContentLoaded', () => {
   // ================
@@ -8,38 +7,41 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Sanitary Pads & Tampons
+    { id: 295, name: 'Ultra Thin Sanitary Pads', price: 85, originalPrice: 100, discount: '15% off', category: 'Sanitary Pads & Tampons', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg', prescriptionRequired: false },
+    { id: 296, name: 'Organic Cotton Tampons', price: 60, originalPrice: null, discount: '', category: 'Sanitary Pads & Tampons', brand: 'BrandZ', image: 'https://via.placeholder.com/150/tampons.jpg', prescriptionRequired: false },
+    { id: 297, name: 'Overnight Pads with Wings', price: 95, originalPrice: null, discount: '', category: 'Sanitary Pads & Tampons', brand: 'BrandW', image: 'https://via.placeholder.com/150/overnight-pads.jpg', prescriptionRequired: false },
+    { id: 298, name: 'Scented Tampons', price: 50, originalPrice: null, discount: '', category: 'Sanitary Pads & Tampons', brand: 'BrandY', image: 'https://via.placeholder.com/150/scented-tampons.jpg', prescriptionRequired: false },
+    { id: 299, name: 'Heavy Flow Pads', price: 40, originalPrice: null, discount: '', category: 'Sanitary Pads & Tampons', brand: 'BrandX', image: 'https://via.placeholder.com/150/heavy-flow-pads.jpg', prescriptionRequired: false },
+    { id: 300, name: 'Applicator Tampons', price: 120, originalPrice: 150, discount: '20% off', category: 'Sanitary Pads & Tampons', brand: 'BrandZ', image: 'https://via.placeholder.com/150/applicator-tampons.jpg', prescriptionRequired: false },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Menstrual Cups
+    { id: 301, name: 'Silicone Menstrual Cup', price: 120, originalPrice: 150, discount: '20% off', category: 'Menstrual Cups', brand: 'BrandY', image: 'https://via.placeholder.com/150/menstrual-cup.jpg', prescriptionRequired: false },
+    { id: 302, name: 'Reusable Menstrual Cup Kit', price: 100, originalPrice: null, discount: '', category: 'Menstrual Cups', brand: 'BrandW', image: 'https://via.placeholder.com/150/cup-kit.jpg', prescriptionRequired: false },
+    { id: 303, name: 'Soft Flex Menstrual Cup', price: 150, originalPrice: 180, discount: '17% off', category: 'Menstrual Cups', brand: 'BrandX', image: 'https://via.placeholder.com/150/soft-cup.jpg', prescriptionRequired: false },
+    { id: 304, name: 'Small Size Menstrual Cup', price: 90, originalPrice: null, discount: '', category: 'Menstrual Cups', brand: 'BrandY', image: 'https://via.placeholder.com/150/small-cup.jpg', prescriptionRequired: false },
+    { id: 305, name: 'Large Size Menstrual Cup', price: 250, originalPrice: 300, discount: '17% off', category: 'Menstrual Cups', brand: 'BrandZ', image: 'https://via.placeholder.com/150/large-cup.jpg', prescriptionRequired: false },
+    { id: 306, name: 'Collapsible Menstrual Cup', price: 110, originalPrice: null, discount: '', category: 'Menstrual Cups', brand: 'BrandW', image: 'https://via.placeholder.com/150/collapsible-cup.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Intimate Wash & Hygiene
+    { id: 307, name: 'pH Balanced Intimate Wash', price: 50, originalPrice: null, discount: '', category: 'Intimate Wash & Hygiene', brand: 'BrandY', image: 'https://via.placeholder.com/150/intimate-wash.jpg', prescriptionRequired: false },
+    { id: 308, name: 'Feminine Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Intimate Wash & Hygiene', brand: 'BrandZ', image: 'https://via.placeholder.com/150/feminine-wipes.jpg', prescriptionRequired: false },
+    { id: 309, name: 'Intimate Hygiene Spray', price: 120, originalPrice: null, discount: '', category: 'Intimate Wash & Hygiene', brand: 'BrandW', image: 'https://via.placeholder.com/150/hygiene-spray.jpg', prescriptionRequired: false },
+    { id: 310, name: 'Natural Intimate Cleanser', price: 100, originalPrice: 120, discount: '17% off', category: 'Intimate Wash & Hygiene', brand: 'BrandX', image: 'https://via.placeholder.com/150/natural-cleanser.jpg', prescriptionRequired: false },
+    { id: 311, name: 'Antibacterial Intimate Wash', price: 95, originalPrice: null, discount: '', category: 'Intimate Wash & Hygiene', brand: 'BrandY', image: 'https://via.placeholder.com/150/antibacterial-wash.jpg', prescriptionRequired: false },
+    { id: 312, name: 'Scented Intimate Wash', price: 130, originalPrice: 150, discount: '13% off', category: 'Intimate Wash & Hygiene', brand: 'BrandZ', image: 'https://via.placeholder.com/150/scented-wash.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
+    // Vaginal Health Products
+    { id: 313, name: 'Probiotic Supplements', price: 500, originalPrice: 600, discount: '17% off', category: 'Vaginal Health Products', brand: 'BrandX', image: 'https://via.placeholder.com/150/probiotics.jpg', prescriptionRequired: false },
+    { id: 314, name: 'Vaginal Moisturizer', price: 300, originalPrice: null, discount: '', category: 'Vaginal Health Products', brand: 'BrandY', image: 'https://via.placeholder.com/150/moisturizer.jpg', prescriptionRequired: false },
+    { id: 315, name: 'Yeast Infection Cream', price: 800, originalPrice: 1000, discount: '20% off', category: 'Vaginal Health Products', brand: 'BrandZ', image: 'https://via.placeholder.com/150/yeast-cream.jpg', prescriptionRequired: true },
+    { id: 316, name: 'pH Test Strips', price: 400, originalPrice: null, discount: '', category: 'Vaginal Health Products', brand: 'BrandW', image: 'https://via.placeholder.com/150/ph-strips.jpg', prescriptionRequired: false },
+    { id: 317, name: 'Vaginal Suppositories', price: 600, originalPrice: 700, discount: '14% off', category: 'Vaginal Health Products', brand: 'BrandX', image: 'https://via.placeholder.com/150/suppositories.jpg', prescriptionRequired: true },
+    { id: 318, name: 'Herbal Vaginal Health Kit', price: 1200, originalPrice: null, discount: '', category: 'Vaginal Health Products', brand: 'BrandY', image: 'https://via.placeholder.com/150/herbal-kit.jpg', prescriptionRequired: false },
 
-    // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    // Period Pain Relief
+    { id: 319, name: 'Pain Relief Tablets', price: 1500, originalPrice: null, discount: '', category: 'Period Pain Relief', brand: 'BrandW', image: 'https://via.placeholder.com/150/pain-tablets.jpg', prescriptionRequired: true },
+    { id: 320, name: 'Heating Pad', price: 300, originalPrice: null, discount: '', category: 'Period Pain Relief', brand: 'BrandX', image: 'https://via.placeholder.com/150/heating-pad.jpg', prescriptionRequired: false }
   ];
 
   // ================
@@ -495,17 +497,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
   }
 
-  // We stored escaped JSON string in data-product (escapeHtml used earlier), recover it:
-  function unescapeHtmlForJSON(escapedStr) {
-    if (!escapedStr) return escapedStr;
-    // replace HTML entities that were used on JSON string
-    return escapedStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // parse helper used earlier in event delegation
-  function unescapeHtml(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+  // earlier we referenced unescapeHtml in delegation; ensure a function exists
+  function unescapeHtmlForDelegation(s) {
+    return safeParseProductData(s) ? safeParseProductData(s) : null;
   }
 
   // safe JSON parse wrapper
@@ -518,14 +512,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
   }
-
-  // earlier we referenced unescapeHtml in delegation; ensure a function exists
-  function unescapeHtmlForDelegation(s) {
-    return safeParseProductData(s) ? safeParseProductData(s) : null;
-  }
-
-  // Small fix: the delegation earlier used unescapeHtml/unescapeHtmlForJSON - replace with safeParseProductData call
-  // So adjust the delegation code above to use safeParseProductData (we already attempted parsing with unescapeHtml in the upload handler).
 
   // ================
   // Finalize & Expose

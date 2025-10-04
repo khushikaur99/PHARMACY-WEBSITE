@@ -1,6 +1,3 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
-
 document.addEventListener('DOMContentLoaded', () => {
   // ================
   // Data
@@ -8,38 +5,49 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Multivitamins
+    { id: 180, name: 'Daily Multivitamin Tablets', price: 150, originalPrice: 180, discount: '17% off', category: 'Multivitamins', brand: 'BrandX', image: 'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg', prescriptionRequired: false },
+    { id: 181, name: 'Women’s Multivitamin Gummies', price: 200, originalPrice: null, discount: '', category: 'Multivitamins', brand: 'BrandY', image: 'https://i.pinimg.com/736x/12/34/56/123456789abcdef0123456789abcdef.jpg', prescriptionRequired: false },
+    { id: 182, name: 'Men’s Multivitamin Capsules', price: 180, originalPrice: 220, discount: '18% off', category: 'Multivitamins', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/23/45/67/23456789abcdef0123456789abcdef0.jpg', prescriptionRequired: false },
+    { id: 183, name: 'Senior Multivitamin Tablets', price: 170, originalPrice: null, discount: '', category: 'Multivitamins', brand: 'BrandW', image: 'https://i.pinimg.com/736x/34/56/78/3456789abcdef0123456789abcdef01.jpg', prescriptionRequired: false },
+    { id: 184, name: 'Kids Multivitamin Chewables', price: 120, originalPrice: 150, discount: '20% off', category: 'Multivitamins', brand: 'BrandX', image: 'https://i.pinimg.com/736x/45/67/89/456789abcdef0123456789abcdef012.jpg', prescriptionRequired: false },
+    { id: 185, name: 'Prenatal Multivitamin', price: 250, originalPrice: null, discount: '', category: 'Multivitamins', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/56/78/90/567890abcdef0123456789abcdef0123.jpg', prescriptionRequired: true },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Immunity Boosters
+    { id: 186, name: 'Vitamin C Tablets', price: 100, originalPrice: 120, discount: '17% off', category: 'Immunity Boosters', brand: 'BrandY', image: 'https://i.pinimg.com/736x/67/89/ab/6789abcdef0123456789abcdef01234.jpg', prescriptionRequired: false },
+    { id: 187, name: 'Zinc Capsules', price: 90, originalPrice: null, discount: '', category: 'Immunity Boosters', brand: 'BrandW', image: 'https://i.pinimg.com/736x/78/90/bc/7890bcdef0123456789abcdef012345.jpg', prescriptionRequired: false },
+    { id: 188, name: 'Elderberry Syrup', price: 200, originalPrice: 250, discount: '20% off', category: 'Immunity Boosters', brand: 'BrandX', image: 'https://i.pinimg.com/736x/89/ab/cd/89abcdef0123456789abcdef0123456.jpg', prescriptionRequired: false },
+    { id: 189, name: 'Echinacea Capsules', price: 150, originalPrice: null, discount: '', category: 'Immunity Boosters', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/90/bc/de/90bcdef0123456789abcdef01234567.jpg', prescriptionRequired: false },
+    { id: 190, name: 'Vitamin D3 Drops', price: 80, originalPrice: 100, discount: '20% off', category: 'Immunity Boosters', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ab/cd/ef/abcdef0123456789abcdef012345678.jpg', prescriptionRequired: false },
+    { id: 191, name: 'Immune Support Blend', price: 220, originalPrice: null, discount: '', category: 'Immunity Boosters', brand: 'BrandW', image: 'https://i.pinimg.com/736x/bc/de/f0/bcdef0123456789abcdef0123456789.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Calcium & Bone Health
+    { id: 192, name: 'Calcium Citrate Tablets', price: 120, originalPrice: 150, discount: '20% off', category: 'Calcium & Bone Health', brand: 'BrandX', image: 'https://i.pinimg.com/736x/cd/ef/01/cdef0123456789abcdef0123456789a.jpg', prescriptionRequired: false },
+    { id: 193, name: 'Vitamin D + Calcium Combo', price: 180, originalPrice: null, discount: '', category: 'Calcium & Bone Health', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/de/f0/12/def0123456789abcdef0123456789ab.jpg', prescriptionRequired: false },
+    { id: 194, name: 'Magnesium + Calcium Capsules', price: 160, originalPrice: 200, discount: '20% off', category: 'Calcium & Bone Health', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ef/01/23/ef0123456789abcdef0123456789abc.jpg', prescriptionRequired: false },
+    { id: 195, name: 'Bone Health Formula', price: 200, originalPrice: null, discount: '', category: 'Calcium & Bone Health', brand: 'BrandW', image: 'https://i.pinimg.com/736x/f0/12/34/f0123456789abcdef0123456789abcd.jpg', prescriptionRequired: false },
+    { id: 196, name: 'Calcium Carbonate Chewables', price: 100, originalPrice: 120, discount: '17% off', category: 'Calcium & Bone Health', brand: 'BrandX', image: 'https://i.pinimg.com/736x/01/23/45/0123456789abcdef0123456789abcde.jpg', prescriptionRequired: false },
+    { id: 197, name: 'Prescription Calcium Supplement', price: 250, originalPrice: null, discount: '', category: 'Calcium & Bone Health', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/12/34/56/123456789abcdef0123456789abcdef.jpg', prescriptionRequired: true },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
+    // Omega & Fish Oils
+    { id: 198, name: 'Omega-3 Fish Oil Capsules', price: 250, originalPrice: 300, discount: '17% off', category: 'Omega & Fish Oils', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/45/67/23456789abcdef0123456789abcdef0.jpg', prescriptionRequired: false },
+    { id: 199, name: 'Cod Liver Oil', price: 200, originalPrice: null, discount: '', category: 'Omega & Fish Oils', brand: 'BrandW', image: 'https://i.pinimg.com/736x/34/56/78/3456789abcdef0123456789abcdef01.jpg', prescriptionRequired: false },
+    { id: 200, name: 'Krill Oil Capsules', price: 300, originalPrice: 350, discount: '14% off', category: 'Omega & Fish Oils', brand: 'BrandX', image: 'https://i.pinimg.com/736x/45/67/89/456789abcdef0123456789abcdef012.jpg', prescriptionRequired: false },
+    { id: 201, name: 'Flaxseed Oil Softgels', price: 180, originalPrice: null, discount: '', category: 'Omega & Fish Oils', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/56/78/90/567890abcdef0123456789abcdef0123.jpg', prescriptionRequired: false },
+    { id: 202, name: 'Omega-3 Vegan Capsules', price: 220, originalPrice: 260, discount: '15% off', category: 'Omega & Fish Oils', brand: 'BrandY', image: 'https://i.pinimg.com/736x/67/89/ab/6789abcdef0123456789abcdef01234.jpg', prescriptionRequired: false },
+    { id: 203, name: 'Fish Oil High Potency', price: 280, originalPrice: null, discount: '', category: 'Omega & Fish Oils', brand: 'BrandW', image: 'https://i.pinimg.com/736x/78/90/bc/7890bcdef0123456789abcdef012345.jpg', prescriptionRequired: false },
+
+    // Herbal Supplements
+    { id: 204, name: 'Ashwagandha Capsules', price: 150, originalPrice: 180, discount: '17% off', category: 'Herbal Supplements', brand: 'BrandX', image: 'https://i.pinimg.com/736x/89/ab/cd/89abcdef0123456789abcdef0123456.jpg', prescriptionRequired: false },
+    { id: 205, name: 'Turmeric Curcumin Tablets', price: 170, originalPrice: null, discount: '', category: 'Herbal Supplements', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/90/bc/de/90bcdef0123456789abcdef01234567.jpg', prescriptionRequired: false },
+    { id: 206, name: 'Ginseng Extract', price: 200, originalPrice: 240, discount: '17% off', category: 'Herbal Supplements', brand: 'BrandY', image: 'https://i.pinimg.com/736x/ab/cd/ef/abcdef0123456789abcdef012345678.jpg', prescriptionRequired: false },
+    { id: 207, name: 'Milk Thistle Capsules', price: 160, originalPrice: null, discount: '', category: 'Herbal Supplements', brand: 'BrandW', image: 'https://i.pinimg.com/736x/bc/de/f0/bcdef0123456789abcdef0123456789.jpg', prescriptionRequired: false },
+    { id: 208, name: 'Ginkgo Biloba Tablets', price: 140, originalPrice: 170, discount: '18% off', category: 'Herbal Supplements', brand: 'BrandX', image: 'https://i.pinimg.com/736x/cd/ef/01/cdef0123456789abcdef0123456789a.jpg', prescriptionRequired: false },
+    { id: 209, name: 'Herbal Immune Support', price: 190, originalPrice: null, discount: '', category: 'Herbal Supplements', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/de/f0/12/def0123456789abcdef0123456789ab.jpg', prescriptionRequired: false },
 
     // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    { id: 210, name: 'Prescription Multivitamin', price: 300, originalPrice: null, discount: '', category: 'Multivitamins', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ef/01/23/ef0123456789abcdef0123456789abc.jpg', prescriptionRequired: true },
+    { id: 211, name: 'Prescription Omega-3', price: 350, originalPrice: 400, discount: '13% off', category: 'Omega & Fish Oils', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f0/12/34/f0123456789abcdef0123456789abcd.jpg', prescriptionRequired: true }
   ];
 
   // ================

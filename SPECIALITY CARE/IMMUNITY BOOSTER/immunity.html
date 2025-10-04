@@ -335,61 +335,27 @@
     </div>
   </header>
 
-<section
-  class="w-full h-48 relative bg-center bg-cover"
-  style="background-image: url('https://i.pinimg.com/1200x/9c/27/f7/9c27f7402392920124ac719d8e50ac44.jpg');"
->
-  <!-- Overlay for better contrast -->
-  <div class="absolute inset-0 bg-black/30"></div>
-
-  <!-- Centered content -->
-  <div class="relative z-10 flex items-center justify-center h-full">
-    <h1 class="text-white text-2xl sm:text-3xl font-bold">
-      Bloom with Confidence
-    </h1>
-  </div>
-</section>
-
-
   <div class="container mx-auto px-1 py-6">
     <div class="flex flex-col md:flex-row gap-6">
       <!-- Sidebar with Scroll -->
-      <div class="w-full md:w-1/5 md:h-[calc(90vh-4rem)] md:sticky md:top-16 overflow-y-auto bg-white p-3 rounded-lg shadow nav-sidebar">
-        <div class="mb-4">   
-        <!-- Sorting -->
-<div class="flex justify-start mb-6">
-  <select 
-    class="w-52 border border-gray-300 p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" 
-    id="sortSelect">
-    <option>Sort By: Relevance</option>
-    <option>Price: Low to High</option>
-    <option>Price: High to Low</option>
-  </select>
-</div>
-
-            
+      <div class="w-full md:w-1/6 md:h-[calc(100vh-4rem)] md:sticky md:top-16 overflow-y-auto bg-white p-3 rounded-lg shadow nav-sidebar">
+        <div class="mb-4">
           <h2 class="text-lg font-bold mb-2">Categories</h2>
           <ul id="categoryList" class="space-y-2">
             <li>
-          <ul id="categoryList" class="space-y-2">
-            <li>
-              <a href="#" class="category-link font-medium">Diabetes</a>
+              <a href="#" class="category-link font-medium">Vitamin C & Zinc</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Cardiac</a>
+              <a href="#" class="category-link font-medium">Chyawanprash & Herbal Tonics</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Asthma</a>
+              <a href="#" class="category-link font-medium">Immunity Tablets & Capsules</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Thyroid</a>
-              <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
-            </li>
-            <li>
-              <a href="#" class="category-link font-medium">Hypertension</a>
+              <a href="#" class="category-link font-medium">Ayurvedic Boosters</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
           </ul>
@@ -409,7 +375,14 @@
       </div>
       <!-- Product Section -->
       <section class="w-full md:w-5/6">
-      
+        <!-- Sorting -->
+        <div class="flex justify-end mb-6">
+          <select class="border border-gray-300 p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" id="sortSelect">
+            <option>Sort By: Relevance</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
         <!-- Product Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid">
           <!-- Products populated by JS -->
@@ -566,7 +539,8 @@
 </div>
   
   <script src="/header.js"></script>
-  <script src="../CHRONIC/chronic.js"></script>
+  <script src="./immunity.js">
+
+  </script>
 </body>
 </html>
-          

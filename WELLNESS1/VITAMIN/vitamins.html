@@ -337,7 +337,7 @@
 
 <section
   class="w-full h-48 relative bg-center bg-cover"
-  style="background-image: url('https://i.pinimg.com/1200x/9c/27/f7/9c27f7402392920124ac719d8e50ac44.jpg');"
+  style="background-image: url('https://i.pinimg.com/1200x/52/40/cf/5240cff0fb3479c7adc3351a22acc765.jpg');"
 >
   <!-- Overlay for better contrast -->
   <div class="absolute inset-0 bg-black/30"></div>
@@ -371,25 +371,23 @@
           <h2 class="text-lg font-bold mb-2">Categories</h2>
           <ul id="categoryList" class="space-y-2">
             <li>
-          <ul id="categoryList" class="space-y-2">
-            <li>
-              <a href="#" class="category-link font-medium">Diabetes</a>
+              <a href="#" class="category-link font-medium">Multivitamins</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Cardiac</a>
+              <a href="#" class="category-link font-medium">Immunity Boosters</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Asthma</a>
+              <a href="#" class="category-link font-medium">Calcium & Bone Health</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Thyroid</a>
+              <a href="#" class="category-link font-medium">Omega & Fish Oils</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
             <li>
-              <a href="#" class="category-link font-medium">Hypertension</a>
+              <a href="#" class="category-link font-medium">Herbal Supplements</a>
               <span class="expand-toggle cursor-pointer ml-2 text-lg font-bold text-primary">+</span>
             </li>
           </ul>
@@ -418,155 +416,139 @@
     </div>
   </div>
 
-<!-- Upload Prescription Modal -->
-<div id="uploadModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl shadow-2xl w-11/12 max-w-3xl p-10 relative">
-    
-    <!-- Close Button -->
-    <button onclick="document.getElementById('uploadModal').classList.add('hidden')"
-            class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold">
-      ✕
-    </button>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Left Section -->
-      <div class="border rounded-xl p-5 shadow-md">
-        <h2 class="text-lg font-semibold mb-4">Enjoy Easy and Hassle Free Ordering</h2>
-        
-        <!-- Upload Box -->
-        <label class="border rounded-lg p-4 mb-3 flex items-center justify-between cursor-pointer hover:bg-gray-50">
-          <div class="flex items-center gap-3">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M12 16v-8m0 0l-4 4m4-4l4 4M4 20h16"/>
+  <!-- Upload Prescription Modal -->
+  <div id="uploadModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-11/12 max-w-3xl p-10 relative">
+      <!-- Close Button -->
+      <button onclick="document.getElementById('uploadModal').classList.add('hidden')"
+              class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold">
+        ✕
+      </button>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Section -->
+        <div class="border rounded-xl p-5 shadow-md">
+          <h2 class="text-lg font-semibold mb-4">Enjoy Easy and Hassle Free Ordering</h2>
+          <!-- Upload Box -->
+          <label class="border rounded-lg p-4 mb-3 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 16v-8m0 0l-4 4m4-4l4 4M4 20h16"/>
+              </svg>
+              <span class="font-medium text-gray-700">Upload Prescription</span>
+            </div>
+            <input type="file" class="hidden" />
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <span class="font-medium text-gray-700">Upload Prescription</span>
+          </label>
+          <!-- Valid Prescription Info (trigger button) -->
+          <p id="validPrescriptionBtn" class="text-sm text-gray-600 mb-3 flex items-center gap-2 cursor-pointer border-b border-blue-600 inline-block pb-1 w-fit">
+            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+            </svg>
+            What is valid prescription?
+          </p>
+          <!-- Urgent Order Info Box with Call Button -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-600 font-semibold text-center">
+            <p class="mb-3">For urgent orders, please contact us directly:</p>
+            <button onclick="window.location.href='tel:1234567890'" 
+                    class="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+              📞1234567890
+            </button>
           </div>
-          <input type="file" class="hidden" />
-          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </div>
+        <!-- Right Section -->
+        <div>
+          <h2 class="text-lg font-semibold mb-4">How will the Pharmacist help you?</h2>
+          <ul class="space-y-5 text-gray-700">
+            <li class="flex items-start gap-3">
+              <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep1.png?dim=64x64&q=75" alt="Step 1" class="w-12 h-12">
+              <span>Pharmacist will check items on prescription and add to cart</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep2.png?dim=64x64&q=75" alt="Step 2" class="w-12 h-12">
+              <span>You can ask for additional items if needed</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep3.png?dim=64x64&q=75" alt="Step 3" class="w-12 h-12">
+              <span>They will apply the best coupon & get you the max savings</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep4.png?dim=64x64&q=75" alt="Step 4" class="w-12 h-12">
+              <span>Choose the earliest delivery date</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep5.png?dim=64x64&q=75" alt="Step 5" class="w-12 h-12">
+              <span>Finally, Share payment methods options</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Valid Prescription Modal -->
+  <div id="validPrescriptionModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-11/12 max-w-xl p-12 relative">
+      <!-- Close Button -->
+      <button onclick="document.getElementById('validPrescriptionModal').classList.add('hidden')"
+              class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold">
+        ✕
+      </button>
+      <!-- Modal Content -->
+      <h2 class="text-xl font-semibold mb-6 text-center">A valid prescription contains:</h2>
+      <!-- Icons Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-6">
+        <div class="flex flex-col items-center">
+          <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0118 20.944V21l-6-3-6 3v-.056a12.083 12.083 0 01-.16-10.366L12 14z"/>
           </svg>
-        </label>
-
-       <!-- Valid Prescription Info (trigger button) -->
-<p id="validPrescriptionBtn" class="text-sm text-gray-600 mb-3 flex items-center gap-2 cursor-pointer border-b border-blue-600 inline-block pb-1 w-fit">
-  <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-          d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
-  </svg>
-  What is valid prescription?
-</p>
-
-<!-- Urgent Order Info Box with Call Button -->
-<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-600 font-semibold text-center">
-  <p class="mb-3">For urgent orders, please contact us directly:</p>
-  <button onclick="window.location.href='tel:1234567890'" 
-          class="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-    📞1234567890
-  </button>
-</div>
-
+          <span class="text-sm font-medium">Doctor Details</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 4h12M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span class="text-sm font-medium">Date of Prescription</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <svg class="w-8 h-8 text-purple-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.969 9.969 0 0112 15c2.21 0 4.242.72 5.879 1.928M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span class="text-sm font-medium">Patient Details</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <svg class="w-8 h-8 text-red-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13V7H9V1L1 9l8 8z"/>
+          </svg>
+          <span class="text-sm font-medium">Dosage Details</span>
+        </div>
       </div>
-
-      <!-- Right Section -->
-      <div>
-        <h2 class="text-lg font-semibold mb-4">How will the Pharmacist help you?</h2>
-        <ul class="space-y-5 text-gray-700">
-
-          <li class="flex items-start gap-3">
-            <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep1.png?dim=64x64&q=75" alt="Step 1" class="w-12 h-12">
-            <span>Pharmacist will check items on prescription and add to cart</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep2.png?dim=64x64&q=75" alt="Step 2" class="w-12 h-12">
-            <span>You can ask for additional items if needed</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep3.png?dim=64x64&q=75" alt="Step 3" class="w-12 h-12">
-            <span>They will apply the best coupon & get you the max savings</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep4.png?dim=64x64&q=75" alt="Step 4" class="w-12 h-12">
-            <span>Choose the earliest delivery date</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <img src="https://assets.pharmeasy.in/web-assets/images/uploadStep5.png?dim=64x64&q=75" alt="Step 5" class="w-12 h-12">
-            <span>Finally, Share payment methods options</span>
-          </li>
-        </ul>
-      </div>
+      <!-- Divider -->
+      <hr class="my-4 border-t-4 border-blue-500 rounded">
+      <!-- Do's and Don'ts -->
+      <h3 class="text-lg font-semibold mb-4">DO'S AND DON'Ts</h3>
+      <ul class="space-y-3 text-sm">
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold">✔</span>
+          <span><b>Upload Clear Image</b> — Ensure picture is taken with clear visible handwriting/type. Place prescription on a flat surface to get better focus and clear image.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-red-600 font-bold">✘</span>
+          <span><b>No Picture of Medicines</b></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-red-600 font-bold">✘</span>
+          <span><b>Do not crop the Image</b></span>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
-
-<!-- Valid Prescription Modal -->
-<div id="validPrescriptionModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl shadow-2xl w-11/12 max-w-xl p-12 relative">
-
-    <!-- Close Button -->
-    <button onclick="document.getElementById('validPrescriptionModal').classList.add('hidden')"
-            class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold">
-      ✕
-    </button>
-
-    <!-- Modal Content -->
-    <h2 class="text-xl font-semibold mb-6 text-center">A valid prescription contains:</h2>
-
-    <!-- Icons Row -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-6">
-      <div class="flex flex-col items-center">
-        <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0118 20.944V21l-6-3-6 3v-.056a12.083 12.083 0 01-.16-10.366L12 14z"/>
-        </svg>
-        <span class="text-sm font-medium">Doctor Details</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 4h12M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-        <span class="text-sm font-medium">Date of Prescription</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <svg class="w-8 h-8 text-purple-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.969 9.969 0 0112 15c2.21 0 4.242.72 5.879 1.928M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <span class="text-sm font-medium">Patient Details</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <svg class="w-8 h-8 text-red-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13V7H9V1L1 9l8 8z"/>
-        </svg>
-        <span class="text-sm font-medium">Dosage Details</span>
-      </div>
-    </div>
-
-   <!-- Divider -->
-<hr class="my-4 border-t-4 border-blue-500 rounded">
-
-
-    <!-- Do's and Don'ts -->
-    <h3 class="text-lg font-semibold mb-4">DO'S AND DON'Ts</h3>
-    <ul class="space-y-3 text-sm">
-      <li class="flex items-start gap-2">
-        <span class="text-green-600 font-bold">✔</span>
-        <span><b>Upload Clear Image</b> — Ensure picture is taken with clear visible handwriting/type. Place prescription on a flat surface to get better focus and clear image.</span>
-      </li>
-      <li class="flex items-start gap-2">
-        <span class="text-red-600 font-bold">✘</span>
-        <span><b>No Picture of Medicines</b></span>
-      </li>
-      <li class="flex items-start gap-2">
-        <span class="text-red-600 font-bold">✘</span>
-        <span><b>Do not crop the Image</b></span>
-      </li>
-    </ul>
-
-  </div>
-</div>
   
   <script src="/header.js"></script>
-  <script src="../CHRONIC/chronic.js"></script>
+  <script src="../VITAMIN/vitamins.js"></script>
 </body>
 </html>
-          

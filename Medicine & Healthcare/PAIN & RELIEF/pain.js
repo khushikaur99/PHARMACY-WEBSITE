@@ -1,6 +1,3 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
-
 document.addEventListener('DOMContentLoaded', () => {
   // ================
   // Data
@@ -8,38 +5,41 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Pain Relief Sprays & Gels
+    { id: 90, name: 'Pain Relief Spray', price: 150, originalPrice: 180, discount: '17% off', category: 'Pain Relief Sprays & Gels', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg', prescriptionRequired: false },
+    { id: 91, name: 'Muscle Relief Gel', price: 120, originalPrice: null, discount: '', category: 'Pain Relief Sprays & Gels', brand: 'BrandY', image: 'https://i.pinimg.com/736x/38/d5/2f/38d52f8a2abbfac39a1d812a3b970fad.jpg', prescriptionRequired: false },
+    { id: 92, name: 'Joint Pain Spray', price: 160, originalPrice: 200, discount: '20% off', category: 'Pain Relief Sprays & Gels', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/6e/c0/c0/6ec0c0f57d50d903b0ace51b189cee06.jpg', prescriptionRequired: false },
+    { id: 93, name: 'Cooling Pain Gel', price: 100, originalPrice: null, discount: '', category: 'Pain Relief Sprays & Gels', brand: 'BrandW', image: 'https://i.pinimg.com/736x/56/3b/87/563b87aebca81b691e67f5dfa1937c18.jpg', prescriptionRequired: false },
+    { id: 94, name: 'Deep Heat Spray', price: 140, originalPrice: 160, discount: '12% off', category: 'Pain Relief Sprays & Gels', brand: 'BrandX', image: 'https://i.pinimg.com/736x/6e/a5/6a/6ea56aabf3c942cd33d6cfac6bf99150.jpg', prescriptionRequired: false },
+    { id: 95, name: 'Anti-Inflammatory Gel', price: 130, originalPrice: null, discount: '', category: 'Pain Relief Sprays & Gels', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/3f/5b/8c/3f5b8cce030e5344408f18d0dae694fb.jpg', prescriptionRequired: true },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Headache & Body Ache Relief
+    { id: 96, name: 'Ibuprofen Tablets', price: 80, originalPrice: 100, discount: '20% off', category: 'Headache & Body Ache Relief', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bb/fd/66/bbfd6605580ed11e32064a9aa33672db.jpg', prescriptionRequired: false },
+    { id: 97, name: 'Aspirin Tablets', price: 60, originalPrice: null, discount: '', category: 'Headache & Body Ache Relief', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d8/68/7f/d8687f62b438f5eb786448145adc5a15.jpg', prescriptionRequired: false },
+    { id: 98, name: 'Naproxen Tablets', price: 200, originalPrice: 250, discount: '20% off', category: 'Headache & Body Ache Relief', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/ab/2e/6e/ab2e6eebb2eb22ee667f66666c2a4545.jpg', prescriptionRequired: true },
+    { id: 99, name: 'Muscle Relaxant Cream', price: 110, originalPrice: null, discount: '', category: 'Headache & Body Ache Relief', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/00/70/64/007064e47946aa35e1af1df26c5cce48.jpg', prescriptionRequired: false },
+    { id: 100, name: 'Diclofenac Gel', price: 90, originalPrice: 110, discount: '18% off', category: 'Headache & Body Ache Relief', brand: 'BrandY', image: 'https://i.pinimg.com/736x/c5/8a/d6/c58ad6f1ba697d39adc9e906d556e89f.jpg', prescriptionRequired: true },
+    { id: 101, name: 'Pain Relief Patches', price: 120, originalPrice: null, discount: '', category: 'Headache & Body Ache Relief', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/88/5e/14/885e1452ac7a308f1aec66181e497bb5.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Fever Reducers
+    { id: 102, name: 'Paracetamol Tablets', price: 50, originalPrice: 60, discount: '17% off', category: 'Fever Reducers', brand: 'BrandX', image: 'https://i.pinimg.com/736x/60/f7/e8/60f7e8b3de4f5g6h7i8j9k0l1m2n3o4.jpg', prescriptionRequired: false },
+    { id: 103, name: 'Acetaminophen Syrup', price: 70, originalPrice: null, discount: '', category: 'Fever Reducers', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/71/08/f9/7108f9c4ef5g6h7i8j9k0l1m2n3o4p5.jpg', prescriptionRequired: false },
+    { id: 104, name: 'Ibuprofen Suspension', price: 80, originalPrice: 100, discount: '20% off', category: 'Fever Reducers', brand: 'BrandY', image: 'https://i.pinimg.com/736x/82/19/0a/82190ad5f6h7i8j9k0l1m2n3o4p5q6.jpg', prescriptionRequired: false },
+    { id: 105, name: 'Aspirin Powder', price: 65, originalPrice: null, discount: '', category: 'Fever Reducers', brand: 'BrandW', image: 'https://i.pinimg.com/736x/93/2a/1b/932a1be6g7i8j9k0l1m2n3o4p5q6r7.jpg', prescriptionRequired: true },
+    { id: 106, name: 'Paracetamol Injection', price: 150, originalPrice: 180, discount: '17% off', category: 'Fever Reducers', brand: 'BrandX', image: 'https://i.pinimg.com/736x/a4/3b/2c/a43b2cf7i8j9k0l1m2n3o4p5q6r7s8.jpg', prescriptionRequired: true },
+    { id: 107, name: 'Fever Relief Strips', price: 90, originalPrice: null, discount: '', category: 'Fever Reducers', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/b5/4c/3d/b54c3de8j9k0l1m2n3o4p5q6r7s8t9.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
+    // Cold/Hot Packs
+    { id: 108, name: 'Reusable Cold Pack', price: 200, originalPrice: 250, discount: '20% off', category: 'Cold/Hot Packs', brand: 'BrandY', image: 'https://i.pinimg.com/736x/c6/5d/4e/c65d4ef9k0l1m2n3o4p5q6r7s8t9u0.jpg', prescriptionRequired: false },
+    { id: 109, name: 'Instant Hot Pack', price: 150, originalPrice: null, discount: '', category: 'Cold/Hot Packs', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d7/6e/5f/d76e5f0al1m2n3o4p5q6r7s8t9u0v1.jpg', prescriptionRequired: false },
+    { id: 110, name: 'Gel Ice Pack', price: 180, originalPrice: 220, discount: '18% off', category: 'Cold/Hot Packs', brand: 'BrandX', image: 'https://i.pinimg.com/736x/e8/7f/60/e87f60b1m2n3o4p5q6r7s8t9u0v1w2.jpg', prescriptionRequired: false },
+    { id: 111, name: 'Microwavable Heat Pad', price: 250, originalPrice: null, discount: '', category: 'Cold/Hot Packs', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f9/80/71/f98071c2n3o4p5q6r7s8t9u0v1w2x3.jpg', prescriptionRequired: false },
+    { id: 112, name: 'Dual Therapy Pack', price: 300, originalPrice: 350, discount: '14% off', category: 'Cold/Hot Packs', brand: 'BrandY', image: 'https://i.pinimg.com/736x/0a/91/82/0a9182d3o4p5q6r7s8t9u0v1w2x3y4.jpg', prescriptionRequired: false },
+    { id: 113, name: 'Portable Cold/Hot Wrap', price: 220, originalPrice: null, discount: '', category: 'Cold/Hot Packs', brand: 'BrandW', image: 'https://i.pinimg.com/736x/1b/a2/93/1ba293e4p5q6r7s8t9u0v1w2x3y4z5.jpg', prescriptionRequired: false },
 
     // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    { id: 114, name: 'Tramadol Tablets', price: 300, originalPrice: null, discount: '', category: 'Headache & Body Ache Relief', brand: 'BrandX', image: 'https://i.pinimg.com/736x/2c/b3/a4/2cb3a4f5q6r7s8t9u0v1w2x3y4z5a6.jpg', prescriptionRequired: true },
+    { id: 115, name: 'Codeine Syrup', price: 250, originalPrice: 300, discount: '17% off', category: 'Fever Reducers', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/3d/c4/b5/3dc4b506r7s8t9u0v1w2x3y4z5a6b7.jpg', prescriptionRequired: true }
   ];
 
   // ================

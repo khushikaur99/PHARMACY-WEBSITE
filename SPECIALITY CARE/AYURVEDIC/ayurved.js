@@ -1,4 +1,4 @@
-// first.js
+// ayurveda.js
 // Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,38 +8,41 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Digestive Care
+    { id: 580, name: 'Triphala Churna', price: 85, originalPrice: 100, discount: '15% off', category: 'Digestive Care', brand: 'Patanjali', image: 'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg', prescriptionRequired: false },
+    { id: 581, name: 'Ajwain Tablets', price: 520, originalPrice: null, discount: '', category: 'Digestive Care', brand: 'Himalaya', image: 'https://i.pinimg.com/7352x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
+    { id: 582, name: 'Digestive Tea Blend', price: 95, originalPrice: null, discount: '', category: 'Digestive Care', brand: 'Dabur', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
+    { id: 583, name: 'Isabgol Psyllium Husk', price: 50, originalPrice: null, discount: '', category: 'Digestive Care', brand: 'Patanjali', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
+    { id: 584, name: 'Hingvashtak Churna', price: 40, originalPrice: null, discount: '', category: 'Digestive Care', brand: 'Baidyanath', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
+    { id: 585, name: 'Amla Murabba', price: 120, originalPrice: 150, discount: '20% off', category: 'Digestive Care', brand: 'Dabur', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Liver & Kidney Care
+    { id: 586, name: 'Liv.52 Tablets', price: 120, originalPrice: 150, discount: '20% off', category: 'Liver & Kidney Care', brand: 'Himalaya', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
+    { id: 587, name: 'Punarnava Capsules', price: 100, originalPrice: null, discount: '', category: 'Liver & Kidney Care', brand: 'Baidyanath', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
+    { id: 588, name: 'Kutki Powder', price: 150, originalPrice: 180, discount: '17% off', category: 'Liver & Kidney Care', brand: 'Patanjali', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
+    { id: 589, name: 'Gokshura Tablets', price: 90, originalPrice: null, discount: '', category: 'Liver & Kidney Care', brand: 'Himalaya', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
+    { id: 590, name: 'Liver Detox Syrup', price: 250, originalPrice: 300, discount: '17% off', category: 'Liver & Kidney Care', brand: 'Dabur', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
+    { id: 591, name: 'Nephro Care Tablets', price: 110, originalPrice: null, discount: '', category: 'Liver & Kidney Care', brand: 'Baidyanath', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Stress & Sleep Support
+    { id: 592, name: 'Ashwagandha Capsules', price: 50, originalPrice: null, discount: '', category: 'Stress & Sleep Support', brand: 'Himalaya', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
+    { id: 593, name: 'Brahmi Ghrita', price: 70, originalPrice: 80, discount: '12% off', category: 'Stress & Sleep Support', brand: 'Baidyanath', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
+    { id: 594, name: 'Jatamansi Powder', price: 120, originalPrice: null, discount: '', category: 'Stress & Sleep Support', brand: 'Patanjali', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
+    { id: 595, name: 'Saraswatarishta', price: 100, originalPrice: 120, discount: '17% off', category: 'Stress & Sleep Support', brand: 'Dabur', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
+    { id: 596, name: 'Stress Relief Tea', price: 95, originalPrice: null, discount: '', category: 'Stress & Sleep Support', brand: 'Himalaya', image: 'https://via.placeholder.com/150/antiseptic-spray.jpg', prescriptionRequired: false },
+    { id: 597, name: 'Melatonin Sleep Aid', price: 130, originalPrice: 150, discount: '13% off', category: 'Stress & Sleep Support', brand: 'Baidyanath', image: 'https://via.placeholder.com/150/chlorhexidine.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
+    // Skin & Hair Remedies
+    { id: 598, name: 'Neem Face Wash', price: 500, originalPrice: 600, discount: '17% off', category: 'Skin & Hair Remedies', brand: 'Patanjali', image: 'https://via.placeholder.com/150/basic-kit.jpg', prescriptionRequired: false },
+    { id: 599, name: 'Bhringraj Hair Oil', price: 300, originalPrice: null, discount: '', category: 'Skin & Hair Remedies', brand: 'Himalaya', image: 'https://via.placeholder.com/150/travel-kit.jpg', prescriptionRequired: false },
+    { id: 600, name: 'Turmeric Face Pack', price: 800, originalPrice: 1000, discount: '20% off', category: 'Skin & Hair Remedies', brand: 'Dabur', image: 'https://via.placeholder.com/150/home-kit.jpg', prescriptionRequired: false },
+    { id: 601, name: 'Aritha Shampoo', price: 400, originalPrice: null, discount: '', category: 'Skin & Hair Remedies', brand: 'Baidyanath', image: 'https://via.placeholder.com/150/car-kit.jpg', prescriptionRequired: false },
+    { id: 602, name: 'Aloe Vera Gel', price: 600, originalPrice: 700, discount: '14% off', category: 'Skin & Hair Remedies', brand: 'Patanjali', image: 'https://via.placeholder.com/150/sports-kit.jpg', prescriptionRequired: false },
+    { id: 603, name: 'Rose Water Toner', price: 1200, originalPrice: null, discount: '', category: 'Skin & Hair Remedies', brand: 'Himalaya', image: 'https://via.placeholder.com/150/advanced-kit.jpg', prescriptionRequired: false },
 
     // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    { id: 604, name: 'Swarna Bhasma', price: 1500, originalPrice: null, discount: '', category: 'Skin & Hair Remedies', brand: 'Baidyanath', image: 'https://via.placeholder.com/150/epipen.jpg', prescriptionRequired: true },
+    { id: 605, name: 'Makaradhwaj Gutika', price: 300, originalPrice: null, discount: '', category: 'Skin & Hair Remedies', brand: 'Patanjali', image: 'https://via.placeholder.com/150/nitro.jpg', prescriptionRequired: true }
   ];
 
   // ================

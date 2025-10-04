@@ -529,7 +529,385 @@ const products = [
         ingredients: 'Medicated aerosol as prescribed',
         benefits: 'Quick relief from asthma symptoms, portable, easy to use',
         directions: 'Shake well before use, inhale deeply as directed.'
-    }
+    },
+
+   { 
+        id: 60, 
+        name: 'Antiseptic Cream', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Antiseptic Cream', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg',
+            'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg',
+            'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg',
+            'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+           { 
+        id: 90, 
+        name: 'Pain Relief Spray', 
+        price: 150, 
+        originalPrice: 180, 
+        discount: '17% off', 
+        category: 'Pain Relief Spray', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg',
+            'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg',
+            'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg',
+            'https://i.pinimg.com/1200x/1a/ab/a9/1aaba9a835144fd7665c1d19652ed7c6.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+   { 
+        id: 120, 
+        name: 'Loratadine Tablets', 
+        price: 100, 
+        originalPrice: 120, 
+        discount: '17% off', 
+        category: 'Loratadine Tablets', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/4d/0c/dd/4d0cdde377dea773bddbaf5310e6aefc.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/4d/0c/dd/4d0cdde377dea773bddbaf5310e6aefc.jpg',
+            'https://i.pinimg.com/1200x/4d/0c/dd/4d0cdde377dea773bddbaf5310e6aefc.jpg',
+            'https://i.pinimg.com/1200x/4d/0c/dd/4d0cdde377dea773bddbaf5310e6aefc.jpg',
+            'https://i.pinimg.com/1200x/4d/0c/dd/4d0cdde377dea773bddbaf5310e6aefc.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+   { 
+        id: 150, 
+        name: 'Antacid Tablets', 
+        price: 80, 
+        originalPrice: 100, 
+        discount: '20% off', 
+        category: 'Antacid Tablets', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/fa/04/1b/fa041b6c2982c6b74abbd1d137969508.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/fa/04/1b/fa041b6c2982c6b74abbd1d137969508.jpg',
+            'https://i.pinimg.com/736x/fa/04/1b/fa041b6c2982c6b74abbd1d137969508.jpg',
+            'https://i.pinimg.com/736x/fa/04/1b/fa041b6c2982c6b74abbd1d137969508.jpg',
+            'https://i.pinimg.com/736x/fa/04/1b/fa041b6c2982c6b74abbd1d137969508.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+       { 
+        id: 180, 
+        name: 'Daily Multivitamin Tablets', 
+        price: 150, 
+        originalPrice: 180, 
+        discount: '20% off', 
+        category: 'Daily Multivitamin Tablets', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg',
+            'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg',
+            'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg',
+            'https://i.pinimg.com/736x/14/cb/bd/14cbbdd2cd7c93ee545ef9edec9711f6.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+       { 
+        id: 220, 
+        name: 'Hydrating Moisturizer', 
+        price: 250, 
+        originalPrice: 300, 
+        discount: '17% off', 
+        category: 'Hydrating Moisturizer', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/bb/9c/69/bb9c691524dc7575451ca8c0930692ea.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/bb/9c/69/bb9c691524dc7575451ca8c0930692ea.jpg',
+            'https://i.pinimg.com/736x/bb/9c/69/bb9c691524dc7575451ca8c0930692ea.jpg',
+            'https://i.pinimg.com/736x/bb/9c/69/bb9c691524dc7575451ca8c0930692ea.jpg',
+            'https://i.pinimg.com/736x/bb/9c/69/bb9c691524dc7575451ca8c0930692ea.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+      { 
+        id: 260, 
+        name: 'Fluoride Toothpaste', 
+        price: 100, 
+        originalPrice: 120, 
+        discount: '17% off', 
+        category: 'Fluoride Toothpaste', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg',
+            'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg',
+            'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg',
+            'https://i.pinimg.com/736x/4d/48/e9/4d48e9723dc3cab2eb65b51d1b1ca1e5.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+       { 
+        id: 295, 
+        name: 'Ultra Thin Sanitary Pads', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Ultra Thin Sanitary Pads', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg',
+            'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg',
+            'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg',
+            'https://i.pinimg.com/1200x/25/da/b2/25dab2887032365087b4be1c8402ede9.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+    
+       { 
+        id: 330, 
+        name: 'Whey Protein Powder', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Whey Protein Powder', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/45/b1/4a/45b14a58c1aa48c2746085c978d489f4.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/45/b1/4a/45b14a58c1aa48c2746085c978d489f4.jpg',
+            'https://i.pinimg.com/1200x/45/b1/4a/45b14a58c1aa48c2746085c978d489f4.jpg',
+            'https://i.pinimg.com/1200x/45/b1/4a/45b14a58c1aa48c2746085c978d489f4.jpg',
+            'https://i.pinimg.com/1200x/45/b1/4a/45b14a58c1aa48c2746085c978d489f4.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+      { 
+        id: 390, 
+        name: 'Digital BP Monitor', 
+        price: 250, 
+        originalPrice: 300, 
+        discount: '17% off', 
+        category: 'Digital BP Monitor', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/9e/bb/22/9ebb22e0113a1f9be493e71f5595d2ed.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/9e/bb/22/9ebb22e0113a1f9be493e71f5595d2ed.jpg',
+            'https://i.pinimg.com/736x/9e/bb/22/9ebb22e0113a1f9be493e71f5595d2ed.jpg',
+            'https://i.pinimg.com/736x/9e/bb/22/9ebb22e0113a1f9be493e71f5595d2ed.jpg',
+            'https://i.pinimg.com/736x/9e/bb/22/9ebb22e0113a1f9be493e71f5595d2ed.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+          { 
+        id: 414, 
+        name: 'Manual Wheelchair', 
+        price: 250, 
+        originalPrice: 300, 
+        discount: '17% off', 
+        category: 'Digital BP Monitor', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg',
+            'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg',
+            'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg',
+            'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+
+    
+       { 
+        id: 440, 
+        name: 'Portable Nebulizer', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Portable Nebulizer', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg',
+            'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg',
+            'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg',
+            'https://i.pinimg.com/1200x/91/ce/f2/91cef254ca9ffc7dc790331c79a977bc.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+       { 
+        id: 464, 
+        name: 'Inositol Supplement', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Inositol Supplement', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/80/d9/d3/80d9d3ddb1e07cf28ac4ad60e135bbe5.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/80/d9/d3/80d9d3ddb1e07cf28ac4ad60e135bbe5.jpg',
+            'https://i.pinimg.com/1200x/80/d9/d3/80d9d3ddb1e07cf28ac4ad60e135bbe5.jpg',
+            'https://i.pinimg.com/1200x/80/d9/d3/80d9d3ddb1e07cf28ac4ad60e135bbe5.jpg',
+            'https://i.pinimg.com/1200x/80/d9/d3/80d9d3ddb1e07cf28ac4ad60e135bbe5.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+    
+       { 
+        id: 500, 
+        name: 'Energy Booster Supplement', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Energy Booster Supplement', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/b1/3e/fb/b13efb7a9e3a763e427405a8d4663091.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/b1/3e/fb/b13efb7a9e3a763e427405a8d4663091.jpg',
+            'https://i.pinimg.com/1200x/b1/3e/fb/b13efb7a9e3a763e427405a8d4663091.jpg',
+            'https://i.pinimg.com/1200x/b1/3e/fb/b13efb7a9e3a763e427405a8d4663091.jpg',
+            'https://i.pinimg.com/1200x/b1/3e/fb/b13efb7a9e3a763e427405a8d4663091.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+
+    
+       { 
+        id: 524, 
+        name: 'Adult Diapers Pack', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Adult Diapers Pack', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg',
+            'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg',
+            'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg',
+            'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+         { 
+        id: 550, 
+        name: 'Vitamin C Tablets', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Vitamin C Tablets', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/1200x/6d/5f/d2/6d5fd251d1beb13e5148c50b9ab668a2.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/1200x/6d/5f/d2/6d5fd251d1beb13e5148c50b9ab668a2.jpg',
+            'https://i.pinimg.com/1200x/6d/5f/d2/6d5fd251d1beb13e5148c50b9ab668a2.jpg',
+            'https://i.pinimg.com/1200x/6d/5f/d2/6d5fd251d1beb13e5148c50b9ab668a2.jpg',
+            'https://i.pinimg.com/1200x/6d/5f/d2/6d5fd251d1beb13e5148c50b9ab668a2.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
+
+      { 
+        id: 580, 
+        name: 'Triphala Churna', 
+        price: 85, 
+        originalPrice: 100, 
+        discount: '15% off', 
+        category: 'Triphala Churna', 
+        brand: 'Generic', 
+        image: 'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg',
+        thumbnails: [
+            'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg',
+            'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg',
+            'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg',
+            'https://i.pinimg.com/736x/bf/23/03/bf23030898ad9e5e353f73adf5effbfa.jpg'
+        ],
+        prescriptionRequired: true,
+        description: 'Relief inhaler for asthma symptoms.',
+        ingredients: 'Medicated aerosol as prescribed',
+        benefits: 'Quick relief from asthma symptoms, portable, easy to use',
+        directions: 'Shake well before use, inhale deeply as directed.'
+    },
 ];
 
 // Initialize cart from localStorage or create an empty array

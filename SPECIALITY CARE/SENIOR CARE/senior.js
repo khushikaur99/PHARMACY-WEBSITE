@@ -1,5 +1,4 @@
-// first.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
+ // Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
 
 document.addEventListener('DOMContentLoaded', () => {
   // ================
@@ -8,38 +7,37 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const products = [
-    // Wound Care
-    { id: 60, name: 'Antiseptic Cream', price: 85, originalPrice: 100, discount: '15% off', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/35/ba/57/35ba570fdad02cac60ab97e0168f1f06.jpg', prescriptionRequired: false },
-    { id: 61, name: 'Sterile Gauze Pads', price: 60, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/d7/39/56/d739567af1096379ff95a64e55867898.jpg', prescriptionRequired: false },
-    { id: 62, name: 'Wound Healing Spray', price: 95, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/65/be/2e/65be2e76552427f52f25919eefbd3316.jpg', prescriptionRequired: false },
-    { id: 63, name: 'Adhesive Bandages', price: 50, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandY', image: 'https://i.pinimg.com/736x/bd/de/5a/bdde5a3a79cb03ee5b9a7c6d67f59522.jpg', prescriptionRequired: false },
-    { id: 64, name: 'Medical Tape', price: 40, originalPrice: null, discount: '', category: 'Wound Care', brand: 'BrandX', image: 'https://i.pinimg.com/736x/88/e2/09/88e209255cf9792cde50c6c064875510.jpg', prescriptionRequired: false },
-    { id: 65, name: 'Wound Dressing Kit', price: 120, originalPrice: 150, discount: '20% off', category: 'Wound Care', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/c5/88/0c/c5880c61c3ced166bf68ad1ad070ba8d.jpg', prescriptionRequired: false },
+    // Adult Diapers & Incontinence
+    { id: 524, name: 'Adult Diapers Pack', price: 85, originalPrice: 100, discount: '15% off', category: 'Adult Diapers & Incontinence', brand: 'BrandX', image: 'https://i.pinimg.com/736x/8e/47/48/8e4748db259afe17876d2a40cbdaee34.jpg', prescriptionRequired: false },
+    { id: 525, name: 'Incontinence Pads', price: 60, originalPrice: null, discount: '', category: 'Adult Diapers & Incontinence', brand: 'BrandZ', image: 'https://via.placeholder.com/150/incontinence-pads.jpg', prescriptionRequired: false },
+    { id: 526, name: 'Pull-Up Diapers', price: 95, originalPrice: null, discount: '', category: 'Adult Diapers & Incontinence', brand: 'BrandW', image: 'https://via.placeholder.com/150/pull-up-diapers.jpg', prescriptionRequired: false },
+    { id: 527, name: 'Disposable Underwear', price: 50, originalPrice: null, discount: '', category: 'Adult Diapers & Incontinence', brand: 'BrandY', image: 'https://via.placeholder.com/150/disposable-underwear.jpg', prescriptionRequired: false },
+    { id: 528, name: 'Overnight Diapers', price: 40, originalPrice: null, discount: '', category: 'Adult Diapers & Incontinence', brand: 'BrandX', image: 'https://via.placeholder.com/150/overnight-diapers.jpg', prescriptionRequired: false },
+    { id: 529, name: 'Incontinence Wipes', price: 120, originalPrice: 150, discount: '20% off', category: 'Adult Diapers & Incontinence', brand: 'BrandZ', image: 'https://via.placeholder.com/150/incontinence-wipes.jpg', prescriptionRequired: false },
 
-    // Burns & Scalds
-    { id: 66, name: 'Burn Relief Gel', price: 120, originalPrice: 150, discount: '20% off', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/12/41/a1/1241a1dce9aa4bb0bd936a88498faee7.jpg', prescriptionRequired: false },
-    { id: 67, name: 'Aloe Vera Cream', price: 100, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/d0/9b/a9/d09ba98736754930dd700dd08d9f0ab6.jpg', prescriptionRequired: false },
-    { id: 68, name: 'Burn Dressing', price: 150, originalPrice: 180, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandX', image: 'https://i.pinimg.com/736x/ff/be/5e/ffbe5ebb5e5abf04a5e10e09e03951df.jpg', prescriptionRequired: false },
-    { id: 69, name: 'Cooling Burn Spray', price: 90, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandY', image: 'https://i.pinimg.com/736x/23/71/09/237109e52cd3f4aa5550eb390d37fcb4.jpg', prescriptionRequired: false },
-    { id: 70, name: 'Silver Sulfadiazine Cream', price: 250, originalPrice: 300, discount: '17% off', category: 'Burns & Scalds', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/cc/61/ac/cc61ac874d79ca418e525b3efda083b6.jpg', prescriptionRequired: true },
-    { id: 71, name: 'Burn Relief Ointment', price: 110, originalPrice: null, discount: '', category: 'Burns & Scalds', brand: 'BrandW', image: 'https://i.pinimg.com/736x/42/09/21/4209215a24624d1b8fa3a3bf9943f1d0.jpg', prescriptionRequired: false },
+    // Joint & Bone Health
+    { id: 530, name: 'Glucosamine Supplement', price: 120, originalPrice: 150, discount: '20% off', category: 'Joint & Bone Health', brand: 'BrandY', image: 'https://via.placeholder.com/150/glucosamine.jpg', prescriptionRequired: false },
+    { id: 531, name: 'Calcium + Vitamin D', price: 100, originalPrice: null, discount: '', category: 'Joint & Bone Health', brand: 'BrandW', image: 'https://via.placeholder.com/150/calcium-vitd.jpg', prescriptionRequired: false },
+    { id: 532, name: 'Joint Support Formula', price: 150, originalPrice: 180, discount: '17% off', category: 'Joint & Bone Health', brand: 'BrandX', image: 'https://via.placeholder.com/150/joint-formula.jpg', prescriptionRequired: false },
+    { id: 533, name: 'Collagen Peptides', price: 90, originalPrice: null, discount: '', category: 'Joint & Bone Health', brand: 'BrandY', image: 'https://via.placeholder.com/150/collagen-peptides.jpg', prescriptionRequired: false },
+    { id: 534, name: 'Bone Density Supplement', price: 250, originalPrice: 300, discount: '17% off', category: 'Joint & Bone Health', brand: 'BrandZ', image: 'https://via.placeholder.com/150/bone-density.jpg', prescriptionRequired: false },
+    { id: 535, name: 'Turmeric Curcumin', price: 110, originalPrice: null, discount: '', category: 'Joint & Bone Health', brand: 'BrandW', image: 'https://via.placeholder.com/150/turmeric-curcumin.jpg', prescriptionRequired: false },
 
-    // Antiseptics & Disinfectants
-    { id: 72, name: 'Hydrogen Peroxide Solution', price: 50, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/736x/51/c5/de/51c5ded9cc27a4b03a34e7dced02876d.jpg', prescriptionRequired: false },
-    { id: 73, name: 'Alcohol Wipes', price: 70, originalPrice: 80, discount: '12% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/54/30/39/543039ba4fb61ad43b3119fe1db920c0.jpg', prescriptionRequired: false },
-    { id: 74, name: 'Betadine Solution', price: 120, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/f7/cc/9f/f7cc9fdc4e318d6060c0f7da5aecdbe5.jpg', prescriptionRequired: false },
-    { id: 75, name: 'Dettol Liquid', price: 100, originalPrice: 120, discount: '17% off', category: 'Antiseptics & Disinfectants', brand: 'BrandX', image: 'https://i.pinimg.com/736x/bb/29/ba/bb29ba313677ad0a22cfb50a61121912.jpg', prescriptionRequired: false },
-    { id: 76, name: 'Antiseptic Spray', price: 95, originalPrice: null, discount: '', category: 'Antiseptics & Disinfectants', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/80/b5/5b/80b55b8e5aea9c874cacb69b8a6a6664.jpg', prescriptionRequired: false },
-    { id: 77, name: 'Chlorhexidine Solution', price: 130, originalPrice: 150, discount: '13% off', category: 'Antiseptics & Disinfectants', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/24/d7/ec/24d7ecd5b509901912b92bd6a6afec35.jpg', prescriptionRequired: false },
+    // Memory & Brain Support
+    { id: 536, name: 'Omega-3 Fish Oil', price: 50, originalPrice: null, discount: '', category: 'Memory & Brain Support', brand: 'BrandY', image: 'https://via.placeholder.com/150/omega-3.jpg', prescriptionRequired: false },
+    { id: 537, name: 'Ginkgo Biloba', price: 70, originalPrice: 80, discount: '12% off', category: 'Memory & Brain Support', brand: 'BrandZ', image: 'https://via.placeholder.com/150/ginkgo-biloba.jpg', prescriptionRequired: false },
+    { id: 538, name: 'Brain Health Supplement', price: 120, originalPrice: null, discount: '', category: 'Memory & Brain Support', brand: 'BrandW', image: 'https://via.placeholder.com/150/brain-health.jpg', prescriptionRequired: false },
+    { id: 539, name: 'Phosphatidylserine', price: 100, originalPrice: 120, discount: '17% off', category: 'Memory & Brain Support', brand: 'BrandX', image: 'https://via.placeholder.com/150/phosphatidylserine.jpg', prescriptionRequired: false },
+    { id: 540, name: 'Bacopa Monnieri', price: 95, originalPrice: null, discount: '', category: 'Memory & Brain Support', brand: 'BrandY', image: 'https://via.placeholder.com/150/bacopa.jpg', prescriptionRequired: false },
+    { id: 541, name: 'Lion\'s Mane Mushroom', price: 130, originalPrice: 150, discount: '13% off', category: 'Memory & Brain Support', brand: 'BrandZ', image: 'https://via.placeholder.com/150/lions-mane.jpg', prescriptionRequired: false },
 
-    // First Aid Kits
-    { id: 78, name: 'Basic First Aid Kit', price: 500, originalPrice: 600, discount: '17% off', category: 'First Aid Kits', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/92/31/d8/9231d810ce9c148a495dd7a04e0a8ef4.jpg', prescriptionRequired: false },
-    { id: 79, name: 'Travel First Aid Kit', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/736x/b6/f4/6e/b6f46e8721af45dec8b66653f4710020.jpg', prescriptionRequired: false },
-    { id: 80, name: 'Advanced First Aid Kit', price: 1200, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/6d/51/45/6d5145e295566f6aa2d888a7786b81f3.jpg', prescriptionRequired: false },
-
-    // RX
-    { id: 81, name: 'Epinephrine Auto-Injector', price: 1500, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandW', image: 'https://i.pinimg.com/736x/0d/48/f6/0d48f62337ffb6e97a7b0bafc7bf71a3.jpg', prescriptionRequired: true },
-    { id: 82, name: 'Nitroglycerin Tablets', price: 300, originalPrice: null, discount: '', category: 'First Aid Kits', brand: 'BrandX', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwksn6ztWAJwVnKKNGwkXe8W1ZI51TY6lQkQ&s', prescriptionRequired: true }
+    // Mobility Support
+    { id: 542, name: 'Walking Cane', price: 500, originalPrice: 600, discount: '17% off', category: 'Mobility Support', brand: 'BrandX', image: 'https://via.placeholder.com/150/walking-cane.jpg', prescriptionRequired: false },
+    { id: 543, name: 'Rollator Walker', price: 300, originalPrice: null, discount: '', category: 'Mobility Support', brand: 'BrandY', image: 'https://via.placeholder.com/150/rollator-walker.jpg', prescriptionRequired: false },
+    { id: 544, name: 'Wheelchair', price: 800, originalPrice: 1000, discount: '20% off', category: 'Mobility Support', brand: 'BrandZ', image: 'https://via.placeholder.com/150/wheelchair.jpg', prescriptionRequired: false },
+    { id: 545, name: 'Knee Brace', price: 400, originalPrice: null, discount: '', category: 'Mobility Support', brand: 'BrandW', image: 'https://via.placeholder.com/150/knee-brace.jpg', prescriptionRequired: false },
+    { id: 546, name: 'Ankle Support', price: 600, originalPrice: 700, discount: '14% off', category: 'Mobility Support', brand: 'BrandX', image: 'https://via.placeholder.com/150/ankle-support.jpg', prescriptionRequired: false },
+    { id: 547, name: 'Mobility Scooter', price: 1200, originalPrice: null, discount: '', category: 'Mobility Support', brand: 'BrandY', image: 'https://via.placeholder.com/150/mobility-scooter.jpg', prescriptionRequired: false }
   ];
 
   // ================
@@ -495,19 +493,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
   }
 
-  // We stored escaped JSON string in data-product (escapeHtml used earlier), recover it:
-  function unescapeHtmlForJSON(escapedStr) {
-    if (!escapedStr) return escapedStr;
-    // replace HTML entities that were used on JSON string
-    return escapedStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // parse helper used earlier in event delegation
-  function unescapeHtml(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
   // safe JSON parse wrapper
   function safeParseProductData(attr) {
     if (!attr) return null;
@@ -518,14 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
   }
-
-  // earlier we referenced unescapeHtml in delegation; ensure a function exists
-  function unescapeHtmlForDelegation(s) {
-    return safeParseProductData(s) ? safeParseProductData(s) : null;
-  }
-
-  // Small fix: the delegation earlier used unescapeHtml/unescapeHtmlForJSON - replace with safeParseProductData call
-  // So adjust the delegation code above to use safeParseProductData (we already attempted parsing with unescapeHtml in the upload handler).
 
   // ================
   // Finalize & Expose
