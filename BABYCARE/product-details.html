@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Care - Product Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* General Styling */
+      body {
+        background-color: #fcfdff; /* Light blue background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Product Image */
+      .product-image {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+        background: #DBEAFE; /* Light blue background for images */
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      /* Buttons */
+      .add-to-cart,
+      .add-to-wishlist {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .add-to-cart {
+        background: linear-gradient(135deg, #3B82F6, #93C5FD); /* Light blue gradient */
+        color: white;
+        border: none;
+      }
+
+      .add-to-cart:hover {
+        background: linear-gradient(135deg, #2563EB, #60A5FA);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+      }
+
+      .add-to-wishlist {
+        background: white;
+        color: #3B82F6;
+        border: 1px solid #3B82F6;
+      }
+
+      .add-to-wishlist:hover {
+        background: #DBEAFE;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+      }
+
+      .add-to-wishlist.active {
+        background: #3B82F6;
+        color: white;
+      }
+
+      /* Carousel Dots */
+      .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #CBD5E1;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dot.active {
+        background-color: #3B82F6; /* Light blue active dot */
+        transform: scale(1.2);
+      }
+
+      /* Thumbnail Images */
+      .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        background: #DBEAFE;
+        border-radius: 8px;
+        padding: 0.5rem;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .thumbnail.active {
+        border-color: #3B82F6;
+        transform: scale(1.05);
+      }
+
+      /* Related Products */
+      .related-product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        background: white;
+        overflow: hidden;
+      }
+
+      .related-product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-color: #3B82F6;
+      }
+
+      .related-product-card img {
+        height: 150px;
+        width: 100%;
+        object-fit: contain;
+        background: #DBEAFE; /* Light blue background */
+        padding: 0.5rem;
+      }
+
+      /* Quantity Selector */
+      .quantity-selector button {
+        background: #DBEAFE;
+        color: #3B82F6;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .quantity-selector button:hover {
+        background: #93C5FD;
+        transform: scale(1.05);
+      }
+
+      .quantity-selector button:active {
+        transform: scale(0.95);
+      }
+
+      /* Size Selector */
+      .size-option {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #CBD5E1;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .size-option:hover {
+        border-color: #3B82F6;
+        background-color: #DBEAFE;
+      }
+
+      .size-option.selected {
+        background-color: #3B82F6;
+        color: white;
+        border-color: #3B82F6;
+      }
+
+      /* Stock Status */
+      .in-stock {
+        color: #10B981;
+        font-weight: 600;
+      }
+
+      .low-stock {
+        color: #F59E0B;
+        font-weight: 600;
+      }
+
+      .out-of-stock {
+        color: #EF4444;
+        font-weight: 600;
+      }
+
+      /* Modal Improvements */
+      #cartModal, #wishlistModal {
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-content {
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Cart & Wishlist Items */
+      .cart-item, .wishlist-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #E2E8F0;
+      }
+
+      .cart-item:last-child, .wishlist-item:last-child {
+        border-bottom: none;
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        transition: max-height 0.3s ease-in-out;
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      .mobile-menu.open {
+        max-height: 300px;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 640px) {
+        .product-image {
+          height: 250px; /* Reduced height for mobile */
+          padding: 0.5rem;
+        }
+
+        .thumbnail {
+          width: 60px;
+          height: 60px;
+          padding: 0.25rem;
+        }
+
+        .add-to-cart,
+        .add-to-wishlist {
+          width: 100%;
+          margin-bottom: 0.75rem;
+          font-size: 0.9rem;
+          padding: 0.6rem 1rem;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .quantity-selector button {
+          width: 32px;
+          height: 32px;
+        }
+
+        .quantity-selector span {
+          font-size: 1rem;
+          width: 40px;
+        }
+
+        .related-product-card {
+          padding: 0.5rem;
+        }
+
+        .related-product-card img {
+          height: 120px;
+        }
+
+        .modal-content {
+          width: 95%;
+          max-height: 85vh;
+        }
+
+        .cart-item, .wishlist-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        .cart-item img, .wishlist-item img {
+          width: 50px;
+          height: 50px;
+        }
+
+        .mobile-menu a {
+          display: block;
+          padding: 0.5rem 0;
+          color: #3B82F6;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .product-image {
+          height: 200px;
+        }
+
+        .thumbnail {
+          width: 50px;
+          height: 50px;
+        }
+
+        .related-product-card h3 {
+          font-size: 0.85rem;
+        }
+
+        .related-product-card button {
+          font-size: 0.8rem;
+          padding: 0.5rem;
+        }
+
+        .modal-content {
+          width: 98%;
+        }
+
+        .cart-item .flex-1,
+        .wishlist-item .flex-1 {
+          width: 100%;
+        }
+      }
+
+      /* Loading States */
+      .loading {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      /* Empty States */
+      .empty-state {
+        text-align: center;
+        padding: 2rem;
+        color: #64748B;
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #CBD5E1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-2">
+            <a href="babycare.html">
+              <img
+                src="./images/babycare-logo.png"
+                alt="BabyCare Logo"
+                class="h-36 w-36 object-contain"
+              />
+            </a>
+          </div>
+          <div class="hidden md:block flex-1 max-w-lg mx-8">
+            <div class="relative">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for baby care products..."
+                class="w-full px-4 py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              />
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <i class="fas fa-search text-gray-400"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button
+              id="wishlistBtn"
+              class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+              aria-label="Wishlist"
+            >
+              <i class="fas fa-heart text-xl"></i>
+              <span
+                id="wishlistCount"
+                class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden"
+                >0</span
+              >
+            </button>
+            <button
+              id="cartBtn"
+              class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+              aria-label="Shopping Cart"
+            >
+              <i class="fas fa-shopping-cart text-xl"></i>
+              <span
+                id="cartCount"
+                class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden"
+                >0</span
+              >
+            </button>
+            <button
+              id="mobileMenuBtn"
+              class="md:hidden p-2 text-gray-600 hover:text-blue-600"
+              aria-label="Menu"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="md:hidden px-4 pb-4">
+        <div class="relative">
+          <input
+            type="text"
+            id="mobileSearchInput"
+            placeholder="Search baby products..."
+            class="w-full px-4 py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+        </div>
+        <div id="mobileMenu" class="mobile-menu">
+          <a href="babycare.html" class="hover:underline">Home</a>
+          <a href="category.html" class="hover:underline">Categories</a>
+          <a href="#" class="hover:underline">Deals</a>
+          <a href="#" class="hover:underline">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Breadcrumb -->
+      <div class="mb-6 text-sm text-gray-500">
+        <a href="babycare.html" class="hover:text-blue-600">Home</a> 
+        <span class="mx-2">/</span>
+        <a href="category.html" class="hover:text-blue-600">Baby Products</a>
+        <span class="mx-2">/</span>
+        <span id="breadcrumbCategory" class="text-gray-900">Product Details</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Product Images -->
+        <div>
+          <div class="relative">
+            <div id="mainImage" class="product-image flex items-center justify-center">
+              <div class="text-center text-gray-400">
+                <i class="fas fa-image text-6xl mb-2"></i>
+                <p>Loading image...</p>
+              </div>
+            </div>
+            <div
+              class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+              id="carouselDots"
+            >
+              <!-- Carousel dots will be dynamically added -->
+            </div>
+            <button
+              id="prevImage"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-md transition-all"
+              aria-label="Previous Image"
+            >
+              <i class="fas fa-chevron-left text-gray-600"></i>
+            </button>
+            <button
+              id="nextImage"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-md transition-all"
+              aria-label="Next Image"
+            >
+              <i class="fas fa-chevron-right text-gray-600"></i>
+            </button>
+          </div>
+          <div id="thumbnailImages" class="flex space-x-2 mt-4 overflow-x-auto py-2">
+            <!-- Thumbnails will be dynamically added -->
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div>
+          <h1 id="productTitle" class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Loading...
+          </h1>
+          <div class="flex items-center mb-4">
+            <div id="productRating" class="flex text-yellow-400">
+              <!-- Stars will be dynamically added -->
+            </div>
+            <span id="reviewCount" class="ml-2 text-sm text-gray-600">(0 reviews)</span>
+          </div>
+          <div class="mb-4">
+            <span id="productPrice" class="text-2xl font-bold text-blue-600">₹0.00</span>
+            <span
+              id="originalPrice"
+              class="ml-2 text-sm text-gray-500 line-through"
+            ></span>
+            <span id="discountBadge" class="ml-2 text-sm text-red-500 font-semibold"></span>
+          </div>
+          <p id="productDescription" class="text-gray-600 mb-4">Loading description...</p>
+          
+          <div class="mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Size:</h3>
+            <div id="productSizes" class="flex flex-wrap">
+              <!-- Size options will be dynamically added -->
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <span id="stockStatus" class="text-sm font-semibold">Checking stock...</span>
+          </div>
+          
+          <div class="flex items-center mb-6">
+            <span class="mr-4 font-medium">Quantity:</span>
+            <div class="quantity-selector flex items-center space-x-2">
+              <button
+                id="decreaseQty"
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 transition-all"
+                aria-label="Decrease Quantity"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              <span id="quantity" class="w-12 text-center font-semibold text-lg">1</span>
+              <button
+                id="increaseQty"
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 transition-all"
+                aria-label="Increase Quantity"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex space-x-4 mb-6 button-group">
+            <button id="addToCart" class="add-to-cart">
+              <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+            </button>
+            <button id="addToWishlist" class="add-to-wishlist">
+              <i class="far fa-heart mr-2"></i>Add to Wishlist
+            </button>
+          </div>
+          
+          <div class="border-t pt-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              Product Details
+            </h3>
+            <p id="productBrand" class="text-gray-600 mb-1"><span class="font-medium">Brand:</span> Loading...</p>
+            <p id="productCategory" class="text-gray-600"><span class="font-medium">Category:</span> Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Products -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          Related Products
+        </h2>
+        <div
+          id="relatedProducts"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-spinner fa-spin text-3xl mb-2"></i>
+            <p>Loading related products...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div
+      id="cartModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+        <div class="flex items-center justify-between p-6 border-b">
+          <h2 class="text-2xl font-bold text-gray-900">Shopping Cart</h2>
+          <button
+            id="closeCartModal"
+            class="text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Close Cart"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div id="cartContent" class="p-6 overflow-y-auto max-h-96">
+          <div class="empty-state">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+          </div>
+        </div>
+        <div id="cartFooter" class="border-t p-6 hidden">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-lg font-semibold">Total: </span>
+            <span id="cartTotal" class="text-2xl font-bold text-blue-600"
+              >₹0.00</span
+            >
+          </div>
+          <div class="flex space-x-4">
+            <button
+              id="clearCart"
+              class="flex-1 bg-gray-200 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-300 transition-colors"
+            >
+              Clear Cart
+            </button>
+            <button
+              id="checkoutBtn"
+              class="flex-1 bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div
+      id="wishlistModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div class="flex items-center justify-between p-6 border-b">
+          <h2 class="text-2xl font-bold text-gray-900">My Wishlist</h2>
+          <button
+            id="closeWishlistModal"
+            class="text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Close Wishlist"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div id="wishlistContent" class="p-6 overflow-y-auto max-h-96">
+          <div class="empty-state">
+            <i class="fas fa-heart"></i>
+            <p>Your wishlist is empty</p>
+          </div>
+        </div>
+        <div id="wishlistFooter" class="border-t p-6 hidden">
+          <button
+            id="clearWishlist"
+            class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors"
+          >
+            Clear Wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Product data
+      const products = [
+        {
+          id: 1,
+          title: "Premium Diapers (60-Pack)",
+          description: "Ultra-absorbent diapers for all-day comfort and dryness, designed with soft materials for sensitive skin.",
+          category: "Diapers & Wipes",
+          price: 1249.17,
+          originalPrice: 1659.17,
+          discount: 25,
+          rating: 4.7,
+          reviews: 150,
+          images: [
+            "../images/diapers/diaper.jpeg",
+            "https://via.placeholder.com/600x600/DBEAFE/3B82F6?text=Diapers+Back",
+            "https://via.placeholder.com/600x600/DBEAFE/3B82F6?text=Diapers+Side",
+            "https://via.placeholder.com/600x600/DBEAFE/3B82F6?text=Diapers+Package"
+          ],
+          sizes: ["Newborn", "S", "M", "L"],
+          stock: 15,
+          brand: "BabySoft",
+        },
+        {
+          id: 2,
+          title: "Baby Wipes - 80 Count",
+          description: "Gentle, hypoallergenic wipes for sensitive skin, free from alcohol and parabens.",
+          category: "Diapers & Wipes",
+          price: 299,
+          originalPrice: 349,
+          discount: 14,
+          rating: 4.3,
+          reviews: 120,
+          images: ["https://via.placeholder.com/300x300/DBEAFE/3B82F6?text=Baby+Wipes"],
+          stock: 50,
+          brand: "GentleCare",
+        },
+        {
+          id: 3,
+          title: "Baby Shampoo & Body Wash",
+          description: "Gentle, tear-free shampoo and body wash, formulated with natural ingredients.",
+          category: "Baby Skin & Hair Care",
+          price: 449,
+          originalPrice: 499,
+          discount: 10,
+          rating: 4.7,
+          reviews: 89,
+          images: ["https://via.placeholder.com/300x300/DBEAFE/3B82F6?text=Shampoo"],
+          stock: 30,
+          brand: "NurtureWell",
+        },
+        {
+          id: 4,
+          title: "Baby Bottle Set - 4 Pieces",
+          description: "Anti-colic bottle set with sterilizer, designed for easy feeding.",
+          category: "Feeding & Nursing",
+          price: 799,
+          originalPrice: 899,
+          discount: 11,
+          rating: 4.6,
+          reviews: 67,
+          images: ["https://via.placeholder.com/300x300/DBEAFE/3B82F6?text=Bottle+Set"],
+          stock: 20,
+          brand: "SafeFeed",
+        },
+        {
+          id: 5,
+          title: "Baby Onesies - Pack of 3",
+          description: "Soft, organic cotton onesies, perfect for baby’s sensitive skin.",
+          category: "Baby Clothing & Accessories",
+          price: 649,
+          originalPrice: 749,
+          discount: 13,
+          rating: 4.4,
+          reviews: 143,
+          images: ["https://via.placeholder.com/300x300/DBEAFE/3B82F6?text=Onesies"],
+          sizes: ["0-3M", "3-6M", "6-12M"],
+          stock: 25,
+          brand: "CozyBaby",
+        },
+        {
+          id: 6,
+          title: "Interactive Learning Toy",
+          description: "Educational toy with lights and sounds to stimulate baby’s senses.",
+          category: "Toys & Learning",
+          price: 1659.17,
+          originalPrice: 2074.17,
+          discount: 20,
+          rating: 4.4,
+          reviews: 143,
+          images: ["https://via.placeholder.com/300x300/DBEAFE/3B82F6?text=Toy"],
+          stock: 10,
+          brand: "PlaySmart",
+        }
+      ];
+
+      // DOM Elements
+      const mainImage = document.getElementById('mainImage');
+      const thumbnailImages = document.getElementById('thumbnailImages');
+      const carouselDots = document.getElementById('carouselDots');
+      const productTitle = document.getElementById('productTitle');
+      const productRating = document.getElementById('productRating');
+      const reviewCount = document.getElementById('reviewCount');
+      const productPrice = document.getElementById('productPrice');
+      const originalPrice = document.getElementById('originalPrice');
+      const discountBadge = document.getElementById('discountBadge');
+      const productDescription = document.getElementById('productDescription');
+      const productSizes = document.getElementById('productSizes');
+      const stockStatus = document.getElementById('stockStatus');
+      const quantity = document.getElementById('quantity');
+      const productBrand = document.getElementById('productBrand');
+      const productCategory = document.getElementById('productCategory');
+      const breadcrumbCategory = document.getElementById('breadcrumbCategory');
+      const relatedProductsContainer = document.getElementById('relatedProducts');
+      const addToCartBtn = document.getElementById('addToCart');
+      const addToWishlistBtn = document.getElementById('addToWishlist');
+      const decreaseQtyBtn = document.getElementById('decreaseQty');
+      const increaseQtyBtn = document.getElementById('increaseQty');
+      const prevImageBtn = document.getElementById('prevImage');
+      const nextImageBtn = document.getElementById('nextImage');
+      const cartBtn = document.getElementById('cartBtn');
+      const wishlistBtn = document.getElementById('wishlistBtn');
+      const cartModal = document.getElementById('cartModal');
+      const wishlistModal = document.getElementById('wishlistModal');
+      const closeCartModal = document.getElementById('closeCartModal');
+      const closeWishlistModal = document.getElementById('closeWishlistModal');
+      const cartContent = document.getElementById('cartContent');
+      const wishlistContent = document.getElementById('wishlistContent');
+      const cartFooter = document.getElementById('cartFooter');
+      const wishlistFooter = document.getElementById('wishlistFooter');
+      const cartTotal = document.getElementById('cartTotal');
+      const clearCartBtn = document.getElementById('clearCart');
+      const clearWishlistBtn = document.getElementById('clearWishlist');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const cartCount = document.getElementById('cartCount');
+      const wishlistCount = document.getElementById('wishlistCount');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const searchInput = document.getElementById('searchInput');
+      const mobileSearchInput = document.getElementById('mobileSearchInput');
+
+      // State variables
+      let currentImageIndex = 0;
+      let selectedSize = null;
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      let selectedProduct = null;
+
+      // Initialize the page
+      document.addEventListener('DOMContentLoaded', function() {
+        const productId = parseInt(localStorage.getItem('selectedProductId'));
+        selectedProduct = products.find(p => p.id === productId);
+        if (selectedProduct) {
+          loadProductData();
+          loadRelatedProducts();
+          updateWishlistUI();
+        } else {
+          productTitle.textContent = 'Product Not Found';
+          productDescription.textContent = 'Please select a valid product.';
+          addToCartBtn.disabled = true;
+          addToWishlistBtn.disabled = true;
+        }
+        updateCartUI();
+        setupEventListeners();
+      });
+
+      // Load product data
+      function loadProductData() {
+        // Set product details
+        productTitle.textContent = selectedProduct.title;
+        productDescription.textContent = selectedProduct.description;
+        productPrice.textContent = `₹${selectedProduct.price.toFixed(2)}`;
+        
+        if (selectedProduct.originalPrice > selectedProduct.price) {
+          originalPrice.textContent = `₹${selectedProduct.originalPrice.toFixed(2)}`;
+          discountBadge.textContent = `${selectedProduct.discount}% OFF`;
+        }
+        
+        // Set rating
+        const fullStars = Math.floor(selectedProduct.rating);
+        const hasHalfStar = selectedProduct.rating % 1 !== 0;
+        
+        for (let i = 0; i < fullStars; i++) {
+          const star = document.createElement('i');
+          star.className = 'fas fa-star';
+          productRating.appendChild(star);
+        }
+        
+        if (hasHalfStar) {
+          const halfStar = document.createElement('i');
+          halfStar.className = 'fas fa-star-half-alt';
+          productRating.appendChild(halfStar);
+        }
+        
+        const emptyStars = 5 - Math.ceil(selectedProduct.rating);
+        for (let i = 0; i < emptyStars; i++) {
+          const star = document.createElement('i');
+          star.className = 'far fa-star';
+          productRating.appendChild(star);
+        }
+        
+        reviewCount.textContent = `(${selectedProduct.reviews} reviews)`;
+        
+        // Set sizes
+        productSizes.innerHTML = '';
+        if (selectedProduct.sizes && selectedProduct.sizes.length > 0) {
+          selectedProduct.sizes.forEach(size => {
+            const sizeOption = document.createElement('span');
+            sizeOption.className = 'size-option';
+            sizeOption.textContent = size;
+            sizeOption.addEventListener('click', () => selectSize(sizeOption, size));
+            productSizes.appendChild(sizeOption);
+          });
+        } else {
+          productSizes.innerHTML = '<p class="text-gray-600">One Size</p>';
+          selectedSize = 'One Size';
+        }
+        
+        // Set stock status
+        if (selectedProduct.stock > 10) {
+          stockStatus.textContent = 'In Stock';
+          stockStatus.className = 'in-stock';
+        } else if (selectedProduct.stock > 0) {
+          stockStatus.textContent = `Only ${selectedProduct.stock} left in stock`;
+          stockStatus.className = 'low-stock';
+        } else {
+          stockStatus.textContent = 'Out of Stock';
+          stockStatus.className = 'out-of-stock';
+          addToCartBtn.disabled = true;
+          addToCartBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        
+        // Set brand, category, and breadcrumb
+        productBrand.innerHTML = `<span class="font-medium">Brand:</span> ${selectedProduct.brand}`;
+        productCategory.innerHTML = `<span class="font-medium">Category:</span> ${selectedProduct.category}`;
+        breadcrumbCategory.textContent = selectedProduct.title;
+        
+        // Load images
+        loadProductImages();
+      }
+
+      // Load product images
+      function loadProductImages() {
+        // Clear existing content
+        mainImage.innerHTML = '';
+        thumbnailImages.innerHTML = '';
+        carouselDots.innerHTML = '';
+        
+        // Create main image
+        const img = document.createElement('img');
+        img.src = selectedProduct.images[currentImageIndex];
+        img.alt = selectedProduct.title;
+        img.className = 'w-full h-full object-contain';
+        mainImage.appendChild(img);
+        
+        // Create thumbnails and dots
+        selectedProduct.images.forEach((image, index) => {
+          // Thumbnail
+          const thumbnail = document.createElement('img');
+          thumbnail.src = image;
+          thumbnail.alt = `${selectedProduct.title} - View ${index + 1}`;
+          thumbnail.className = index === 0 ? 'thumbnail active' : 'thumbnail';
+          thumbnail.addEventListener('click', () => changeImage(index));
+          thumbnailImages.appendChild(thumbnail);
+          
+          // Dot
+          const dot = document.createElement('div');
+          dot.className = index === 0 ? 'carousel-dot active' : 'carousel-dot';
+          dot.addEventListener('click', () => changeImage(index));
+          carouselDots.appendChild(dot);
+        });
+      }
+
+      // Load related products
+      function loadRelatedProducts() {
+        relatedProductsContainer.innerHTML = '';
+        const relatedProducts = products
+          .filter(p => p.id !== selectedProduct.id && p.category === selectedProduct.category)
+          .slice(0, 4);
+        
+        if (relatedProducts.length === 0) {
+          relatedProductsContainer.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <p>No related products found.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        relatedProducts.forEach(product => {
+          const productCard = document.createElement('div');
+          productCard.className = 'related-product-card';
+          productCard.innerHTML = `
+            <img src="${product.images[0]}" alt="${product.title}" class="w-full">
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 mb-2 truncate">${product.title}</h3>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-bold text-blue-600">₹${product.price.toFixed(2)}</span>
+                  ${product.originalPrice > product.price ? 
+                    `<span class="ml-2 text-sm text-gray-500 line-through">₹${product.originalPrice.toFixed(2)}</span>
+                     <span class="ml-1 text-xs text-red-500 font-semibold">${product.discount}% OFF</span>` : ''}
+                </div>
+                <div class="flex text-yellow-400 text-sm">
+                  ${'<i class="fas fa-star"></i>'.repeat(Math.floor(product.rating))}
+                  ${product.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                  ${'<i class="far fa-star"></i>'.repeat(5 - Math.ceil(product.rating))}
+                </div>
+              </div>
+              <button class="mt-3 w-full bg-blue-100 text-blue-600 py-2 rounded-md hover:bg-blue-200 transition-colors" onclick="viewProduct(${product.id})">
+                View Details
+              </button>
+            </div>
+          `;
+          relatedProductsContainer.appendChild(productCard);
+        });
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Image navigation
+        prevImageBtn.addEventListener('click', () => changeImage(currentImageIndex - 1));
+        nextImageBtn.addEventListener('click', () => changeImage(currentImageIndex + 1));
+        
+        // Quantity controls
+        decreaseQtyBtn.addEventListener('click', decreaseQuantity);
+        increaseQtyBtn.addEventListener('click', increaseQuantity);
+        
+        // Add to cart and wishlist
+        addToCartBtn.addEventListener('click', addToCart);
+        addToWishlistBtn.addEventListener('click', toggleWishlist);
+        
+        // Modal controls
+        cartBtn.addEventListener('click', openCartModal);
+        wishlistBtn.addEventListener('click', openWishlistModal);
+        closeCartModal.addEventListener('click', closeCart);
+        closeWishlistModal.addEventListener('click', closeWishlist);
+        
+        // Close modals when clicking outside
+        cartModal.addEventListener('click', (e) => {
+          if (e.target === cartModal) closeCart();
+        });
+        
+        wishlistModal.addEventListener('click', (e) => {
+          if (e.target === wishlistModal) closeWishlist();
+        });
+        
+        // Cart and wishlist management
+        clearCartBtn.addEventListener('click', clearCart);
+        clearWishlistBtn.addEventListener('click', clearWishlist);
+        checkoutBtn.addEventListener('click', checkout);
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('open');
+          mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+          mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Search handling
+        searchInput.addEventListener('input', handleSearch);
+        mobileSearchInput.addEventListener('input', handleSearch);
+      }
+
+      // Change product image
+      function changeImage(index) {
+        const totalImages = selectedProduct.images.length;
+        
+        // Handle wrap-around
+        if (index < 0) index = totalImages - 1;
+        if (index >= totalImages) index = 0;
+        
+        currentImageIndex = index;
+        
+        // Update main image
+        const img = mainImage.querySelector('img');
+        img.src = selectedProduct.images[index];
+        
+        // Update active thumbnail
+        const thumbnails = thumbnailImages.querySelectorAll('.thumbnail');
+        thumbnails.forEach((thumb, i) => {
+          thumb.classList.toggle('active', i === index);
+        });
+        
+        // Update active dot
+        const dots = carouselDots.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+
+      // Select size
+      function selectSize(element, size) {
+        // Remove selected class from all sizes
+        const sizeOptions = productSizes.querySelectorAll('.size-option');
+        sizeOptions.forEach(option => option.classList.remove('selected'));
+        
+        // Add selected class to clicked size
+        element.classList.add('selected');
+        selectedSize = size;
+      }
+
+      // Quantity controls
+      function decreaseQuantity() {
+        let qty = parseInt(quantity.textContent);
+        if (qty > 1) {
+          quantity.textContent = qty - 1;
+        }
+      }
+
+      function increaseQuantity() {
+        let qty = parseInt(quantity.textContent);
+        if (qty < selectedProduct.stock) {
+          quantity.textContent = qty + 1;
+        }
+      }
+
+      // Add to cart
+      function addToCart() {
+        if (!selectedSize && selectedProduct.sizes && selectedProduct.sizes.length > 0) {
+          showNotification('Please select a size!', 'error');
+          return;
+        }
+        
+        const qty = parseInt(quantity.textContent);
+        const product = {
+          id: selectedProduct.id,
+          title: selectedProduct.title,
+          price: selectedProduct.price,
+          image: selectedProduct.images[0],
+          size: selectedSize || 'One Size',
+          quantity: qty
+        };
+        
+        // Check if product already in cart
+        const existingItemIndex = cart.findIndex(item => 
+          item.id === product.id && item.size === product.size
+        );
+        
+        if (existingItemIndex > -1) {
+          // Update quantity if already in cart
+          cart[existingItemIndex].quantity += qty;
+        } else {
+          // Add new item to cart
+          cart.push(product);
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartUI();
+        showNotification('Product added to cart!');
+      }
+
+      // Toggle wishlist
+      function toggleWishlist() {
+        const product = {
+          id: selectedProduct.id,
+          title: selectedProduct.title,
+          price: selectedProduct.price,
+          image: selectedProduct.images[0]
+        };
+        
+        // Check if product already in wishlist
+        const existingIndex = wishlist.findIndex(item => item.id === product.id);
+        
+        if (existingIndex > -1) {
+          // Remove from wishlist
+          wishlist.splice(existingIndex, 1);
+          addToWishlistBtn.classList.remove('active');
+          addToWishlistBtn.innerHTML = '<i class="far fa-heart mr-2"></i>Add to Wishlist';
+          showNotification('Product removed from wishlist');
+        } else {
+          // Add to wishlist
+          wishlist.push(product);
+          addToWishlistBtn.classList.add('active');
+          addToWishlistBtn.innerHTML = '<i class="fas fa-heart mr-2"></i>Added to Wishlist';
+          showNotification('Product added to wishlist!');
+        }
+        
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        updateWishlistUI();
+      }
+
+      // Update cart UI
+      function updateCartUI() {
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        if (totalItems > 0) {
+          cartCount.classList.remove('hidden');
+        } else {
+          cartCount.classList.add('hidden');
+        }
+        
+        // Update cart modal content
+        if (cart.length === 0) {
+          cartContent.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-shopping-cart"></i>
+              <p>Your cart is empty</p>
+            </div>
+          `;
+          cartFooter.classList.add('hidden');
+        } else {
+          cartContent.innerHTML = '';
+          let total = 0;
+          
+          cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+              <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-contain bg-blue-50 rounded-md">
+              <div class="ml-4 flex-1">
+                <h3 class="font-medium text-gray-900 truncate">${item.title}</h3>
+                <p class="text-sm text-gray-600">Size: ${item.size}</p>
+                <div class="flex items-center justify-between mt-2">
+                  <div class="flex items-center">
+                    <button class="quantity-btn decrease" data-index="${index}">
+                      <i class="fas fa-minus text-xs"></i>
+                    </button>
+                    <span class="mx-2 font-medium">${item.quantity}</span>
+                    <button class="quantity-btn increase" data-index="${index}">
+                      <i class="fas fa-plus text-xs"></i>
+                    </button>
+                  </div>
+                  <div>
+                    <span class="font-semibold">₹${itemTotal.toFixed(2)}</span>
+                    <button class="ml-4 text-red-500 hover:text-red-700 remove-item" data-index="${index}">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            cartContent.appendChild(cartItem);
+          });
+          
+          // Add event listeners to cart item buttons
+          document.querySelectorAll('.quantity-btn.decrease').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.closest('.quantity-btn').dataset.index);
+              if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+              }
+            });
+          });
+          
+          document.querySelectorAll('.quantity-btn.increase').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.closest('.quantity-btn').dataset.index);
+              const product = products.find(p => p.id === cart[index].id);
+              if (cart[index].quantity < product.stock) {
+                cart[index].quantity++;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+              }
+            });
+          });
+          
+          document.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.closest('.remove-item').dataset.index);
+              cart.splice(index, 1);
+              localStorage.setItem('cart', JSON.stringify(cart));
+              updateCartUI();
+            });
+          });
+          
+          cartTotal.textContent = `₹${total.toFixed(2)}`;
+          cartFooter.classList.remove('hidden');
+        }
+      }
+
+      // Update wishlist UI
+      function updateWishlistUI() {
+        // Update wishlist count
+        wishlistCount.textContent = wishlist.length;
+        
+        if (wishlist.length > 0) {
+          wishlistCount.classList.remove('hidden');
+        } else {
+          wishlistCount.classList.add('hidden');
+        }
+        
+        // Check if current product is in wishlist
+        const isInWishlist = wishlist.find(item => item.id === selectedProduct?.id);
+        if (isInWishlist) {
+          addToWishlistBtn.classList.add('active');
+          addToWishlistBtn.innerHTML = '<i class="fas fa-heart mr-2"></i>Added to Wishlist';
+        } else {
+          addToWishlistBtn.classList.remove('active');
+          addToWishlistBtn.innerHTML = '<i class="far fa-heart mr-2"></i>Add to Wishlist';
+        }
+        
+        // Update wishlist modal content
+        if (wishlist.length === 0) {
+          wishlistContent.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-heart"></i>
+              <p>Your wishlist is empty</p>
+            </div>
+          `;
+          wishlistFooter.classList.add('hidden');
+        } else {
+          wishlistContent.innerHTML = '';
+          
+          wishlist.forEach((item, index) => {
+            const wishlistItem = document.createElement('div');
+            wishlistItem.className = 'wishlist-item';
+            wishlistItem.innerHTML = `
+              <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-contain bg-blue-50 rounded-md">
+              <div class="ml-4 flex-1">
+                <h3 class="font-medium text-gray-900">${item.title}</h3>
+                <p class="text-lg font-semibold text-blue-600 mt-1">₹${item.price.toFixed(2)}</p>
+              </div>
+              <div class="flex space-x-2">
+                <button class="p-2 text-blue-600 hover:bg-blue-100 rounded-full add-to-cart-from-wishlist" data-index="${index}">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+                <button class="p-2 text-red-500 hover:bg-red-100 rounded-full remove-from-wishlist" data-index="${index}">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            `;
+            wishlistContent.appendChild(wishlistItem);
+          });
+          
+          // Add event listeners to wishlist item buttons
+          document.querySelectorAll('.add-to-cart-from-wishlist').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.closest('.add-to-cart-from-wishlist').dataset.index);
+              const product = wishlist[index];
+              const fullProduct = products.find(p => p.id === product.id);
+              
+              // Add to cart
+              const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === (fullProduct.sizes ? fullProduct.sizes[0] : 'One Size'));
+              
+              if (existingItemIndex > -1) {
+                if (cart[existingItemIndex].quantity < fullProduct.stock) {
+                  cart[existingItemIndex].quantity += 1;
+                }
+              } else {
+                cart.push({
+                  id: product.id,
+                  title: product.title,
+                  price: product.price,
+                  image: product.image,
+                  size: fullProduct.sizes ? fullProduct.sizes[0] : 'One Size',
+                  quantity: 1
+                });
+              }
+              
+              localStorage.setItem('cart', JSON.stringify(cart));
+              updateCartUI();
+              showNotification('Product added to cart from wishlist!');
+            });
+          });
+          
+          document.querySelectorAll('.remove-from-wishlist').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.closest('.remove-from-wishlist').dataset.index);
+              wishlist.splice(index, 1);
+              localStorage.setItem('wishlist', JSON.stringify(wishlist));
+              updateWishlistUI();
+            });
+          });
+          
+          wishlistFooter.classList.remove('hidden');
+        }
+      }
+
+      // Modal functions
+      function openCartModal() {
+        cartModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function openWishlistModal() {
+        wishlistModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCart() {
+        cartModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      function closeWishlist() {
+        wishlistModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Cart management
+      function clearCart() {
+        if (confirm('Are you sure you want to clear your cart?')) {
+          cart = [];
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartUI();
+        }
+      }
+
+      function clearWishlist() {
+        if (confirm('Are you sure you want to clear your wishlist?')) {
+          wishlist = [];
+          localStorage.setItem('wishlist', JSON.stringify(wishlist));
+          updateWishlistUI();
+        }
+      }
+
+      function checkout() {
+        if (cart.length === 0) {
+          showNotification('Your cart is empty!', 'error');
+          return;
+        }
+        
+        showNotification('Proceeding to checkout! This would redirect to a payment page in a real application.');
+        // In a real app, this would redirect to a checkout page
+      }
+
+      // View product
+      function viewProduct(productId) {
+        localStorage.setItem('selectedProductId', productId);
+        window.location.reload();
+      }
+
+      // Search handling
+      function handleSearch(e) {
+        localStorage.setItem('searchTerm', e.target.value);
+        window.location.href = 'babycare.html';
+      }
+
+      // Utility function to show notifications
+      function showNotification(message, type = 'success') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 px-4 py-2 rounded-md shadow-lg z-50 transform translate-x-full transition-transform ${
+          type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+        }`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+          notification.classList.remove('translate-x-full');
+          notification.classList.add('translate-x-0');
+        }, 10);
+        
+        // Animate out and remove after 3 seconds
+        setTimeout(() => {
+          notification.classList.remove('translate-x-0');
+          notification.classList.add('translate-x-full');
+          
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 300);
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

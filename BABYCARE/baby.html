@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Care - Premium Products for Your Baby</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/Mothercare-subpage/style.css" />
+    <style>
+      /* General Hover Effects */
+      .product-card:hover {
+        transform: translateY(-6px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .image-zoom:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+
+      /* Filter Sidebar */
+      .filter-sidebar {
+        transition: transform 0.3s ease;
+      }
+      .filter-sidebar.hidden-mobile {
+        transform: translateX(-100%);
+      }
+      @media (min-width: 768px) {
+        .filter-sidebar.hidden-mobile {
+          transform: translateX(0);
+        }
+      }
+
+      /* Product Card */
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 280px;
+        min-height: 360px;
+        background: #fff;
+        border: 1px solid #3B82F6; /* Light blue border */
+        border-radius: 16px;
+        overflow: hidden;
+        margin: 0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product-card img,
+      .product-image {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+        background: #F0F5FF; /* Light blue background */
+        padding: 0.5rem;
+      }
+
+      .product-card .content {
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .text-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .text-content h3,
+      .text-content p,
+      .text-content .flex {
+        text-align: left;
+        margin-bottom: 0;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        padding: 0.75rem;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .view-details {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 400;
+        border-radius: 25px;
+        background: linear-gradient(135deg, #DBEAFE, #3B82F6); /* Light blue gradient */
+        color: #1F2937;
+        border: 1px solid #3B82F6;
+        transition: all 0.3s ease;
+        flex: none;
+        min-width: 220px;
+        text-align: center;
+      }
+
+      .view-details:hover {
+        background: linear-gradient(135deg, #3B82F6, #93C5FD); /* Brighter blue gradient */
+        color: #111827;
+      }
+
+      /* Animation */
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in-up {
+        animation: fade-in-up 1s ease forwards;
+      }
+
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+
+      /* Banner Navigation Dots */
+      .active-dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        opacity: 1 !important;
+      }
+
+      /* Responsive Cards & Buttons */
+      @media (max-width: 640px) {
+        .button-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .view-details {
+          width: 100%;
+          max-width: 250px;
+        }
+
+        .product-card {
+          width: 100%;
+          min-height: auto;
+        }
+      }
+
+      /* Sidebar background gradient */
+      .filter-sidebar {
+        background: linear-gradient(135deg, #DBEAFE, #93C5FD); /* Light blue gradient */
+      }
+
+      .filter-sidebar label {
+        background-color: rgba(255, 255, 255, 0.856);
+        padding: 0.35rem 0.8rem;
+        border-radius: 10px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="bg-blue-50"> <!-- Light blue background -->
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-2">
+            <img
+              src="./images/babycare-logo.png"
+              alt="BabyCare Logo"
+              class="h-36 w-36 object-contain"
+            />
+          </div>
+          <div class="hidden md:block flex-1 max-w-lg mx-8">
+            <div class="relative">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for baby care products..."
+                class="w-full px-4 py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <i class="fas fa-search text-gray-400"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button
+              id="wishlistBtn"
+              class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              <i class="fas fa-heart text-xl"></i>
+              <span
+                id="wishlistCount"
+                class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden"
+                >0</span
+              >
+            </button>
+            <button
+              id="cartBtn"
+              class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              <i class="fas fa-shopping-cart text-xl"></i>
+              <span
+                id="cartCount"
+                class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden"
+                >0</span
+              >
+            </button>
+            <button
+              id="mobileMenuBtn"
+              class="md:hidden p-2 text-gray-600 hover:text-blue-600"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="md:hidden px-4 pb-4">
+        <div class="relative">
+          <input
+            type="text"
+            id="mobileSearchInput"
+            placeholder="Search baby products..."
+            class="w-full px-4 py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Banner -->
+      <section
+        class="relative w-full h-[300px] sm:h-[350px] mb-6 overflow-hidden rounded-xl shadow-lg"
+      >
+        <div id="bannerWrapper" class="w-full h-full relative">
+          <div
+            class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 opacity-100 slide"
+            style="background-image: url('./images/babycare-banner1.jpeg')"
+          >
+            <div class="absolute inset-0 bg-white/20"></div>
+            <div
+              class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+            >
+              <h2
+                class="text-2xl sm:text-3xl text-gray-600 font-bold animate-fade-in-up"
+              >
+                Baby Care Essentials
+              </h2>
+              <p
+                class="mt-2 text-gray-600 text-sm sm:text-base max-w-xl animate-fade-in-up delay-200"
+              >
+                Everything you need for your baby's comfort and happiness.
+              </p>
+            </div>
+          </div>
+          <div
+            class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 opacity-0 slide"
+            style="background-image: url('./images/babycare-banner2.jpeg')"
+          >
+            <div class="absolute inset-0 bg-white/40"></div>
+            <div
+              class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+            >
+              <h2 class="text-2xl sm:text-3xl font-bold text-gray-600 animate-fade-in-up">
+                Loving Care for Your Little One
+              </h2>
+              <p
+                class="mt-2 text-sm text-gray-600 sm:text-base max-w-xl animate-fade-in-up delay-200"
+              >
+                Discover safe, gentle, and fun products for every stage of babyhood.
+              </p>
+            </div>
+          </div>
+          <div
+            class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 opacity-0 slide"
+            style="background-image: url('https://images.unsplash.com/photo-1585060544947-148d9b4db6f4?auto=format&fit=crop&w=1600&q=80')"
+          >
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div
+              class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+            >
+              <h2 class="text-2xl sm:text-3xl font-bold animate-fade-in-up">
+                Nurture with Confidence
+              </h2>
+              <p
+                class="mt-2 text-sm sm:text-base max-w-xl animate-fade-in-up delay-200"
+              >
+                Premium products to keep your baby happy and healthy.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20"
+        >
+          <button
+            class="w-3 h-3 rounded-full bg-white opacity-70 active-dot transition-all duration-300"
+          ></button>
+          <button
+            class="w-3 h-3 rounded-full bg-white/50 hover:opacity-80 transition-all duration-300"
+          ></button>
+          <button
+            class="w-3 h-3 rounded-full bg-white/50 hover:opacity-80 transition-all duration-300"
+          ></button>
+        </div>
+      </section>
+
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside
+          id="filterSidebar"
+          class="filter-sidebar lg:w-64 bg-white rounded-lg shadow-md p-6 h-fit lg:sticky lg:top-24"
+        >
+          <div class="flex justify-between items-center mb-6 lg:hidden">
+            <h2 class="text-lg font-semibold text-gray-900">Filters</h2>
+            <button
+              id="closeSidebarBtn"
+              class="text-gray-500 hover:text-gray-700"
+            >
+            </button>
+          </div>
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide"
+            >
+              Categories
+            </h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="all"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                  checked
+                />
+                <span class="ml-2 text-sm text-gray-700">All Products</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="diapers-wipes"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Diapers & Wipes</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="skin-hair-care"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Baby Skin & Hair Care</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="feeding-nursing"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Feeding & Nursing</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="health-safety"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Baby Health & Safety</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="toys-learning"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Toys & Learning</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="category"
+                  value="clothing-accessories"
+                  class="category-filter text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-700">Baby Clothing & Accessories</span>
+              </label>
+            </div>
+          </div>
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide"
+            >
+              Price Range
+            </h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="price-filter text-blue-600 focus:ring-blue-500"
+                  data-min="0"
+                  data-max="2075"
+                />
+                <span class="ml-2 text-sm text-gray-700">Under ₹4000</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="price-filter text-blue-600 focus:ring-blue-500"
+                  data-min="2075"
+                  data-max="4150"
+                />
+                <span class="ml-2 text-sm text-gray-700">₹2075 - ₹4150</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="price-filter text-blue-600 focus:ring-blue-500"
+                  data-min="4150"
+                  data-max="8300"
+                />
+                <span class="ml-2 text-sm text-gray-700">₹4150 - ₹8300</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="price-filter text-blue-600 focus:ring-blue-500"
+                  data-min="8300"
+                  data-max="82917"
+                />
+                <span class="ml-2 text-sm text-gray-700">Over ₹8300</span>
+              </label>
+            </div>
+          </div>
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide"
+            >
+              Customer Rating
+            </h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="rating-filter text-blue-600 focus:ring-blue-500"
+                  data-rating="4"
+                />
+                <span class="ml-2 text-sm text-gray-700 flex items-center">
+                  <span class="text-yellow-400">★★★★</span>
+                  <span class="ml-1">& Up</span>
+                </span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="rating-filter text-blue-600 focus:ring-blue-500"
+                  data-rating="3"
+                />
+                <span class="ml-2 text-sm text-gray-700 flex items-center">
+                  <span class="text-yellow-400">★★★</span>
+                  <span class="ml-1">& Up</span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="mb-6">
+            <h3
+              class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide"
+            >
+              Discount
+            </h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="discount-filter text-blue-600 focus:ring-blue-500"
+                  data-discount="10"
+                />
+                <span class="ml-2 text-sm text-gray-700">10% Off or More</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="discount-filter text-blue-600 focus:ring-blue-500"
+                  data-discount="20"
+                />
+                <span class="ml-2 text-sm text-gray-700">20% Off or More</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="discount-filter text-blue-600 focus:ring-blue-500"
+                  data-discount="50"
+                />
+                <span class="ml-2 text-sm text-gray-700">50% Off or More</span>
+              </label>
+            </div>
+          </div>
+          <button
+            id="clearFilters"
+            class="w-full bg-blue-400 text-white py-2 px-4 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
+          >
+            Clear All Filters
+          </button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1">
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"
+          >
+            <div>
+              <p id="resultsCount" class="text-gray-600">
+                Showing all products
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <button
+                id="filterToggleBtn"
+                class="lg:hidden bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                <i class="fas fa-filter mr-2"></i>Filters
+              </button>
+              <select
+                id="sortSelect"
+                class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="default">Sort by: Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
+                <option value="newest">Newest First</option>
+              </select>
+            </div>
+          </div>
+          <div
+            id="productsGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- Products will be dynamically loaded here -->
+          </div>
+          <div
+            id="pagination"
+            class="flex justify-center items-center mt-12 space-x-2"
+          >
+            <!-- Pagination will be dynamically generated -->
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Mobile Filter Overlay -->
+    <div
+      id="filterOverlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"
+    ></div>
+
+    <!-- Cart Modal -->
+    <div
+      id="cartModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
+    >
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+          class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+        >
+          <div class="flex items-center justify-between p-6 border-b">
+            <h2 class="text-2xl font-bold text-gray-900">Shopping Cart</h2>
+            <button
+              id="closeCartModal"
+              class="text-gray-500 hover:text-gray-700"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div id="cartContent" class="p-6 overflow-y-auto max-h-96">
+            <!-- Cart items will be dynamically loaded here -->
+          </div>
+          <div id="cartFooter" class="border-t p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-lg font-semibold">Total: </span>
+              <span id="cartTotal" class="text-2xl font-bold text-blue-600"
+                >₹0.00</span
+              >
+            </div>
+            <div class="flex space-x-4">
+              <button
+                id="clearCart"
+                class="flex-1 bg-gray-200 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-300 transition-colors"
+              >
+                Clear Cart
+              </button>
+              <button
+                id="checkoutBtn"
+                class="flex-1 bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div
+      id="wishlistModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
+    >
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+          class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+        >
+          <div class="flex items-center justify-between p-6 border-b">
+            <h2 class="text-2xl font-bold text-gray-900">My Wishlist</h2>
+            <button
+              id="closeWishlistModal"
+              class="text-gray-500 hover:text-gray-700"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div id="wishlistContent" class="p-6 overflow-y-auto max-h-96">
+            <!-- Wishlist items will be dynamically loaded here -->
+          </div>
+          <div id="wishlistFooter" class="border-t p-6">
+            <button
+              id="clearWishlist"
+              class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors"
+            >
+              Clear Wishlist
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./baby.js"></script>
+  </body>
+</html>
