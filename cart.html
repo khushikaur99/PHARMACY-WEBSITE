@@ -61,7 +61,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-white" onload="initializePage()">
     <!-- Common Header -->
     <header id="common-header">
         <!-- Top Header -->
@@ -85,7 +85,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Location Selection Modal -->
                     <div id="locationModal" class="modal1">
                         <div class="modal-content1 w-80 sm:w-96 max-w-[90%]">
@@ -133,16 +132,16 @@
                             <i class="fas fa-heart mr-1"></i>
                             <span class="hidden md:inline" data-i18n="wishlist">Wishlist</span>
                         </a>
-                        <!-- Offers -->
-                        <a href="#" class="flex items-center text-gray-700 hover:text-primary">
+                        <!-- About -->
+                        <a href="../about.html" class="flex items-center text-gray-700 hover:text-primary">
                             <i class="fas fa-tag mr-1"></i>
-                            <span class="hidden md:inline" data-i18n="offers">Offers</span>
+                            <span class="hidden md:inline" data-i18n="About">About</span>
                         </a>
                         <!-- Cart -->
-                        <a href="cart.html" class="flex items-center text-gray-700 hover:text-primary">
+                        <a href="/cart.html" class="flex items-center text-gray-700 hover:text-primary">
                             <div class="relative">
                                 <i class="fas fa-shopping-cart mr-1"></i>
-                                <span id="cart-count" class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">0</span>
+                                <span class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">3</span>
                             </div>
                             <span class="hidden md:inline" data-i18n="cart">Cart</span>
                         </a>
@@ -167,15 +166,15 @@
                                 <a href="prescribed.html" class="block px-4 py-2" data-i18n="prescription_medicines">Prescription Medicines (Upload Prescription)</a>
                                 <a href="#" class="block px-4 py-2" data-i18n="otc_medicines">Over-the-Counter (OTC) Medicines</a>
                                 <a href="./Medicine & Healthcare/CHRONIC/chronic.html" class="block px-4 py-2" data-i18n="chronic_care">Chronic Care (Diabetes, Hypertension, Cardiac, Asthma, Thyroid)</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="first_aid">First Aid & Emergency</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="pain_relief">Pain Relief & Fever</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="allergy_cold">Allergy & Cold Care</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="digestive_health">Digestive Health</a>
+                                <a href="./Medicine & Healthcare/FIRST AID & EMERGENCY/first.html" class="block px-4 py-2" data-i18n="first_aid">First Aid & Emergency</a>
+                                <a href="./Medicine & Healthcare/PAIN & RELIEF/pain.html" class="block px-4 py-2" data-i18n="pain_relief">Pain Relief & Fever</a>
+                                <a href="./Medicine & Healthcare/ALLERGY & COLD CARE/allergy.html" class="block px-4 py-2" data-i18n="allergy_cold">Allergy & Cold Care</a>
+                                <a href="./Medicine & Healthcare/DIGESTIVE/digestive.html" class="block px-4 py-2" data-i18n="digestive_health">Digestive Health</a>
                             </div>
                         </div>
                         <!-- Mother Care & Maternity -->
                         <div class="nav-dropdown relative">
-                            <a href="#" class="px-4 py-2 text-dark rounded-lg flex items-center">
+                            <a href="./MOTHERCARE/mother.html" class="px-4 py-2 text-dark rounded-lg flex items-center">
                                 <i class="fas fa-female mr-2 text-primary"></i>
                                 <span data-i18n="mother_care">Mother Care</span>
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
@@ -191,7 +190,7 @@
                         </div>
                         <!-- Baby Care -->
                         <div class="nav-dropdown relative">
-                            <a href="#" class="px-4 py-2 text-dark rounded-lg flex items-center">
+                            <a href="./BABYCARE/baby.html" class="px-4 py-2 text-dark rounded-lg flex items-center">
                                 <i class="fas fa-baby mr-2 text-primary"></i>
                                 <span data-i18n="baby_care">Baby Care</span>
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
@@ -213,11 +212,11 @@
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </a>
                             <div class="nav-dropdown-menu absolute hidden left-0 mt-1 bg-white rounded-md shadow-lg py-2 z-10">
-                                <a href="#" class="block px-4 py-2" data-i18n="vitamins_supplements">Vitamins & Supplements</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="skin_hair_care">Skin & Hair Care</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="oral_care">Oral Care</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="menstrual_care">Menstrual & Intimate Care</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="fitness_weight">Fitness & Weight Management</a>
+                                <a href="./WELLNESS1/VITAMIN/vitamins.html" class="block px-4 py-2" data-i18n="vitamins_supplements">Vitamins & Supplements</a>
+                                <a href="./WELLNESS1/SKIN & HAIR/skin.html" class="block px-4 py-2" data-i18n="skin_hair_care">Skin & Hair Care</a>
+                                <a href="./WELLNESS1/ORAL CARE/oral.html" class="block px-4 py-2" data-i18n="oral_care">Oral Care</a>
+                                <a href="./WELLNESS1/MENSTRUAL CARE/menstrual.html" class="block px-4 py-2" data-i18n="menstrual_care">Menstrual & Intimate Care</a>
+                                <a href="./WELLNESS1/FITNESS AND MANAGEMENT/fitness.html" class="block px-4 py-2" data-i18n="fitness_weight">Fitness & Weight Management</a>
                             </div>
                         </div>
                         <!-- Medical Devices & Equipment -->
@@ -228,9 +227,9 @@
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </a>
                             <div class="nav-dropdown-menu absolute hidden left-0 mt-1 bg-white rounded-md shadow-lg py-2 z-10">
-                                <a href="#" class="block px-4 py-2" data-i18n="monitoring_devices">Monitoring Devices (BP Monitors, Glucometers)</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="mobility_aids">Mobility Aids (Walkers, Wheelchairs)</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="respiratory_care">Respiratory Care (Nebulizers, Oxygen)</a>
+                                <a href="./DEVICES/MONITORING DEVICES/monitor.html" class="block px-4 py-2" data-i18n="monitoring_devices">Monitoring Devices (BP Monitors, Glucometers)</a>
+                                <a href="./DEVICES/MOBILITY AIDS/mobility.html" class="block px-4 py-2" data-i18n="mobility_aids">Mobility Aids (Walkers, Wheelchairs)</a>
+                                <a href="./DEVICES/RESPIRATORY CARE/respiratory.html" class="block px-4 py-2" data-i18n="respiratory_care">Respiratory Care (Nebulizers, Oxygen)</a>
                             </div>
                         </div>
                         <!-- Speciality Care -->
@@ -241,11 +240,11 @@
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </a>
                             <div class="nav-dropdown-menu absolute hidden left-0 mt-1 bg-white rounded-md shadow-lg py-2 z-10">
-                                <a href="#" class="block px-4 py-2" data-i18n="womens_health">Women's Health</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="mens_health">Men's Health</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="senior_care">Senior Care</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="immunity_boosters">Immunity Boosters</a>
-                                <a href="#" class="block px-4 py-2" data-i18n="ayurveda_herbal">Ayurveda & Herbal Products</a>
+                                <a href="./SPECIALITY CARE/WOMENS HEALTH/women.html" class="block px-4 py-2" data-i18n="womens_health">Women's Health</a>
+                                <a href="./SPECIALITY CARE/MEN'S HEALTH/men.html" class="block px-4 py-2" data-i18n="mens_health">Men's Health</a>
+                                <a href="./SPECIALITY CARE/SENIOR CARE/senior.html" class="block px-4 py-2" data-i18n="senior_care">Senior Care</a>
+                                <a href="./SPECIALITY CARE/IMMUNITY BOOSTER/immunity.html" class="block px-4 py-2" data-i18n="immunity_boosters">Immunity Boosters</a>
+                                <a href="./SPECIALITY CARE/AYURVEDIC/ayurved.html" class="block px-4 py-2" data-i18n="ayurveda_herbal">Ayurveda & Herbal Products</a>
                             </div>
                         </div>
                     </div>
