@@ -7,6 +7,7 @@ const translations = {
         wishlist: "Wishlist",
         offers: "Offers",
         cart: "Cart",
+        menu: "Menu",
         medicine_healthcare: "Medicine & Healthcare",
         prescription_medicines: "Prescription Medicines (Upload Prescription)",
         otc_medicines: "Over-the-Counter (OTC) Medicines",
@@ -86,6 +87,7 @@ const translations = {
         wishlist: "इच्छा सूची",
         offers: "ऑफर",
         cart: "कार्ट",
+        menu: "मेनू",
         medicine_healthcare: "दवाएँ और स्वास्थ्य देखभाल",
         prescription_medicines: "प्रिस्क्रिप्शन दवाएँ (प्रिस्क्रिप्शन अपलोड करें)",
         otc_medicines: "ओवर-द-काउंटर (OTC) दवाएँ",
@@ -165,6 +167,7 @@ const translations = {
         wishlist: "इच्छा यादी",
         offers: "ऑफर",
         cart: "कार्ट",
+        menu: "मेनू",
         medicine_healthcare: "औषधे आणि आरोग्य सेवा",
         prescription_medicines: "प्रिस्क्रिप्शन औषधे (प्रिस्क्रिप्शन अपलोड करा)",
         otc_medicines: "ओव्हर-द-काउंटर (OTC) औषधे",
@@ -272,6 +275,7 @@ function initializePage() {
 
     initAuthSlider();
     initLanguageSelection();
+    initMobileMenu();
 
     const languageButton = document.getElementById('languageButton');
     if (languageButton) {
@@ -439,6 +443,76 @@ function closeForgetPasswordModal() {
     } else {
         console.warn('forgetPasswordModal not found in DOM');
     }
+}
+
+function initMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('mobile-open');
+            mobileMenuOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            console.log('Mobile menu opened');
+        });
+    } else {
+        console.warn('mobileMenuToggle not found');
+    }
+
+    if (closeMobileMenu) {
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('mobile-open');
+            mobileMenuOverlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            console.log('Mobile menu closed');
+        });
+    } else {
+        console.warn('closeMobileMenu not found');
+    }
+
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('mobile-open');
+            mobileMenuOverlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            console.log('Mobile menu closed via overlay');
+        });
+    }
+
+    // Initialize mobile submenu toggles
+    const mobileToggles = document.querySelectorAll('.mobile-menu-toggle');
+    mobileToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const submenu = toggle.nextElementSibling;
+            const icon = toggle.querySelector('i.fa-chevron-down');
+            const isActive = toggle.classList.contains('active');
+
+            // Close other submenus
+            document.querySelectorAll('.mobile-menu-toggle').forEach(otherToggle => {
+                if (otherToggle !== toggle) {
+                    otherToggle.classList.remove('active');
+                    const otherSubmenu = otherToggle.nextElementSibling;
+                    if (otherSubmenu) otherSubmenu.classList.add('hidden');
+                    const otherIcon = otherToggle.querySelector('i.fa-chevron-down');
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            if (isActive) {
+                toggle.classList.remove('active');
+                if (submenu) submenu.classList.add('hidden');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                toggle.classList.add('active');
+                if (submenu) submenu.classList.remove('hidden');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    });
 }
 
 function initAuthSlider() {

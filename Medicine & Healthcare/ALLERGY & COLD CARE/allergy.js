@@ -551,3 +551,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // ensure page has products shown with current filters
   applyFilters(products);
 });
+
+
