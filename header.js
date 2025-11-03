@@ -259,7 +259,14 @@ function initializePage() {
     }
     applyLanguage(savedLanguage);
 
-    const savedPincode = localStorage.getItem('pincode');
+    let savedPincode;
+    try {
+        savedPincode = localStorage.getItem('pincode');
+    } catch (e) {
+        console.warn('localStorage unavailable for pincode');
+        savedPincode = null;
+    }
+    
     const locationDisplay = document.getElementById('locationDisplay');
     const deliveryInfo = document.getElementById('deliveryInfo');
     const deliveryMessage = document.getElementById('deliveryMessage');
@@ -276,6 +283,7 @@ function initializePage() {
     initAuthSlider();
     initLanguageSelection();
     initMobileMenu();
+    initLocationModal();
 
     const languageButton = document.getElementById('languageButton');
     if (languageButton) {
@@ -289,7 +297,10 @@ function initializePage() {
 
     const changeLocation = document.getElementById('changeLocation');
     if (changeLocation) {
-        changeLocation.addEventListener('click', showLocationModal);
+        changeLocation.addEventListener('click', (e) => {
+            e.preventDefault();
+            showLocationModal();
+        });
     } else {
         console.warn('changeLocation button not found');
     }
@@ -320,7 +331,14 @@ function applyLanguage(lang) {
             titleElement.textContent = translations[lang][titleKey];
         }
     }
-    const savedPincode = localStorage.getItem('pincode');
+    
+    let savedPincode;
+    try {
+        savedPincode = localStorage.getItem('pincode');
+    } catch (e) {
+        savedPincode = null;
+    }
+    
     if (savedPincode) {
         const deliveryInfo = document.getElementById('deliveryInfo');
         const deliveryMessage = document.getElementById('deliveryMessage');
@@ -365,6 +383,99 @@ function closeLocationModal() {
     }
 }
 
+function validatePincode() {
+    const pincodeInput = document.getElementById('pincodeInput');
+    const pincodeError = document.getElementById('pincodeError');
+    const locationModal = document.getElementById('locationModal');
+    const deliveryInfo = document.getElementById('deliveryInfo');
+    const deliveryMessage = document.getElementById('deliveryMessage');
+    const locationDisplay = document.getElementById('locationDisplay');
+    
+    let currentLang;
+    try {
+        currentLang = localStorage.getItem('language') || 'en';
+    } catch (e) {
+        currentLang = 'en';
+    }
+    
+    const pincodePattern = /^[1-9][0-9]{5}$/;
+
+    if (!pincodeInput || !pincodeInput.value.trim()) {
+        if (pincodeError) {
+            pincodeError.textContent = translations[currentLang]['invalid_pincode'];
+            pincodeError.classList.remove('hidden');
+        }
+        console.warn('Pincode input empty');
+    } else if (pincodePattern.test(pincodeInput.value.trim())) {
+        const pincode = pincodeInput.value.trim();
+        if (pincodeError) pincodeError.classList.add('hidden');
+        
+        try {
+            localStorage.setItem('pincode', pincode);
+        } catch (e) {
+            console.warn('Cannot save to localStorage');
+        }
+        
+        if (locationModal) {
+            locationModal.classList.add('hidden');
+            locationModal.style.display = 'none';
+        }
+        if (locationDisplay) {
+            locationDisplay.textContent = pincode;
+        }
+        const estimatedDays = pincode.startsWith('1') || pincode.startsWith('2') ? '2-3 days' : '3-5 days';
+        if (deliveryInfo && deliveryMessage) {
+            deliveryInfo.classList.remove('hidden');
+            deliveryMessage.textContent = estimatedDays;
+            deliveryMessage.classList.add('text-green-600');
+        }
+        console.log('Pincode validated:', pincode);
+    } else {
+        if (pincodeError) {
+            pincodeError.textContent = translations[currentLang]['invalid_pincode'];
+            pincodeError.classList.remove('hidden');
+        }
+        console.warn('Invalid pincode:', pincodeInput.value);
+    }
+}
+
+function initLocationModal() {
+    const validatePincodeBtn = document.getElementById('validatePincode');
+    const closeLocationModalBtn = document.getElementById('closeLocationModal');
+    const pincodeInput = document.getElementById('pincodeInput');
+
+    if (validatePincodeBtn) {
+        validatePincodeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Validate pincode button clicked');
+            validatePincode();
+        });
+    } else {
+        console.warn('validatePincode button not found');
+    }
+
+    if (closeLocationModalBtn) {
+        closeLocationModalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Close location modal button clicked');
+            closeLocationModal();
+        });
+    } else {
+        console.warn('closeLocationModal button not found');
+    }
+
+    if (pincodeInput) {
+        pincodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                validatePincode();
+            }
+        });
+    } else {
+        console.warn('pincodeInput not found');
+    }
+}
+
 function showLanguageModal() {
     const languageModal = document.getElementById('languageModal');
     if (languageModal) {
@@ -390,7 +501,11 @@ function closeLanguageModal() {
 function selectLanguage(language) {
     const langCode = language === 'English' ? 'en' : language === 'Hindi' ? 'hi' : 'mr';
     console.log('Selected language:', language, 'langCode:', langCode);
-    localStorage.setItem('language', langCode);
+    try {
+        localStorage.setItem('language', langCode);
+    } catch (e) {
+        console.warn('Cannot save language to localStorage');
+    }
     document.documentElement.lang = langCode;
     const currentLanguageElement = document.getElementById('currentLanguage');
     if (currentLanguageElement) {
@@ -482,7 +597,6 @@ function initMobileMenu() {
         });
     }
 
-    // Initialize mobile submenu toggles
     const mobileToggles = document.querySelectorAll('.mobile-menu-toggle');
     mobileToggles.forEach(toggle => {
         toggle.addEventListener('click', (e) => {
@@ -491,7 +605,6 @@ function initMobileMenu() {
             const icon = toggle.querySelector('i.fa-chevron-down');
             const isActive = toggle.classList.contains('active');
 
-            // Close other submenus
             document.querySelectorAll('.mobile-menu-toggle').forEach(otherToggle => {
                 if (otherToggle !== toggle) {
                     otherToggle.classList.remove('active');
@@ -709,61 +822,7 @@ function initAuthSlider() {
     }
 }
 
-if (document.getElementById('validatePincode')) {
-    document.getElementById('validatePincode').addEventListener('click', function() {
-        const pincodeInput = document.getElementById('pincodeInput');
-        const pincodeError = document.getElementById('pincodeError');
-        const locationModal = document.getElementById('locationModal');
-        const deliveryInfo = document.getElementById('deliveryInfo');
-        const deliveryMessage = document.getElementById('deliveryMessage');
-        const locationDisplay = document.getElementById('locationDisplay');
-        const currentLang = localStorage.getItem('language') || 'en';
-        const pincodePattern = /^[1-9][0-9]{5}$/;
-
-        if (!pincodeInput.value.trim()) {
-            pincodeError.textContent = translations[currentLang]['invalid_pincode'];
-            pincodeError.classList.remove('hidden');
-            console.warn('Pincode input empty');
-        } else if (pincodePattern.test(pincodeInput.value.trim())) {
-            const pincode = pincodeInput.value.trim();
-            pincodeError.classList.add('hidden');
-            localStorage.setItem('pincode', pincode);
-            locationModal.classList.add('hidden');
-            locationModal.style.display = 'none';
-            if (locationDisplay) {
-                locationDisplay.textContent = pincode;
-            }
-            const estimatedDays = pincode.startsWith('1') || pincode.startsWith('2') ? '2-3 days' : '3-5 days';
-            if (deliveryInfo && deliveryMessage) {
-                deliveryInfo.classList.remove('hidden');
-                deliveryMessage.textContent = estimatedDays;
-                deliveryMessage.classList.add('text-green-600');
-            }
-            console.log('Pincode validated:', pincode);
-        } else {
-            pincodeError.textContent = translations[currentLang]['invalid_pincode'];
-            pincodeError.classList.remove('hidden');
-            console.warn('Invalid pincode:', pincodeInput.value);
-        }
-    });
-}
-
-if (document.getElementById('pincodeInput')) {
-    document.getElementById('pincodeInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            document.getElementById('validatePincode').click();
-        }
-    });
-}
-
-if (document.getElementById('closeLocationModal')) {
-    document.getElementById('closeLocationModal').addEventListener('click', closeLocationModal);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded');
     initializePage();
 });
-
-
-
