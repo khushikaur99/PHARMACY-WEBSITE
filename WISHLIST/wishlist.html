@@ -6,6 +6,7 @@
     <title>My Wishlist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="/header.css">
     <style>
         .wishlist-item {
             transition: all 0.3s ease;
@@ -80,17 +81,8 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-600">My Wishlist</h1>
-            <nav>
-                <a href="/index.html" class="text-gray-600 hover:text-blue-600 transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Shopping
-                </a>
-            </nav>
-        </div>
-    </header>
+<!-- Header Placeholder (loads header.html dynamically) -->
+    <div id="header-placeholder"></div>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
@@ -127,7 +119,26 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
-
+    <!-- Dynamic Header Loader Script -->
+    <script>
+        // Load header.html dynamically on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            fetch('/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    // Re-initialize any header-specific scripts if needed (e.g., call initializePage() again if it depends on header)
+                    if (typeof initializePage === 'function') {
+                        initializePage();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                    // Fallback: Optionally display a message or load inline header as backup
+                });
+        });
+    </script>
+      <script src="/header.js"></script>
    <script src="wishlist.js"></script>
 </body>
 </html>
