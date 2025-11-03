@@ -50,16 +50,8 @@ body[lang="hi"], body[lang="mr"] {
     text-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-.modal-content1 input {
+.modal-content1 input, .modal-content1 button {
     margin: 10px 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-.modal-content1 button {
-    margin: 10px 0;
-    width: auto;
-    padding: 8px 16px;
-    white-space: nowrap;
 }
 
 /* Language modal */
@@ -96,8 +88,6 @@ body[lang="hi"], body[lang="mr"] {
     max-width: 120px;
     margin: 5px auto;
     display: block;
-    padding: 10px 16px;
-    white-space: nowrap;
 }
 /* Forget password modal */
 .forgetpasswordmodal {
@@ -123,50 +113,28 @@ body[lang="hi"], body[lang="mr"] {
     text-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-.modal-content2 input {
+.modal-content2 input, .modal-content2-sendResetLink   {
     margin: 10px 0;
     width: 100%;
-    box-sizing: border-box;
-}
-.modal-content2 button {
-    width: auto;
-    padding: 8px 16px;
-    white-space: nowrap;
-    margin: 10px 5px;
 }
 
 /* Close button for forget password modal */
 #closeForgetModal {
+    width: 100%;
     max-width: 120px;
-    padding: 8px 16px;
-    background-color: #6b7280;
+    padding: 8px; /* Smaller padding for compact look */
+    background-color: #6b7280; /* Gray to differentiate from send reset */
     color: white;
     border: none;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 14px; /* Slightly smaller font */
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
     margin-top: 10px;
 }
 #closeForgetModal:hover {
-    background-color: #ef4444;
-}
-
-/* Close button for location modal */
-#closeLocationModal {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-}
-
-/* Submit button for location modal */
-#validatePincode {
-    padding: 10px 20px;
-    white-space: nowrap;
-    width: auto;
-    display: inline-block;
+    background-color: #ef4444; /* Red hover effect for "close" */
 }
 
 /* Auth slider for login and signup */
@@ -242,7 +210,6 @@ body[lang="hi"], body[lang="mr"] {
     border: 1px solid #d1d5db;
     border-radius: 6px;
     font-size: 16px;
-    box-sizing: border-box;
 }
 .form-group input:focus {
     outline: none;
@@ -260,7 +227,6 @@ body[lang="hi"], body[lang="mr"] {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
-    box-sizing: border-box;
 }
 .auth-btn:hover {
     background-color: #45c9b9;
@@ -324,13 +290,12 @@ body[lang="hi"], body[lang="mr"] {
 .language-btn {
     transition: background-color 0.2s ease;
     width: 100%;
-    padding: 10px 16px;
+    padding: 10px;
     margin: 10px 0;
     border: 1px solid #d1d5db;
     border-radius: 6px;
     background: white;
     cursor: pointer;
-    box-sizing: border-box;
 }
 .language-btn:hover {
     background-color: #f1f5f9;
@@ -507,3 +472,4 @@ body[lang="hi"], body[lang="mr"] {
         right: 0;
     }
 }
+
