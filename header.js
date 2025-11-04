@@ -5,7 +5,6 @@ const translations = {
         change: "Change",
         login: "Login",
         wishlist: "Wishlist",
-        offers: "Offers",
         cart: "Cart",
         menu: "Menu",
         medicine_healthcare: "Medicine & Healthcare",
@@ -85,7 +84,6 @@ const translations = {
         change: "बदलें",
         login: "लॉगिन",
         wishlist: "इच्छा सूची",
-        offers: "ऑफर",
         cart: "कार्ट",
         menu: "मेनू",
         medicine_healthcare: "दवाएँ और स्वास्थ्य देखभाल",
@@ -165,7 +163,6 @@ const translations = {
         change: "बदला",
         login: "लॉगिन",
         wishlist: "इच्छा यादी",
-        offers: "ऑफर",
         cart: "कार्ट",
         menu: "मेनू",
         medicine_healthcare: "औषधे आणि आरोग्य सेवा",
@@ -258,7 +255,6 @@ function initializePage() {
         console.warn('currentLanguage element not found');
     }
     applyLanguage(savedLanguage);
-
     let savedPincode;
     try {
         savedPincode = localStorage.getItem('pincode');
@@ -266,7 +262,7 @@ function initializePage() {
         console.warn('localStorage unavailable for pincode');
         savedPincode = null;
     }
-    
+   
     const locationDisplay = document.getElementById('locationDisplay');
     const deliveryInfo = document.getElementById('deliveryInfo');
     const deliveryMessage = document.getElementById('deliveryMessage');
@@ -279,12 +275,12 @@ function initializePage() {
     } else {
         showLocationModal();
     }
-
     initAuthSlider();
     initLanguageSelection();
     initMobileMenu();
     initLocationModal();
-
+    initPasswordToggles();
+    
     const languageButton = document.getElementById('languageButton');
     if (languageButton) {
         languageButton.addEventListener('click', () => {
@@ -294,7 +290,6 @@ function initializePage() {
     } else {
         console.warn('languageButton not found');
     }
-
     const changeLocation = document.getElementById('changeLocation');
     if (changeLocation) {
         changeLocation.addEventListener('click', (e) => {
@@ -331,14 +326,14 @@ function applyLanguage(lang) {
             titleElement.textContent = translations[lang][titleKey];
         }
     }
-    
+   
     let savedPincode;
     try {
         savedPincode = localStorage.getItem('pincode');
     } catch (e) {
         savedPincode = null;
     }
-    
+   
     if (savedPincode) {
         const deliveryInfo = document.getElementById('deliveryInfo');
         const deliveryMessage = document.getElementById('deliveryMessage');
@@ -390,16 +385,15 @@ function validatePincode() {
     const deliveryInfo = document.getElementById('deliveryInfo');
     const deliveryMessage = document.getElementById('deliveryMessage');
     const locationDisplay = document.getElementById('locationDisplay');
-    
+   
     let currentLang;
     try {
         currentLang = localStorage.getItem('language') || 'en';
     } catch (e) {
         currentLang = 'en';
     }
-    
+   
     const pincodePattern = /^[1-9][0-9]{5}$/;
-
     if (!pincodeInput || !pincodeInput.value.trim()) {
         if (pincodeError) {
             pincodeError.textContent = translations[currentLang]['invalid_pincode'];
@@ -409,13 +403,13 @@ function validatePincode() {
     } else if (pincodePattern.test(pincodeInput.value.trim())) {
         const pincode = pincodeInput.value.trim();
         if (pincodeError) pincodeError.classList.add('hidden');
-        
+       
         try {
             localStorage.setItem('pincode', pincode);
         } catch (e) {
             console.warn('Cannot save to localStorage');
         }
-        
+       
         if (locationModal) {
             locationModal.classList.add('hidden');
             locationModal.style.display = 'none';
@@ -443,7 +437,6 @@ function initLocationModal() {
     const validatePincodeBtn = document.getElementById('validatePincode');
     const closeLocationModalBtn = document.getElementById('closeLocationModal');
     const pincodeInput = document.getElementById('pincodeInput');
-
     if (validatePincodeBtn) {
         validatePincodeBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -453,7 +446,6 @@ function initLocationModal() {
     } else {
         console.warn('validatePincode button not found');
     }
-
     if (closeLocationModalBtn) {
         closeLocationModalBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -463,7 +455,6 @@ function initLocationModal() {
     } else {
         console.warn('closeLocationModal button not found');
     }
-
     if (pincodeInput) {
         pincodeInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -565,7 +556,6 @@ function initMobileMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
     const closeMobileMenu = document.getElementById('closeMobileMenu');
-
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
             mobileMenu.classList.add('mobile-open');
@@ -576,7 +566,6 @@ function initMobileMenu() {
     } else {
         console.warn('mobileMenuToggle not found');
     }
-
     if (closeMobileMenu) {
         closeMobileMenu.addEventListener('click', () => {
             mobileMenu.classList.remove('mobile-open');
@@ -587,7 +576,6 @@ function initMobileMenu() {
     } else {
         console.warn('closeMobileMenu not found');
     }
-
     if (mobileMenuOverlay) {
         mobileMenuOverlay.addEventListener('click', () => {
             mobileMenu.classList.remove('mobile-open');
@@ -596,7 +584,6 @@ function initMobileMenu() {
             console.log('Mobile menu closed via overlay');
         });
     }
-
     const mobileToggles = document.querySelectorAll('.mobile-menu-toggle');
     mobileToggles.forEach(toggle => {
         toggle.addEventListener('click', (e) => {
@@ -604,7 +591,6 @@ function initMobileMenu() {
             const submenu = toggle.nextElementSibling;
             const icon = toggle.querySelector('i.fa-chevron-down');
             const isActive = toggle.classList.contains('active');
-
             document.querySelectorAll('.mobile-menu-toggle').forEach(otherToggle => {
                 if (otherToggle !== toggle) {
                     otherToggle.classList.remove('active');
@@ -614,7 +600,6 @@ function initMobileMenu() {
                     if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
                 }
             });
-
             if (isActive) {
                 toggle.classList.remove('active');
                 if (submenu) submenu.classList.add('hidden');
@@ -626,6 +611,54 @@ function initMobileMenu() {
             }
         });
     });
+}
+
+function initPasswordToggles() {
+    // Login form password toggle
+    const loginPasswordToggle = document.querySelector('#login-form .relative button');
+    if (loginPasswordToggle) {
+        loginPasswordToggle.addEventListener('click', function() {
+            const passwordInput = document.getElementById('loginPassword');
+            const icon = this.querySelector('i');
+            togglePasswordVisibility(passwordInput, icon);
+        });
+    }
+
+    // Signup form password toggles
+    const signupPasswordInput = document.getElementById('signupPassword');
+    const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+    
+    if (signupPasswordInput) {
+        const signupPasswordToggle = signupPasswordInput.parentElement.querySelector('button');
+        if (signupPasswordToggle) {
+            signupPasswordToggle.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                togglePasswordVisibility(signupPasswordInput, icon);
+            });
+        }
+    }
+    
+    if (confirmPasswordInput) {
+        const confirmPasswordToggle = confirmPasswordInput.parentElement.querySelector('button');
+        if (confirmPasswordToggle) {
+            confirmPasswordToggle.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                togglePasswordVisibility(confirmPasswordInput, icon);
+            });
+        }
+    }
+}
+
+function togglePasswordVisibility(passwordInput, icon) {
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
 }
 
 function initAuthSlider() {
@@ -643,11 +676,14 @@ function initAuthSlider() {
     const forgotPasswordLink = document.getElementById('forgotPasswordLink');
     const sendResetLink = document.getElementById('sendResetLink');
     const closeForgetModal = document.getElementById('closeForgetModal');
-
+    
     if (!authSlider || !authOverlay) {
         console.warn('Auth slider or overlay not found in the DOM');
         return;
     }
+
+    // Initialize password toggles
+    initPasswordToggles();
 
     if (loginTrigger) {
         loginTrigger.addEventListener('click', function(e) {
@@ -691,7 +727,6 @@ function initAuthSlider() {
             signupForm.classList.add('hidden');
             console.log('Switched to login tab');
         });
-
         signupTab.addEventListener('click', function() {
             signupTab.classList.add('active');
             loginTab.classList.remove('active');
@@ -766,6 +801,71 @@ function initAuthSlider() {
         console.warn('closeForgetModal not found');
     }
 
+    // === UPDATED SIGNUP VALIDATION ===
+    const signupButton = document.querySelector('#signup-form .auth-btn');
+    if (signupButton) {
+        signupButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Reset all error messages
+            document.querySelectorAll('#signup-form small').forEach(el => el.classList.add('hidden'));
+            let valid = true;
+            let currentLang = 'en';
+            try {
+                currentLang = localStorage.getItem('language') || 'en';
+            } catch (e) {}
+
+            const t = translations[currentLang];
+
+            const firstName = document.getElementById('signupFirstName')?.value.trim();
+            const lastName = document.getElementById('signupLastName')?.value.trim();
+            const email = document.getElementById('signupEmail')?.value.trim();
+            const phone = document.getElementById('signupPhone')?.value.trim();
+            const password = document.getElementById('signupPassword')?.value;
+            const confirmPassword = document.getElementById('signupConfirmPassword')?.value;
+            const addressLandmark = document.getElementById('addressLandmark')?.value.trim();
+            const addressArea = document.getElementById('addressArea')?.value.trim();
+            const addressCity = document.getElementById('addressCity')?.value.trim();
+            const addressPincode = document.getElementById('addressPincode')?.value.trim();
+            const addressType = document.getElementById('addressType')?.value;
+            const acceptTerms = document.getElementById('acceptTerms')?.checked;
+
+            const phonePattern = /^[6-9]\d{9}$/;  // Indian mobile
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const pincodePattern = /^[1-9][0-9]{5}$/;
+
+            if (!firstName) { showError('firstNameError', t['first_name'] + ' is required'); valid = false; }
+            if (!lastName) { showError('lastNameError', t['last_name'] + ' is required'); valid = false; }
+            if (!email || !emailPattern.test(email)) { showError('emailError', 'Enter a valid email'); valid = false; }
+            if (!phone || !phonePattern.test(phone)) { showError('phoneError', 'Enter a valid 10-digit Indian phone number'); valid = false; }
+            if (!password || password.length < 6) { showError('passwordError', 'Password must be at least 6 characters'); valid = false; }
+            if (password !== confirmPassword) { showError('confirmPasswordError', 'Passwords do not match'); valid = false; }
+            if (!addressLandmark) { showError('landmarkError', 'Landmark is required'); valid = false; }
+            if (!addressArea) { showError('areaError', 'Area is required'); valid = false; }
+            if (!addressCity) { showError('cityError', 'City is required'); valid = false; }
+            if (!addressPincode || !pincodePattern.test(addressPincode)) { showError('pincodeSignupError', t['invalid_pincode']); valid = false; }
+            if (!addressType) { showError('addressTypeError', 'Please select address type'); valid = false; }
+            if (!acceptTerms) { showError('termsError', 'You must accept the terms'); valid = false; }
+
+            if (valid) {
+                console.log('Signup attempt for:', { firstName, lastName, email, phone });
+                alert('Signup successful for ' + firstName + ' ' + lastName);
+                closeAuth.click();
+            }
+        });
+    } else {
+        console.warn('Signup button not found');
+    }
+
+    function showError(id, message) {
+        const errorEl = document.getElementById(id);
+        if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.classList.remove('hidden');
+        }
+    }
+
+    // Login validation (unchanged)
     const loginButton = document.querySelector('#login-form .auth-btn');
     if (loginButton) {
         loginButton.addEventListener('click', function(e) {
@@ -784,41 +884,6 @@ function initAuthSlider() {
         });
     } else {
         console.warn('Login button not found');
-    }
-
-    const signupButton = document.querySelector('#signup-form .auth-btn');
-    if (signupButton) {
-        signupButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            const firstName = document.getElementById('signupFirstName')?.value.trim();
-            const lastName = document.getElementById('signupLastName')?.value.trim();
-            const email = document.getElementById('signupEmail')?.value.trim();
-            const phone = document.getElementById('signupPhone')?.value.trim();
-            const password = document.getElementById('signupPassword')?.value.trim();
-            const confirmPassword = document.getElementById('signupConfirmPassword')?.value.trim();
-            const addressLandmark = document.getElementById('addressLandmark')?.value.trim();
-            const addressArea = document.getElementById('addressArea')?.value.trim();
-            const addressCity = document.getElementById('addressCity')?.value.trim();
-            const addressPincode = document.getElementById('addressPincode')?.value.trim();
-            const addressState = document.getElementById('addressState')?.value.trim();
-            const addressCountry = document.getElementById('addressCountry')?.value.trim();
-            const addressType = document.getElementById('addressType')?.value.trim();
-            const phonePattern = /^[0-9]{10}$/;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const pincodePattern = /^[1-9][0-9]{5}$/;
-            const acceptTerms = document.getElementById('acceptTerms')?.checked;
-            if (firstName && lastName && emailPattern.test(email) && phonePattern.test(phone) && password && confirmPassword === password &&
-                addressLandmark && addressArea && addressCity && pincodePattern.test(addressPincode) && addressState && addressCountry && addressType && acceptTerms) {
-                console.log('Signup attempt for:', { firstName, lastName, email, phone });
-                alert('Signup successful for ' + firstName + ' ' + lastName);
-                closeAuth.click();
-            } else {
-                console.warn('Invalid signup input:', { firstName, lastName, email, phone, password, confirmPassword, addressLandmark, addressArea, addressCity, addressPincode, addressState, addressCountry, addressType, acceptTerms });
-                alert('Please fill all fields correctly, ensure passwords match, and accept terms');
-            }
-        });
-    } else {
-        console.warn('Signup button not found');
     }
 }
 

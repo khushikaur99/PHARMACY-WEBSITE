@@ -1,5 +1,5 @@
 
-        // Initialize cart count from localStorage
+// Initialize cart count from localStorage
         function updateCartCount() {
             const cartCountElement = document.getElementById('cart-count');
             if (cartCountElement) {
@@ -7,47 +7,12 @@
                 cartCountElement.textContent = cartCount;
             }
         }
-
         // Listen for storage changes to update cart count dynamically
         window.addEventListener('storage', (event) => {
             if (event.key === 'cartCount') {
                 updateCartCount();
             }
         });
-
-        // Carousel functionality
-        const carousel = document.getElementById("carousel");
-        const slides = carousel.children.length;
-        const dots = document.querySelectorAll(".dot");
-
-        let index = 0;
-
-        function showSlide(i) {
-            index = (i + slides) % slides; // loop around
-            carousel.style.transform = `translateX(-${index * 100}%)`;
-
-            // Update dots
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle("opacity-100", idx === index);
-                dot.classList.toggle("opacity-50", idx !== index);
-            });
-        }
-
-        // Buttons
-        document.getElementById("prev").onclick = () => showSlide(index - 1);
-        document.getElementById("next").onclick = () => showSlide(index + 1);
-
-        // Dots click
-        dots.forEach((dot, idx) => {
-            dot.addEventListener("click", () => showSlide(idx));
-        });
-
-        // Auto play every 4s
-        setInterval(() => showSlide(index + 1), 4000);
-
-        // Init
-        showSlide(0);
-
         // Comprehensive pharmacy categories and products
         const pharmacyCategories = {
             'Medicines & Healthcare': {
@@ -113,10 +78,8 @@
                 ]
             }
         };
-
         // Create comprehensive search terms including variations and keywords
         const searchTerms = [];
-
         // Add main categories
         Object.keys(pharmacyCategories).forEach(category => {
             searchTerms.push({
@@ -125,7 +88,7 @@
                 icon: pharmacyCategories[category].icon,
                 category: category
             });
-            
+           
             // Add subcategories
             pharmacyCategories[category].subcategories.forEach(sub => {
                 searchTerms.push({
@@ -137,7 +100,6 @@
                 });
             });
         });
-
         // Add additional searchable keywords for better matching
         const additionalKeywords = [
             // Medicines keywords
@@ -155,31 +117,31 @@
             { term: 'fever', matches: 'Pain Relief & Fever', icon: '🌡️' },
             { term: 'allergy', matches: 'Allergy & Cold Care', icon: '🤧' },
             { term: 'cold', matches: 'Allergy & Cold Care', icon: '🤧' },
-            
+           
             // Mother Care keywords
             { term: 'maternity', matches: 'Maternity Wear (Dresses, Nursing Wear, Innerwear)', icon: '👗' },
             { term: 'pregnancy', matches: 'Pregnancy Nutrition (Prenatal Vitamins, Supplements)', icon: '🤰' },
             { term: 'prenatal', matches: 'Pregnancy Nutrition (Prenatal Vitamins, Supplements)', icon: '🤰' },
             { term: 'breastfeeding', matches: 'Breastfeeding Essentials (Pumps, Bottles, Nipple Creams)', icon: '🍼' },
-            
+           
             // Baby Care keywords
             { term: 'diapers', matches: 'Diapers & Wipes', icon: '👶' },
             { term: 'baby', matches: 'Baby Care', icon: '👶' },
             { term: 'toys', matches: 'Toys & Learning', icon: '🧸' },
-            
+           
             // Wellness keywords
             { term: 'vitamins', matches: 'Vitamins & Supplements', icon: '💊' },
             { term: 'supplements', matches: 'Vitamins & Supplements', icon: '💊' },
             { term: 'skincare', matches: 'Skin & Hair Care', icon: '🧴' },
             { term: 'oral care', matches: 'Oral Care', icon: '🦷' },
             { term: 'fitness', matches: 'Fitness & Weight Management', icon: '💪' },
-            
+           
             // Medical Devices keywords
             { term: 'bp monitor', matches: 'Monitoring Devices (BP Monitors, Glucometers, Pulse Oximeters)', icon: '🩺' },
             { term: 'glucometer', matches: 'Monitoring Devices (BP Monitors, Glucometers, Pulse Oximeters)', icon: '🩺' },
             { term: 'wheelchair', matches: 'Mobility Aids (Walkers, Wheelchairs, Sticks)', icon: '♿' },
             { term: 'nebulizer', matches: 'Respiratory Care (Nebulizers, Oxygen Supplies)', icon: '🫁' },
-            
+           
             // Specialty Care keywords
             { term: 'women health', matches: "Women's Health", icon: '♀️' },
             { term: 'men health', matches: "Men's Health", icon: '♂️' },
@@ -187,7 +149,6 @@
             { term: 'herbal', matches: 'Ayurveda & Herbal Products', icon: '🌿' },
             { term: 'immunity', matches: 'Immunity Boosters', icon: '🛡️' }
         ];
-
         // Flatten all products for search including keywords
         const allProducts = [...searchTerms];
         additionalKeywords.forEach(keyword => {
@@ -198,18 +159,16 @@
                 keyword: keyword.term
             });
         });
-
         const searchInput = document.getElementById('searchInput');
         const suggestionsContainer = document.getElementById('suggestions');
-
         function createSuggestionItem(item, isMainCategory = false, icon = '🔍', parentIcon = '') {
             const div = document.createElement('div');
             div.className = 'suggestion-item flex items-center p-3 cursor-pointer rounded-lg transition-colors duration-150 hover:bg-blue-50';
-            
+           
             let displayIcon = icon;
             let textColor = 'text-gray-800';
             let displayText = item.term || item;
-            
+           
             if (isMainCategory) {
                 textColor = 'text-blue-700 font-semibold';
                 displayIcon = item.icon || icon;
@@ -223,27 +182,25 @@
                 displayIcon = item.icon;
                 displayText = item.term;
             }
-            
+           
             div.innerHTML = `
                 <span class="mr-3 text-lg">${displayIcon}</span>
                 <span class="flex-1 ${textColor}">${displayText}</span>
                 <span class="text-sm text-gray-400">→</span>
             `;
-            
+           
             div.addEventListener('click', () => {
                 const searchValue = displayText;
                 searchInput.value = searchValue;
                 suggestionsContainer.classList.add('hidden');
                 performSearch(searchValue);
             });
-            
+           
             return div;
         }
-
         function showSuggestions(query = '') {
             const suggestionsContent = suggestionsContainer.querySelector('.space-y-1');
             suggestionsContent.innerHTML = '';
-
             if (query.length === 0) {
                 // Show main categories
                 suggestionsContainer.querySelector('h3').textContent = 'Browse Categories';
@@ -261,23 +218,22 @@
             } else {
                 // Filter and show matching items
                 suggestionsContainer.querySelector('h3').textContent = 'Search Results';
-                
+               
                 // Smart search: check for matches in term, keywords, and partial matches
                 const filtered = allProducts.filter(product => {
                     const searchTerm = query.toLowerCase();
                     const productTerm = (product.term || product).toLowerCase();
-                    
+                   
                     // Direct match
                     if (productTerm.includes(searchTerm)) return true;
-                    
+                   
                     // Keyword match
                     if (product.keyword && product.keyword.toLowerCase().includes(searchTerm)) return true;
-                    
+                   
                     // Partial word match
                     const words = productTerm.split(/[\s,()&-]+/);
                     return words.some(word => word.includes(searchTerm) && word.length > 2);
                 }).slice(0, 10);
-
                 if (filtered.length > 0) {
                     // Remove duplicates and prioritize main categories
                     const seen = new Set();
@@ -287,13 +243,11 @@
                         seen.add(key);
                         return true;
                     });
-
                     // Sort: main categories first, then subcategories, then keywords
                     uniqueFiltered.sort((a, b) => {
                         const typeOrder = { 'main_category': 0, 'subcategory': 1, 'keyword': 2 };
                         return (typeOrder[a.type] || 3) - (typeOrder[b.type] || 3);
                     });
-
                     uniqueFiltered.forEach(item => {
                         const isMainCategory = item.type === 'main_category';
                         suggestionsContent.appendChild(
@@ -311,19 +265,15 @@
                     suggestionsContent.appendChild(noResults);
                 }
             }
-
             suggestionsContainer.classList.remove('hidden');
         }
-
         function performSearch(query) {
             console.log('Searching for:', query);
             // Here you would typically make an API call or redirect to search results
             alert(`Searching for: ${query}`);
         }
-
         // Event listeners
         searchInput.addEventListener('focus', () => showSuggestions(searchInput.value));
-
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value;
             if (query.length > 0) {
@@ -332,26 +282,22 @@
                 showSuggestions();
             }
         });
-
         searchInput.addEventListener('blur', (e) => {
             // Delay hiding suggestions to allow clicks
             setTimeout(() => {
                 suggestionsContainer.classList.add('hidden');
             }, 150);
         });
-
         // Search button functionality
         document.querySelector('button[class*="bg-blue-600"]').addEventListener('click', () => {
             performSearch(searchInput.value);
         });
-
         // Enter key search
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 performSearch(searchInput.value);
             }
         });
-
         // Category button functionality
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -362,25 +308,32 @@
                     'Wellness': 'Wellness & Personal Care',
                     'Medical Devices': 'Medical Devices & Equipment'
                 };
-                
+               
                 const buttonText = btn.textContent.trim();
                 const categoryKey = Object.keys(categoryMap).find(key => buttonText.includes(key));
                 const fullCategory = categoryMap[categoryKey] || buttonText;
-                
+               
                 searchInput.value = fullCategory;
                 performSearch(fullCategory);
             });
         });
-
         // Click outside to close suggestions
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
                 suggestionsContainer.classList.add('hidden');
             }
         });
-
-        // Sample data for 6 categories
-        const categories = [
+        // Dynamic data for banners (can be fetched from backend)
+        const mainBackgroundBanner = "IMG/Farmasi 11st Banner.jpg";
+        const carouselBanners = [
+            "IMG/farmasi banner 2nd.jpg",
+            "IMG/farmasi banner 5th.jpg",
+            "IMG/farmasi banner 3rd.jpg",
+            "IMG/farmasi banner 4th.jpg"
+        ];
+        const secondaryBanner = "/IMG/farmasi banner 8th.jpg";
+        // Sample data for 6 categories (can be fetched from backend)
+        let categoriesData = [
             { name: "Medicines and Healthcare", image: "/IMG/Medicines & Healthcare.jpg" },
             { name: "Ayurvedic Products", image: "/IMG/Ayurvedic Products.jpg" },
             { name: "Mother Care", image: "/IMG/Mother_Care[1].jpg" },
@@ -388,75 +341,74 @@
             { name: "Monitoring Devices", image: "/IMG/Monitoring Devices.jpg" },
             { name: "Wellness", image: "/IMG/Wellness.jpg" },
         ];
-
-        // Sample data for Feminine Hygiene Products with IDs starting from 40
-        const products = [
-            { 
+        // Sample data for Feminine Hygiene Products with IDs starting from 40 (can be fetched from backend)
+        let productsData = [
+            {
                 id: 40,
-                name: "Whisper Ultra Clean Wings", 
+                name: "Whisper Ultra Clean Wings",
                 image: "https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg",
                 price: "₹279",
                 originalPrice: "₹329",
                 discount: "15% off",
                 description: "Whisper Ultra Clean Wings provide superior protection with a comfortable fit, designed for heavy flow days."
             },
-            { 
+            {
                 id: 41,
-                name: "Sofy Anti-Bacteria Extra Long", 
+                name: "Sofy Anti-Bacteria Extra Long",
                 image: "https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg",
                 price: "₹259",
                 originalPrice: "₹310",
                 discount: "16% off",
                 description: "Sofy Anti-Bacteria Extra Long pads offer extended coverage and antibacterial protection for all-day comfort."
             },
-            { 
+            {
                 id: 42,
-                name: "Bella Regular Soft Pads", 
+                name: "Bella Regular Soft Pads",
                 image: "https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg",
                 price: "₹189",
                 originalPrice: "₹239",
                 discount: "21% off",
                 description: "Bella Regular Soft Pads are gentle on skin, providing reliable protection and comfort."
             },
-            { 
+            {
                 id: 43,
-                name: "Tampax Pearl Regular Tampons", 
+                name: "Tampax Pearl Regular Tampons",
                 image: "https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg",
                 price: "₹399",
                 originalPrice: "₹459",
                 discount: "13% off",
                 description: "Tampax Pearl Regular Tampons offer smooth insertion and reliable leak protection."
             },
-            { 
+            {
                 id: 44,
-                name: "Carefree Panty Liners", 
+                name: "Carefree Panty Liners",
                 image: "https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg",
                 price: "₹149",
                 originalPrice: "₹179",
                 discount: "17% off",
                 description: "Carefree Panty Liners are thin and comfortable, perfect for daily freshness."
             },
-            { 
+            {
                 id: 45,
-                name: "Sirona Reusable Menstrual Cup", 
+                name: "Sirona Reusable Menstrual Cup",
                 image: "https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg",
                 price: "₹499",
                 originalPrice: "₹599",
                 discount: "17% off",
                 description: "Sirona Reusable Menstrual Cup is eco-friendly and provides up to 12 hours of leak-free protection."
             },
-            { 
+            {
                 id: 46,
-                name: "Nua Cramp Comfort Heat Patches", 
+                name: "Nua Cramp Comfort Heat Patches",
                 image: "https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg",
                 price: "₹299",
                 originalPrice: "₹349",
                 discount: "14% off",
                 description: "Nua Cramp Comfort Heat Patches provide soothing relief from menstrual cramps."
             },
-            { 
+            {
                 id: 47,
-                name: "VWash Plus Intimate Hygiene Wash", 
+                name: "VWash Plus Intimate Hygiene Wash",
                 image: "https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg",
                 price: "₹229",
                 originalPrice: "₹269",
@@ -464,75 +416,74 @@
                 description: "VWash Plus Intimate Hygiene Wash maintains pH balance and keeps you fresh all day."
             }
         ];
-
-        // Common Medicines and Devices products with IDs continuing from 48
-        const medicines = [
-            { 
+        // Common Medicines and Devices products with IDs continuing from 48 (can be fetched from backend)
+        let medicinesData = [
+            {
                 id: 48,
-                name: "Paracetamol 500mg", 
+                name: "Paracetamol 500mg",
                 image: "https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg",
                 price: "₹49",
                 originalPrice: "₹59",
                 discount: "17% off",
                 description: "Paracetamol 500mg tablets provide effective relief from pain and fever."
             },
-            { 
+            {
                 id: 49,
-                name: "Ibuprofen Tablets", 
+                name: "Ibuprofen Tablets",
                 image: "https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg",
                 price: "₹89",
                 originalPrice: "₹99",
                 discount: "10% off",
                 description: "Ibuprofen Tablets help reduce inflammation, pain, and fever."
             },
-            { 
+            {
                 id: 50,
-                name: "Digital Thermometer", 
+                name: "Digital Thermometer",
                 image: "https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg",
                 price: "₹199",
                 originalPrice: "₹249",
                 discount: "20% off",
                 description: "Digital Thermometer provides accurate and quick temperature readings."
             },
-            { 
+            {
                 id: 51,
-                name: "Blood Pressure Monitor", 
+                name: "Blood Pressure Monitor",
                 image: "https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg",
                 price: "₹1299",
                 originalPrice: "₹1499",
                 discount: "13% off",
                 description: "Blood Pressure Monitor for easy and accurate home monitoring."
             },
-            { 
+            {
                 id: 52,
-                name: "Vitamin C Supplements", 
+                name: "Vitamin C Supplements",
                 image: "https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg",
                 price: "₹299",
                 originalPrice: "₹349",
                 discount: "14% off",
                 description: "Vitamin C Supplements boost immunity and support overall health."
             },
-            { 
+            {
                 id: 53,
-                name: "Diabetes Test Strips", 
+                name: "Diabetes Test Strips",
                 image: "https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg",
                 price: "₹499",
                 originalPrice: "₹599",
                 discount: "17% off",
                 description: "Diabetes Test Strips for accurate blood glucose monitoring."
             },
-            { 
+            {
                 id: 54,
-                name: "First Aid Kit", 
+                name: "First Aid Kit",
                 image: "https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg",
                 price: "₹349",
                 originalPrice: "₹399",
                 discount: "13% off",
                 description: "First Aid Kit with essential supplies for emergency care."
             },
-            { 
+            {
                 id: 55,
-                name: "Asthma Inhaler", 
+                name: "Asthma Inhaler",
                 image: "https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg",
                 price: "₹189",
                 originalPrice: "₹219",
@@ -540,9 +491,8 @@
                 description: "Asthma Inhaler for quick relief from asthma symptoms."
             }
         ];
-
-        // NEW: Dynamic data for Doctor Section
-        const doctorData = [
+        // NEW: Dynamic data for Doctor Section (can be fetched from backend)
+        let doctorData = [
             {
                 name: "Dr. Alok Gandhi",
                 title: "MBBS, DGO (ObGyn)",
@@ -555,9 +505,8 @@
             }
             // Add more doctors if needed
         ];
-
-        // NEW: Dynamic data for Articles
-        const articlesData = [
+        // NEW: Dynamic data for Articles (can be fetched from backend)
+        let articlesData = [
             {
                 title: "Tips for a Balanced Diet",
                 image: "https://i.pinimg.com/736x/9d/22/4a/9d224aeb2f9d4a66d048b5d4d4802cd3.jpg",
@@ -578,9 +527,8 @@
             }
             // Add more articles if needed
         ];
-
-        // NEW: Dynamic data for Why Choose Us
-        const whyChooseData = [
+        // NEW: Dynamic data for Why Choose Us (can be fetched from backend)
+        let whyChooseData = [
             {
                 icon: "fas fa-shipping-fast",
                 title: "Fast & Reliable Delivery",
@@ -598,9 +546,8 @@
             }
             // Add more features if needed
         ];
-
-        // NEW: Dynamic data for Footer
-        const footerData = {
+        // NEW: Dynamic data for Footer (can be fetched from backend)
+        let footerData = {
             company: {
                 name: "MediCare Pharmacy",
                 description: "Your trusted source for quality medications and health products."
@@ -622,7 +569,6 @@
             },
             copyright: "&copy; 2025 MediCare Pharmacy. All rights reserved."
         };
-
         // Function to show product details by redirecting to productDetails.html
         function showProductDetails(product) {
             // Encode product data to pass as query parameters
@@ -635,16 +581,14 @@
                 discount: product.discount,
                 description: product.description
             }).toString();
-
             // Redirect to productDetails.html with query parameters
             window.location.href = `productDetails.html?${queryParams}`;
         }
-
         // Function to render categories dynamically
-        function renderCategories() {
+        function renderCategories(categories) {
             const grid = document.getElementById('categoryGrid');
             if (!grid) return;
-            
+           
             grid.innerHTML = ''; // Clear existing content
             categories.forEach(category => {
                 const card = document.createElement('div');
@@ -656,18 +600,17 @@
                 grid.appendChild(card);
             });
         }
-
         // Function to render products dynamically with scrolling
-        function renderProducts() {
+        function renderProducts(products) {
             const grid = document.getElementById('productGrid');
             if (!grid) return;
-            
+           
             grid.innerHTML = ''; // Clear existing content
-            
+           
             products.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300 min-w-[250px] flex flex-col';
-                
+               
                 card.innerHTML = `
                     <div class="relative mb-3">
                         <div class="absolute top-2 right-2 z-10">
@@ -691,40 +634,36 @@
                         </div>
                     </div>
                 `;
-                
+               
                 card.querySelector('.view-details-btn').addEventListener('click', () => {
                     showProductDetails(product);
                 });
-                
+               
                 grid.appendChild(card);
             });
-
             // Scroll functionality for products
             const scrollContainer = document.getElementById('productGrid');
             const scrollLeft = document.getElementById('scrollLeft');
             const scrollRight = document.getElementById('scrollRight');
-
             if (scrollLeft && scrollRight) {
                 scrollLeft.addEventListener('click', () => {
                     scrollContainer.scrollLeft -= 300;
                 });
-
                 scrollRight.addEventListener('click', () => {
                     scrollContainer.scrollLeft += 300;
                 });
             }
         }
-
-        function renderMedicines() {
+        function renderMedicines(medicines) {
             const grid = document.getElementById('medicineGrid');
             if (!grid) return;
-            
+           
             grid.innerHTML = ''; // Clear existing content
-            
+           
             medicines.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300 min-w-[250px] flex flex-col';
-                
+               
                 card.innerHTML = `
                     <div class="relative mb-3">
                         <div class="absolute top-2 right-2 z-10">
@@ -748,97 +687,86 @@
                         </div>
                     </div>
                 `;
-                
+               
                 card.querySelector('.view-details-btn').addEventListener('click', () => {
                     showProductDetails(product);
                 });
-                
+               
                 grid.appendChild(card);
             });
-
             // Scroll functionality for medicines
             const scrollContainer = document.getElementById('medicineGrid');
             const scrollLeft = document.getElementById('medScrollLeft');
             const scrollRight = document.getElementById('medScrollRight');
-
             if (scrollLeft && scrollRight) {
                 scrollLeft.addEventListener('click', () => {
                     scrollContainer.scrollLeft -= 300;
                 });
-
                 scrollRight.addEventListener('click', () => {
                     scrollContainer.scrollLeft += 300;
                 });
             }
         }
-
         // NEW: Function to render Doctor Section dynamically
-        function renderDoctorSection() {
+        function renderDoctorSection(doctors) {
             const section = document.getElementById('doctorSection');
-            if (!section || doctorData.length === 0) return;
-
-            const doctor = doctorData[0]; // Render first doctor; extend for multiple if needed
+            if (!section || doctors.length === 0) return;
+            const doctor = doctors[0]; // Render first doctor; extend for multiple if needed
             section.innerHTML = `
                 <!-- Background -->
                 <div class="absolute inset-0">
-                    <img src="${doctor.backgroundImage}" 
-                         alt="Background" 
+                    <img src="${doctor.backgroundImage}"
+                         alt="Background"
                          class="w-full h-[620px] object-cover">
                     <div class="absolute inset-0 bg-white/10"></div> <!-- Light overlay -->
                 </div>
-
                 <!-- Merged Card -->
                 <div class="relative w-full py-8 px-8 lg:px-12">
                     <div class="max-w-8xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2">
-                      
+                     
                       <!-- Doctor Image (Left side) -->
                       <div class="h-[550px]">
-                        <img src="${doctor.image}" 
-                             alt="${doctor.name}" 
+                        <img src="${doctor.image}"
+                             alt="${doctor.name}"
                              class="w-full h-full object-cover">
                       </div>
-
                       <!-- About Content (Right side) -->
                       <div class="p-8 flex flex-col justify-between">
                         <div>
                           <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
                             Meet ${doctor.name}
                           </h1>
-                          
+                         
                           <h2 class="text-2xl font-semibold text-gray-800 mb-3">
                             ${doctor.title}
                           </h2>
-                          
+                         
                           <p class="text-[17px] text-gray-800 mb-4 leading-relaxed">
                             ${doctor.description.split('.')[0]} <!-- First sentence for experience -->
                           </p>
-                          
+                         
                           <p class="text-[17px] text-gray-800 mb-4 leading-relaxed">
                             Recipient of <span class="font-semibold">${doctor.achievements.split(',')[1]}</span> for excellence in infertility management, Dr. Gandhi combines advanced medical expertise with compassion, ensuring safe and personalized care for every patient.
                           </p>
-                          
+                         
                           <p class="text-[17px] text-gray-700 mb-4 leading-relaxed">
                             An active member of the <span class="font-semibold">${doctor.association}</span>, he regularly updates his knowledge through seminars, workshops, and conferences. Dr. Gandhi’s patient-centered approach helps individuals navigate complex pregnancies with confidence and peace of mind.
                           </p>
                         </div>
-
                         <div class="mt-6 w-20 h-1 bg-pink-500"></div>
                       </div>
-
                     </div>
                 </div>
             `;
         }
-
         // NEW: Function to render Articles Section dynamically
-        function renderArticlesSection() {
+        function renderArticlesSection(articles) {
             const section = document.getElementById('articlesSection');
             if (!section) return;
-
             section.innerHTML = `
                 <h2 class="text-2xl font-bold text-center mb-6">Health & Wellness Articles</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${articlesData.map(article => `
+                    ${articles.map(article => `
                         <div class="article-card bg-white rounded-lg shadow-md overflow-hidden">
                             <img src="${article.image}" alt="${article.title}" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -851,17 +779,15 @@
                 </div>
             `;
         }
-
         // NEW: Function to render Why Choose Us Section dynamically
-        function renderWhyChooseSection() {
+        function renderWhyChooseSection(features) {
             const section = document.getElementById('whyChooseSection');
             if (!section) return;
-
             section.innerHTML = `
                 <div class="container mx-auto px-4">
                     <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-10">Why Choose MediCare?</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        ${whyChooseData.map(feature => `
+                        ${features.map(feature => `
                             <div class="why-choose-card bg-white rounded-lg p-8 text-center shadow-md">
                                 <div class="relative inline-block mb-6">
                                     <i class="${feature.icon} text-5xl text-accent"></i>
@@ -877,13 +803,11 @@
                 </div>
             `;
         }
-
         // NEW: Function to render Footer dynamically
-        function renderFooter() {
+        function renderFooter(footer) {
             const section = document.getElementById('footerSection');
             if (!section) return;
-
-            const { company, quickLinks, contact, copyright } = footerData;
+            const { company, quickLinks, contact, copyright } = footer;
             section.innerHTML = `
                 <div class="container mx-auto px-4">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -912,7 +836,6 @@
                 </div>
             `;
         }
-
         // Open Upload Prescription modal
         document.querySelectorAll('a[href="#upload-prescription"]').forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -920,35 +843,115 @@
                 document.getElementById('uploadModal').classList.remove('hidden');
             });
         });
-
         // Close Upload modal when clicking backdrop
         document.getElementById('uploadModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.add('hidden');
             }
         });
-
         // Open Valid Prescription Modal
         document.getElementById('validPrescriptionBtn').addEventListener('click', function() {
             document.getElementById('validPrescriptionModal').classList.remove('hidden');
         });
-
         // Close Valid Prescription modal when clicking backdrop
         document.getElementById('validPrescriptionModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.add('hidden');
             }
         });
+        // NEW: Function to render main background banner dynamically
+        function renderMainBanner() {
+            const bgImage = document.getElementById('mainBackgroundImage');
+            if (bgImage) {
+                bgImage.src = mainBackgroundBanner;
+            }
+        }
+        // NEW: Function to render secondary banner dynamically
+        function renderSecondaryBanner() {
+            const secondaryImage = document.getElementById('secondaryBannerImage');
+            if (secondaryImage) {
+                secondaryImage.src = secondaryBanner;
+            }
+        }
+        // NEW: Function to render carousel dynamically
+        function renderCarousel() {
+            const carousel = document.getElementById("carousel");
+            const dotsContainer = document.getElementById("dotsContainer");
+            if (!carousel || !dotsContainer) return;
 
+            // Render slides
+            carousel.innerHTML = carouselBanners.map((src, idx) => `
+                <img src="${src}" class="carousel-image w-full flex-shrink-0 rounded-xl" alt="Featured Product ${idx + 1}">
+            `).join('');
+
+            // Render dots
+            dotsContainer.innerHTML = carouselBanners.map(() => `
+                <button class="dot w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 transition-opacity"></button>
+            `).join('');
+        }
+        // Carousel functionality (moved to a separate function to call after rendering)
+        function initializeCarousel() {
+            const carousel = document.getElementById("carousel");
+            const slides = carousel.children.length;
+            const dots = document.querySelectorAll(".dot");
+            let index = 0;
+            function showSlide(i) {
+                index = (i + slides) % slides; // loop around
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+                // Update dots
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle("opacity-100", idx === index);
+                    dot.classList.toggle("opacity-50", idx !== index);
+                });
+            }
+            // Buttons
+            document.getElementById("prev").onclick = () => showSlide(index - 1);
+            document.getElementById("next").onclick = () => showSlide(index + 1);
+            // Dots click
+            dots.forEach((dot, idx) => {
+                dot.addEventListener("click", () => showSlide(idx));
+            });
+            // Auto play every 4s
+            setInterval(() => showSlide(index + 1), 4000);
+            // Init
+            showSlide(0);
+        }
+        // Backend Integration: To integrate with a backend, replace the static data with async fetch calls.
+        // Example for categories:
+        // async function fetchCategories() {
+        //     const response = await fetch('/api/categories');
+        //     return await response.json();
+        // }
+        // Then in init(): categoriesData = await fetchCategories();
+        // Similarly for other data: productsData, medicinesData, doctorData, articlesData, whyChooseData, footerData, carouselBanners, etc.
+        // For banners, you could fetch from /api/banners and assign to mainBackgroundBanner, carouselBanners, secondaryBanner.
+        // Use Promise.all for parallel fetches if needed.
         // Call all functions when the page loads
-        window.onload = () => {
+        async function init() {
+            // For backend: Uncomment and adapt
+            // categoriesData = await fetch('/api/categories').then(res => res.json());
+            // productsData = await fetch('/api/products/feminine-hygiene').then(res => res.json());
+            // medicinesData = await fetch('/api/products/medicines').then(res => res.json());
+            // doctorData = await fetch('/api/doctors').then(res => res.json());
+            // articlesData = await fetch('/api/articles').then(res => res.json());
+            // whyChooseData = await fetch('/api/why-choose').then(res => res.json());
+            // footerData = await fetch('/api/footer').then(res => res.json());
+            // const bannersData = await fetch('/api/banners').then(res => res.json());
+            // mainBackgroundBanner = bannersData.main;
+            // carouselBanners = bannersData.carousel;
+            // secondaryBanner = bannersData.secondary;
+
             updateCartCount(); // Initialize cart count
-            renderCategories();
-            renderProducts();
-            renderMedicines();
-            renderDoctorSection(); // NEW
-            renderArticlesSection(); // NEW
-            renderWhyChooseSection(); // NEW
-            renderFooter(); // NEW
-        };
-  
+            renderMainBanner();
+            renderCarousel();
+            initializeCarousel(); // Call after rendering carousel
+            renderCategories(categoriesData);
+            renderProducts(productsData);
+            renderMedicines(medicinesData);
+            renderDoctorSection(doctorData);
+            renderArticlesSection(articlesData);
+            renderWhyChooseSection(whyChooseData);
+            renderFooter(footerData);
+            renderSecondaryBanner();
+        }
+        window.addEventListener('load', init);

@@ -3,1139 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Checkout – MediCart</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans bg-gray-100 p-5 text-gray-900">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="header.css">
 
-<!-- Header Placeholder (loads header.html dynamically) -->
-    <div id="header-placeholder"></div>
-
-
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8">
-        <div class="bg-white rounded-xl p-8 border-2 border-[#36C2CE] shadow-md">
-            <form id="checkoutForm">
-                <!-- Customer Information -->
-                <section>
-                    <h2 class="text-xl font-semibold mb-5 border-b-2 border-[#36C2CE] pb-3">Customer Information</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                        <div class="flex flex-col">
-                            <label for="fullName" class="font-medium mb-2 text-gray-600">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" required class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="email" class="font-medium mb-2 text-gray-600">Email</label>
-                            <input type="email" id="email" name="email" required class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                        <div class="flex flex-col">
-                            <label for="phone" class="font-medium mb-2 text-gray-600">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="whatsapp" class="font-medium mb-2 text-gray-600">WhatsApp Number</label>
-                            <input type="tel" id="whatsapp" name="whatsapp" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Shipping Address -->
-                <section class="mt-10">
-                    <h2 class="text-xl font-semibold mb-5 border-b-2 border-[#36C2CE] pb-3">Shipping Address</h2>
-                    <div id="addressList">
-                        <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-4 flex items-center justify-between [&.selected]:bg-blue-50 [&.selected]:border-blue-500">
-                            <div class="flex items-center gap-3">
-                                <input type="radio" name="selectedAddress" value="1" checked
-                                       data-address="123 MG Road" 
-                                       data-city="Pune" 
-                                       data-state="Maharashtra" 
-                                       data-pincode="411001" 
-                                       data-country="India">
-                                <span>Address 1<br>123 MG Road, Pune, Maharashtra - 411001</span>
-                            </div>
-                            <div class="flex gap-2">
-                                <button type="button" class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer text-sm" onclick="editAddress(1)">✎</button>
-                                <button type="button" class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer text-sm" onclick="deleteAddress(1)">×</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="bg-transparent border border-dashed border-gray-300 text-gray-600 p-3 rounded-md cursor-pointer text-sm hover:bg-gray-100 hover:border-[#36C2CE] hover:text-[#36C2CE] transition w-full" onclick="showAddressForm()">+ Add New Address</button>
-                    
-                    <!-- New Address Form (Hidden by default) -->
-                    <div id="newAddressForm" class="hidden mt-5 p-5 bg-gray-100 rounded-lg">
-                        <input type="hidden" id="editAddressId" value="">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div class="flex flex-col">
-                                <label for="newAddress" class="font-medium mb-2 text-gray-600">Street Address</label>
-                                <input type="text" id="newAddress" name="newAddress" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="newCity" class="font-medium mb-2 text-gray-600">City</label>
-                                <input type="text" id="newCity" name="newCity" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-                            <div class="flex flex-col">
-                                <label for="newState" class="font-medium mb-2 text-gray-600">State</label>
-                                <input type="text" id="newState" name="newState" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="newPincode" class="font-medium mb-2 text-gray-600">Pincode</label>
-                                <input type="text" id="newPincode" name="newPincode" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-                            <div class="flex flex-col">
-                                <label for="newCountry" class="font-medium mb-2 text-gray-600">Country</label>
-                                <input type="text" id="newCountry" name="newCountry" value="India" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                        </div>
-                        <div class="mt-4 flex gap-3">
-                            <button type="button" onclick="saveAddress()" class="bg-[#36C2CE] text-white px-5 py-2.5 rounded-md cursor-pointer font-medium">Save Address</button>
-                            <button type="button" onclick="hideAddressForm()" class="bg-gray-300 text-white px-5 py-2.5 rounded-md cursor-pointer font-medium">Cancel</button>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Payment Method -->
-                <section class="mt-10">
-                    <h2 class="text-xl font-semibold mb-5 border-b-2 border-[#36C2CE] pb-3">Payment Method</h2>
-                    <div class="flex flex-col md:flex-row gap-5 mb-5">
-                        <div class="flex items-center gap-2">
-                            <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" checked>
-                            <label for="creditCard">Credit Card</label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="radio" id="razorpay" name="paymentMethod" value="razorpay">
-                            <label for="razorpay">Razorpay</label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="radio" id="cod" name="paymentMethod" value="cod">
-                            <label for="cod">COD(Cash On Delivery)</label>
-                        </div>
-                    </div>
-                    
-                    <div id="cardDetails">
-                        <div class="flex flex-col mb-5">
-                            <label for="cardNumber" class="font-medium mb-2 text-gray-600">Card Number</label>
-                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                        <div class="flex flex-col mb-5">
-                            <label for="nameOnCard" class="font-medium mb-2 text-gray-600">Name on Card</label>
-                            <input type="text" id="nameOnCard" name="nameOnCard" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-[1fr_100px] gap-4">
-                            <div class="flex flex-col">
-                                <label for="expiryDate" class="font-medium mb-2 text-gray-600">Expiry Date</label>
-                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="cvv" class="font-medium mb-2 text-gray-600">CVV</label>
-                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" class="p-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#36C2CE] focus:ring-2 focus:ring-[#36C2CE]/20 transition">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </form>
-        </div>
-        
-        <!-- Order Summary -->
-        <div class="bg-white rounded-xl p-8 border-2 border-[#36C2CE] shadow-md h-fit">
-            <h2 class="text-xl font-semibold mb-5 border-b-2 border-[#36C2CE] pb-3">Order Summary</h2>
-            
-            <div id="orderItems">
-                <!-- Order items will be dynamically loaded here -->
-            </div>
-            
-            <div class="flex gap-3 mt-5 mb-5">
-                <input type="text" class="flex-1 p-3 border border-gray-300 rounded-md text-sm" placeholder="Enter coupon code" id="couponCode">
-                <button type="button" class="bg-[#36C2CE] text-white px-5 py-3 rounded-md cursor-pointer font-medium" onclick="applyCoupon()">Apply</button>
-            </div>
-            
-            <div class="mt-5 pt-5 border-t border-gray-200">
-                <div class="flex justify-between mb-3 text-gray-600">
-                    <span>Subtotal</span>
-                    <span id="subtotal">₹0.00</span>
-                </div>
-                <div class="flex justify-between mb-3 text-gray-600">
-                    <span>Shipping</span>
-                    <span id="shipping">₹0.00</span>
-                </div>
-                <div class="flex justify-between mb-3 text-gray-600">
-                    <span>Tax</span>
-                    <span id="tax">₹0.00</span>
-                </div>
-                <div class="flex justify-between mb-3 text-green-600 hidden" id="discountRow">
-                    <span>Discount</span>
-                    <span id="discount">-₹0.00</span>
-                </div>
-                <div class="flex justify-between pt-3 border-t border-gray-200 font-semibold text-base text-gray-900">
-                    <span>Total</span>
-                    <span id="total">₹0.00</span>
-                </div>
-            </div>
-            
-            <button type="button" class="w-full bg-[#36C2CE] text-white py-4 rounded-lg text-base font-semibold cursor-pointer mt-5 hover:bg-[#2a9ba8] transition" onclick="placeOrder()">Place Order</button>
-            
-            <div class="flex justify-center gap-5 mt-5 text-xs">
-                <a href="#" class="text-gray-600 hover:underline" onclick="showPolicy('privacy')">Privacy Policy</a>
-                <a href="#" class="text-gray-600 hover:underline" onclick="showPolicy('cancellation')">Cancellation Policy</a>
-                <a href="#" class="text-gray-600 hover:underline" onclick="showPolicy('shipping')">Shipping Policy</a>
-            </div>
-            
-            <div class="flex justify-center gap-3 mt-4">
-                <div class="w-10 h-6 bg-[#1a1f71] text-white rounded flex items-center justify-center text-xs font-semibold">VISA</div>
-                <div class="w-10 h-6 bg-[#eb001b] text-white rounded flex items-center justify-center text-xs font-semibold">MC</div>
-                <div class="w-10 h-6 bg-[#003087] text-white rounded flex items-center justify-center text-xs font-semibold">PayPal</div>
-                <div class="w-10 h-6 bg-[#528ff0] text-white rounded flex items-center justify-center text-xs font-semibold">Razor</div>
-            </div>
-        </div>
-    </div>
-    
+    <!-- Tailwind Config -->
     <script>
-        // Product data (full list from productdetails for consistency)
-        const products = [
-            { 
-                id: 1, 
-                name: 'Diabetes Care Kit', 
-                price: 268.80, 
-                originalPrice: 329, 
-                discount: '16% off', 
-                category: 'Diabetes', 
-                brand: 'BrandX', 
-                image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
-                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
-                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
-                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg'
-                ],
-                prescriptionRequired: false,
-                description: 'Comprehensive diabetes care kit containing all essential items for daily diabetes management.',
-                ingredients: 'Glucometer, test strips, lancets, control solution, carrying case',
-                benefits: 'Helps in regular blood sugar monitoring, convenient all-in-one kit, portable for travel',
-                directions: 'Use as directed by your physician. Perform blood sugar tests as recommended.'
-            },
-            { 
-                id: 2, 
-                name: 'Glucose Monitor', 
-                price: 312.50, 
-                originalPrice: 625, 
-                discount: '50% off', 
-                category: 'Diabetes', 
-                brand: 'BrandY', 
-                image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg'
-                ],
-                prescriptionRequired: false,
-                description: 'Advanced glucose monitoring system with high accuracy and easy-to-use interface.',
-                ingredients: 'Electronic monitoring device, user manual, batteries',
-                benefits: 'Accurate readings, large display, memory function to track readings',
-                directions: 'Insert test strip, apply blood sample, wait for results. Calibrate as needed.'
-            },
-            { 
-                id: 3, 
-                name: 'Insulin Pen', 
-                price: 180, 
-                originalPrice: 220, 
-                discount: '18% off', 
-                category: 'Diabetes', 
-                brand: 'BrandZ', 
-                image: 'https://via.placeholder.com/500x400/0ea5e9/FFFFFF?text=Insulin+Pen',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/0ea5e9/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: true,
-                description: 'Pre-filled insulin pen for convenient and accurate insulin administration.',
-                ingredients: 'Insulin solution, pen device, needles',
-                benefits: 'Easy to use, precise dosing, discreet administration',
-                directions: 'Prime pen before use, select dose, inject as directed by healthcare provider.'
-            },
-            { 
-                id: 4, 
-                name: 'Blood Sugar Test Strips', 
-                price: 75, 
-                originalPrice: null, 
-                discount: '', 
-                category: 'Diabetes', 
-                brand: 'BrandW', 
-                image: 'https://via.placeholder.com/500x400/10b981/FFFFFF?text=Test+Strips',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/10b981/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: false,
-                description: 'High-quality test strips for accurate blood glucose measurement.',
-                ingredients: 'Test strips, quality control solution',
-                benefits: 'Accurate results, compatible with most glucometers, easy to use',
-                directions: 'Insert strip into meter, apply blood sample, wait for results.'
-            },
-            { 
-                id: 5, 
-                name: 'BP Monitor', 
-                price: 420, 
-                originalPrice: null, 
-                discount: '', 
-                category: 'Hypertension', 
-                brand: 'BrandZ', 
-                image: 'https://via.placeholder.com/500x400/ff6b6b/FFFFFF?text=BP+Monitor',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/ff6b6b/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: false,
-                description: 'Digital blood pressure monitor for accurate at-home readings.',
-                ingredients: 'Electronic monitor, cuff, user manual',
-                benefits: 'Easy to use, memory function, irregular heartbeat detection',
-                directions: 'Wrap cuff around arm, press start button, remain still during measurement.'
-            },
-            { 
-                id: 6, 
-                name: 'Hypertension Pills', 
-                price: 105, 
-                originalPrice: null, 
-                discount: '', 
-                category: 'Hypertension', 
-                brand: 'BrandW', 
-                image: 'https://via.placeholder.com/500x400/36C2CE/FFFFFF?text=Hypertension+Pills',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
-                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg'
-                ],
-                prescriptionRequired: true,
-                description: 'Medication for managing high blood pressure.',
-                ingredients: 'Active pharmaceutical ingredients as prescribed',
-                benefits: 'Lowers blood pressure, reduces risk of heart attack and stroke',
-                directions: 'Take as directed by your physician, usually once daily.'
-            },
-            { 
-                id: 7, 
-                name: 'Heart Health Supplement', 
-                price: 300, 
-                originalPrice: 350, 
-                discount: '14% off', 
-                category: 'Cardiac', 
-                brand: 'BrandX', 
-                image: 'https://via.placeholder.com/500x400/0ea5e9/FFFFFF?text=Heart+Supplement',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/0ea5e9/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: false,
-                description: 'Natural supplement to support cardiovascular health.',
-                ingredients: 'Omega-3 fatty acids, CoQ10, Hawthorn extract',
-                benefits: 'Supports heart function, improves circulation, antioxidant properties',
-                directions: 'Take two capsules daily with meals.'
-            },
-            { 
-                id: 8, 
-                name: 'Inhaler', 
-                price: 200, 
-                originalPrice: 250, 
-                discount: '20% off', 
-                category: 'Asthma', 
-                brand: 'BrandZ', 
-                image: 'https://via.placeholder.com/500x400/10b981/FFFFFF?text=Inhaler',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/10b981/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: true,
-                description: 'Relief inhaler for asthma symptoms.',
-                ingredients: 'Medicated aerosol as prescribed',
-                benefits: 'Quick relief from asthma symptoms, portable, easy to use',
-                directions: 'Shake well before use, inhale deeply as directed.'
-            },
-            { 
-                id: 9, 
-                name: 'Thyroid Supplement', 
-                price: 120, 
-                originalPrice: 150, 
-                discount: '20% off', 
-                category: 'Thyroid', 
-                brand: 'BrandX', 
-                image: 'https://via.placeholder.com/500x400/ff6b6b/FFFFFF?text=Thyroid+Supplement',
-                thumbnails: [
-                    'https://via.placeholder.com/80x80/ff6b6b/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
-                ],
-                prescriptionRequired: false,
-                description: 'Natural supplement to support thyroid function.',
-                ingredients: 'Iodine, Selenium, Zinc, Ashwagandha',
-                benefits: 'Supports thyroid health, improves energy levels, regulates metabolism',
-                directions: 'Take one tablet daily with food.'
-            },
-            { 
-                id: 40, 
-                name: 'Whisper Ultra Clean Wings', 
-                price: 279, 
-                originalPrice: 329, 
-                discount: '15% off', 
-                category: 'Feminine Care', 
-                brand: 'Whisper', 
-                image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-                    'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg'
-                ],
-                prescriptionRequired: false,
-                description: 'Sanitary pads with wings for superior protection and comfort.',
-                ingredients: 'Cotton, absorbent polymer, adhesive',
-                benefits: 'Leak-proof protection, comfortable fit, odor control',
-                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
-                variants: ['Small', 'Medium', 'Large'] // Added variants for size selection
-            },
-            { 
-                id: 41, 
-                name: 'Sofy Anti-Bacteria Extra Long', 
-                price: 259, 
-                originalPrice: 310, 
-                discount: '16% off', 
-                category: 'Feminine Care', 
-                brand: 'Sofy', 
-                image: 'https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/98/8e/a0/988ea0dfd9d5d8fe68a741f6fa010c20.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Extra-long sanitary pads with anti-bacterial properties for enhanced hygiene.',
-                ingredients: 'Cotton, absorbent gel, anti-bacterial layer',
-                benefits: 'Anti-bacterial protection, long-lasting absorbency, soft on skin',
-                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
-                variants: ['Medium', 'Large', 'Extra Large']
-            },
-            { 
-                id: 42, 
-                name: 'Bella Regular Soft Pads', 
-                price: 189, 
-                originalPrice: 239, 
-                discount: '21% off', 
-                category: 'Feminine Care', 
-                brand: 'Bella', 
-                image: 'https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/9e/9a/ff/9e9aff588641655ee47d3f1430291a1f.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Soft and comfortable sanitary pads for regular flow.',
-                ingredients: 'Cotton, absorbent core, breathable layer',
-                benefits: 'Soft and breathable, reliable absorbency, skin-friendly',
-                directions: 'Use during menstruation, change every 4-6 hours or as needed.',
-                variants: ['Small', 'Medium']
-            },
-            { 
-                id: 43, 
-                name: 'Tampax Pearl Regular Tampons', 
-                price: 399, 
-                originalPrice: 459, 
-                discount: '13% off', 
-                category: 'Feminine Care', 
-                brand: 'Tampax', 
-                image: 'https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/05/5a/31/055a316a51a66f464c778ab07c8f7c99.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Regular tampons with smooth applicator for comfortable insertion.',
-                ingredients: 'Cotton, rayon, plastic applicator',
-                benefits: 'Comfortable insertion, reliable protection, leak-proof',
-                directions: 'Insert using applicator, change every 4-8 hours.',
-                variants: ['Regular', 'Super']
-            },
-            { 
-                id: 44, 
-                name: 'Carefree Panty Liners', 
-                price: 149, 
-                originalPrice: 179, 
-                discount: '17% off', 
-                category: 'Feminine Care', 
-                brand: 'Carefree', 
-                image: 'https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/9a/ae/62/9aae62e4e98e6bc15554dc9fd3e5c713.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Thin and discreet panty liners for everyday freshness.',
-                ingredients: 'Cotton, absorbent layer, adhesive',
-                benefits: 'Discreet protection, breathable, odor control',
-                directions: 'Use daily for freshness, change as needed.'
-            },
-            { 
-                id: 45, 
-                name: 'Sirona Reusable Menstrual Cup', 
-                price: 499, 
-                originalPrice: 599, 
-                discount: '17% off', 
-                category: 'Feminine Care', 
-                brand: 'Sirona', 
-                image: 'https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/68/04/70/6804705cf54829aa6171565b16ecae00.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Reusable silicone menstrual cup for eco-friendly period protection.',
-                ingredients: 'Medical-grade silicone',
-                benefits: 'Eco-friendly, cost-effective, comfortable for up to 12 hours',
-                directions: 'Sterilize before use, insert and remove as per instructions, clean after each use.',
-                variants: ['Small', 'Medium', 'Large']
-            },
-            { 
-                id: 46, 
-                name: 'Nua Cramp Comfort Heat Patches', 
-                price: 299, 
-                originalPrice: 349, 
-                discount: '14% off', 
-                category: 'Feminine Care', 
-                brand: 'Nua', 
-                image: 'https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/5a/f4/0a/5af40a443e4c0c0fe65384cdf70a5508.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Heat patches for soothing menstrual cramps.',
-                ingredients: 'Iron powder, activated carbon, salt',
-                benefits: 'Relieves menstrual cramps, portable, long-lasting heat',
-                directions: 'Apply to lower abdomen, use for up to 8 hours.'
-            },
-            { 
-                id: 47, 
-                name: 'VWash Plus Intimate Hygiene Wash', 
-                price: 229, 
-                originalPrice: 269, 
-                discount: '15% off', 
-                category: 'Feminine Care', 
-                brand: 'VWash', 
-                image: 'https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/2a/30/1f/2a301fa528e6ae13eb929c3d46ba5227.jpg',
-                    'https://via.placeholder.com/80x80/FF69B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Gentle wash for intimate hygiene and pH balance.',
-                ingredients: 'Tea tree oil, aloe vera, lactic acid',
-                benefits: 'Maintains pH balance, prevents odor, gentle cleansing',
-                directions: 'Use during bathing, apply to intimate area, rinse thoroughly.'
-            },
-            { 
-                id: 48, 
-                name: 'Paracetamol 500mg', 
-                price: 49, 
-                originalPrice: 59, 
-                discount: '17% off', 
-                category: 'General Medicine', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Pain reliever and fever reducer for mild to moderate pain.',
-                ingredients: 'Paracetamol',
-                benefits: 'Reduces pain and fever, fast-acting, widely used',
-                directions: 'Take 1-2 tablets every 4-6 hours as needed, do not exceed 4g daily.'
-            },
-            { 
-                id: 49, 
-                name: 'Ibuprofen Tablets', 
-                price: 89, 
-                originalPrice: 99, 
-                discount: '10% off', 
-                category: 'General Medicine', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/42/a4/9d/42a49d09e810f203fd7c82999efe1c51.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Anti-inflammatory drug for pain relief and inflammation.',
-                ingredients: 'Ibuprofen',
-                benefits: 'Relieves pain, reduces inflammation, effective for headaches and muscle pain',
-                directions: 'Take 1 tablet every 4-6 hours with food, do not exceed 3.2g daily.'
-            },
-            { 
-                id: 50, 
-                name: 'Digital Thermometer', 
-                price: 199, 
-                originalPrice: 249, 
-                discount: '20% off', 
-                category: 'Medical Devices', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/3f/80/34/3f803459fbfc629161ae550bee4c4b75.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Accurate digital thermometer for measuring body temperature.',
-                ingredients: 'Electronic device, battery',
-                benefits: 'Fast and accurate readings, easy to use, portable',
-                directions: 'Place under tongue or armpit, wait for reading, clean after use.'
-            },
-            { 
-                id: 51, 
-                name: 'Blood Pressure Monitor', 
-                price: 1299, 
-                originalPrice: 1499, 
-                discount: '13% off', 
-                category: 'Medical Devices', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Digital blood pressure monitor for accurate at-home readings.',
-                ingredients: 'Electronic monitor, cuff, user manual',
-                benefits: 'Easy to use, memory function, irregular heartbeat detection',
-                directions: 'Wrap cuff around arm, press start button, remain still during measurement.'
-            },
-            { 
-                id: 52, 
-                name: 'Vitamin C Supplements', 
-                price: 299, 
-                originalPrice: 349, 
-                discount: '14% off', 
-                category: 'Supplements', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/6e/8f/a8/6e8fa8670eacd8fdd912a4f040c47875.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Vitamin C supplements to boost immunity and overall health.',
-                ingredients: 'Vitamin C, fillers',
-                benefits: 'Boosts immunity, supports skin health, antioxidant properties',
-                directions: 'Take one tablet daily with water.'
-            },
-            { 
-                id: 53, 
-                name: 'Diabetes Test Strips', 
-                price: 499, 
-                originalPrice: 599, 
-                discount: '17% off', 
-                category: 'Diabetes', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/736x/f3/fd/72/f3fd721aeac334de1a8fd9ca53a43f19.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'High-quality test strips for accurate blood glucose measurement.',
-                ingredients: 'Test strips, quality control solution',
-                benefits: 'Accurate results, compatible with most glucometers, easy to use',
-                directions: 'Insert strip into meter, apply blood sample, wait for results.'
-            },
-            { 
-                id: 54, 
-                name: 'First Aid Kit', 
-                price: 349, 
-                originalPrice: 399, 
-                discount: '13% off', 
-                category: 'Medical Devices', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/94/6a/25/946a25a8467b2cfc3bbee39bb13c2751.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: false,
-                description: 'Compact first aid kit for minor injuries and emergencies.',
-                ingredients: 'Bandages, antiseptic wipes, gauze, adhesive tape',
-                benefits: 'Portable, comprehensive, essential for emergencies',
-                directions: 'Use as needed for minor injuries, follow instructions for each item.'
-            },
-            { 
-                id: 55, 
-                name: 'Asthma Inhaler', 
-                price: 189, 
-                originalPrice: 219, 
-                discount: '14% off', 
-                category: 'Asthma', 
-                brand: 'Generic', 
-                image: 'https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg',
-                thumbnails: [
-                    'https://i.pinimg.com/1200x/d3/0f/4c/d30f4c670beb8884b309c0068c11afcf.jpg',
-                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb1',
-                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
-                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb3'
-                ],
-                prescriptionRequired: true,
-                description: 'Relief inhaler for asthma symptoms.',
-                ingredients: 'Medicated aerosol as prescribed',
-                benefits: 'Quick relief from asthma symptoms, portable, easy to use',
-                directions: 'Shake well before use, inhale deeply as directed.'
-            }
-        ];
-
-        // Initialize cart from localStorage or create sample cart
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // If cart is empty, add sample items for demo
-        if (cart.length === 0) {
-            cart = [
-                {
-                    id: 40,
-                    name: 'Whisper Ultra Clean Wings',
-                    price: 279,
-                    image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg',
-                    variant: 'Medium',
-                    size: 'Medium',
-                    quantity: 2,
-                    brand: 'Whisper'
-                },
-                {
-                    id: 48,
-                    name: 'Paracetamol 500mg',
-                    price: 49,
-                    image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg',
-                    variant: 'Default',
-                    quantity: 1,
-                    brand: 'Generic'
-                }
-            ];
-        }
-
-        let addressCounter = 1;
-        let isEditing = false;
-        
-        // Function to load cart items
-        function loadCartItems() {
-            const orderItemsContainer = document.getElementById('orderItems');
-            if (!orderItemsContainer) return;
-            
-            orderItemsContainer.innerHTML = '';
-            
-            if (cart.length === 0) {
-                orderItemsContainer.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
-                updateOrderTotals();
-                return;
-            }
-            
-            cart.forEach(item => {
-                const orderItem = document.createElement('div');
-                orderItem.className = 'flex items-center gap-4 py-4 border-b border-gray-200';
-                
-                // Get full product details if available
-                const fullProduct = products.find(p => p.id === item.id);
-                const displayName = fullProduct ? fullProduct.name : item.name;
-                const displayImage = fullProduct ? fullProduct.image : item.image;
-                const displayBrand = fullProduct ? fullProduct.brand : (item.brand || '');
-                
-                orderItem.innerHTML = `
-                    <div class="w-[50px] h-[50px] rounded-md overflow-hidden flex items-center justify-center">
-                        <img src="${displayImage}" alt="${displayName}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex-1">
-                        <div class="font-medium mb-1">${displayName}</div>
-                        <div class="text-xs text-gray-600 mb-1">${displayBrand}</div>
-                        <div class="text-xs text-gray-500">Qty: ${item.quantity}</div>
-                        ${item.variant && item.variant !== 'Default' ? `<div class="text-xs text-gray-500">Variant: ${item.variant}</div>` : ''}
-                        ${item.size ? `<div class="text-xs text-gray-500">Size: ${item.size}</div>` : ''}
-                    </div>
-                    <div class="flex flex-col items-end gap-2">
-                        <div class="font-semibold">₹${(item.price * item.quantity).toFixed(2)}</div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="updateQuantity(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}', -1)" 
-                                    class="w-6 h-6 border border-gray-300 bg-white rounded flex items-center justify-center cursor-pointer hover:bg-gray-100">-</button>
-                            <span class="min-w-[20px] text-center">${item.quantity}</span>
-                            <button onclick="updateQuantity(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}', 1)" 
-                                    class="w-6 h-6 border border-gray-300 bg-white rounded flex items-center justify-center cursor-pointer hover:bg-gray-100">+</button>
-                        </div>
-                        <button onclick="removeFromCart(${item.id}, '${item.variant || 'Default'}', '${item.size || ''}')" 
-                                class="text-red-500 text-xs hover:underline">Remove</button>
-                    </div>
-                `;
-                
-                orderItemsContainer.appendChild(orderItem);
-            });
-            
-            updateOrderTotals();
-        }
-
-        // Function to update item quantity
-        function updateQuantity(id, variant, size, change) {
-            const item = cart.find(item => 
-                item.id === id && 
-                (item.variant || 'Default') === variant && 
-                (item.size || '') === size
-            );
-            
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id, variant, size);
-                } else {
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    loadCartItems();
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#36C2CE',
+                        'pharmacy-blue': '#2563eb',
+                        'pharmacy-green': '#16a34a',
+                    }
                 }
             }
         }
-
-        // Function to remove item from cart
-        function removeFromCart(id, variant, size) {
-            cart = cart.filter(item => 
-                !(item.id === id && 
-                  (item.variant || 'Default') === variant && 
-                  (item.size || '') === size)
-            );
-            localStorage.setItem('cart', JSON.stringify(cart));
-            loadCartItems();
-        }
-
-        // Function to calculate and update order totals
-        function updateOrderTotals() {
-            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-            const shipping = subtotal > 500 ? 0 : 50; // Free shipping over ₹500
-            const tax = subtotal * 0.18; // 18% GST
-            const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
-            const finalTotal = subtotal + shipping + tax - discount;
-            
-            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
-            document.getElementById('shipping').textContent = `₹${shipping.toFixed(2)}`;
-            document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `₹${finalTotal.toFixed(2)}`;
-            
-            // Show/hide discount row
-            const discountRow = document.getElementById('discountRow');
-            if (discount > 0) {
-                document.getElementById('discount').textContent = `-₹${discount.toFixed(2)}`;
-                discountRow.classList.remove('hidden');
-            } else {
-                discountRow.classList.add('hidden');
-            }
-        }
-
-        // Function to apply coupon
-        function applyCoupon() {
-            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
-            const validCoupons = {
-                'SAVE10': 10,
-                'WELCOME20': 20,
-                'HEALTH15': 15,
-                'FIRST50': 50
-            };
-            
-            if (validCoupons[couponCode]) {
-                const discount = validCoupons[couponCode];
-                localStorage.setItem('appliedDiscount', discount.toString());
-                updateOrderTotals();
-                alert(`Coupon applied! You saved ₹${discount}`);
-            } else {
-                alert('Invalid coupon code');
-            }
-        }
-
-        // Payment method change listener
-        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const cardDetails = document.getElementById('cardDetails');
-                cardDetails.style.display = this.value === 'creditCard' ? 'block' : 'none';
-            });
-        });
-
-        // Show address form
-        function showAddressForm() {
-            isEditing = false;
-            document.getElementById('newAddressForm').classList.remove('hidden');
-            document.getElementById('editAddressId').value = '';
-            clearAddressForm();
-        }
-
-        // Hide address form
-        function hideAddressForm() {
-            document.getElementById('newAddressForm').classList.add('hidden');
-            clearAddressForm();
-        }
-
-        // Clear address form
-        function clearAddressForm() {
-            document.getElementById('newAddress').value = '';
-            document.getElementById('newCity').value = '';
-            document.getElementById('newState').value = '';
-            document.getElementById('newPincode').value = '';
-            document.getElementById('newCountry').value = 'India';
-        }
-
-        // Save address (add or edit)
-        function saveAddress() {
-            const address = document.getElementById('newAddress').value;
-            const city = document.getElementById('newCity').value;
-            const state = document.getElementById('newState').value;
-            const pincode = document.getElementById('newPincode').value;
-            const country = document.getElementById('newCountry').value;
-            
-            if (!address || !city || !state || !pincode) {
-                alert('Please fill all address fields');
-                return;
-            }
-            
-            const fullAddress = `${address}, ${city}, ${state} - ${pincode}`;
-            const editId = document.getElementById('editAddressId').value;
-            
-            if (isEditing && editId) {
-                const addressElement = document.querySelector(`input[value="${editId}"]`).closest('.bg-gray-100');
-                const span = addressElement.querySelector('span');
-                span.innerHTML = `Address ${editId}<br>${fullAddress}`;
-                
-                const input = addressElement.querySelector('input');
-                input.dataset.address = address;
-                input.dataset.city = city;
-                input.dataset.state = state;
-                input.dataset.pincode = pincode;
-                input.dataset.country = country;
-            } else {
-                addressCounter++;
-                const addressHtml = `
-                    <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-4 flex items-center justify-between [&.selected]:bg-blue-50 [&.selected]:border-blue-500">
-                        <div class="flex items-center gap-3">
-                            <input type="radio" name="selectedAddress" value="${addressCounter}" 
-                                   data-address="${address}" 
-                                   data-city="${city}" 
-                                   data-state="${state}" 
-                                   data-pincode="${pincode}" 
-                                   data-country="${country}">
-                            <span>Address ${addressCounter}<br>${fullAddress}</span>
-                        </div>
-                        <div class="flex gap-2">
-                            <button type="button" class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer text-sm" onclick="editAddress(${addressCounter})">✎</button>
-                            <button type="button" class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer text-sm" onclick="deleteAddress(${addressCounter})">×</button>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
-            }
-            
-            hideAddressForm();
-        }
-
-        // Edit address
-        function editAddress(addressId) {
-            isEditing = true;
-            const input = document.querySelector(`input[value="${addressId}"]`);
-            document.getElementById('editAddressId').value = addressId;
-            document.getElementById('newAddress').value = input.dataset.address;
-            document.getElementById('newCity').value = input.dataset.city;
-            document.getElementById('newState').value = input.dataset.state;
-            document.getElementById('newPincode').value = input.dataset.pincode;
-            document.getElementById('newCountry').value = input.dataset.country || 'India';
-            document.getElementById('newAddressForm').classList.remove('hidden');
-        }
-
-        // Delete address
-        function deleteAddress(addressId) {
-            const addressElements = document.querySelectorAll('#addressList > div');
-            if (addressElements.length <= 1) {
-                alert('At least one address is required');
-                return;
-            }
-            
-            const elementToRemove = document.querySelector(`input[value="${addressId}"]`).closest('div');
-            elementToRemove.remove();
-            
-            // If deleted was selected, select first remaining
-            if (!document.querySelector('input[name="selectedAddress"]:checked')) {
-                const firstInput = document.querySelector('input[name="selectedAddress"]');
-                if (firstInput) {
-                    firstInput.checked = true;
-                    firstInput.closest('div').classList.add('selected');
-                }
-            }
-        }
-
-        // Handle address selection
-        document.addEventListener('change', function(e) {
-            if (e.target.name === 'selectedAddress') {
-                document.querySelectorAll('#addressList > div').forEach(div => div.classList.remove('selected'));
-                e.target.closest('div').classList.add('selected');
-            }
-        });
-
-        // Show policy
-        function showPolicy(type) {
-            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} Policy - This would typically open in a modal or new page`);
-        }
-
-        // Place order function
-        function placeOrder() {
-            const form = document.getElementById('checkoutForm');
-            const formData = new FormData(form);
-            
-            // Get selected address details
-            const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-            let addressDetails = {
-                shippingAddress: '',
-                shippingCity: '',
-                shippingState: '',
-                shippingPincode: '',
-                shippingCountry: 'India'
-            };
-            
-            if (selectedAddress) {
-                addressDetails = {
-                    shippingAddress: selectedAddress.dataset.address || '',
-                    shippingCity: selectedAddress.dataset.city || '',
-                    shippingState: selectedAddress.dataset.state || '',
-                    shippingPincode: selectedAddress.dataset.pincode || '',
-                    shippingCountry: selectedAddress.dataset.country || 'India'
-                };
-            }
-            
-            // Create payload exactly matching your API structure
-            const orderItems = cart.map(item => ({
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                quantity: item.quantity,
-                variant: item.variant || 'Default',
-                size: item.size || null,
-                image: item.image
-            }));
-            
-            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-            const shipping = subtotal > 500 ? 0 : 50;
-            const tax = subtotal * 0.18;
-            const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
-            const finalTotal = subtotal + shipping + tax - discount;
-            
-            const payload = {
-                shippingId: Math.floor(Math.random() * 1000) + 1,
-                user: {
-                    userId: 123, // This would typically come from authenticated user session
-                    username: (formData.get('fullName') || '').toLowerCase().replace(/\s+/g, '_'),
-                    email: formData.get('email') || ''
-                },
-                customerPhone: formData.get('phone') || '',
-                customerEmail: formData.get('email') || '',
-                shippingAddress: addressDetails.shippingAddress,
-                shippingCity: addressDetails.shippingCity,
-                shippingState: addressDetails.shippingState, 
-                shippingPincode: addressDetails.shippingPincode,
-                shippingCountry: addressDetails.shippingCountry,
-                paymentMethod: formData.get('paymentMethod') || 'creditCard',
-                orderItems: orderItems,
-                orderTotals: {
-                    subtotal: subtotal,
-                    shipping: shipping,
-                    tax: tax,
-                    discount: discount,
-                    total: finalTotal
-                }
-            };
-            
-            console.log('Shipping Payload (matching your API):', JSON.stringify(payload, null, 2));
-            
-            // Here you would send this exact payload to your backend
-            // fetch('/api/shipping', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(payload)
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Success:', data);
-            //     // Handle successful order placement
-            // })
-            // .catch(error => {
-            //     console.error('Error:', error);
-            // });
-            
-            // Clear cart after successful order (uncomment when implementing real API)
-            // localStorage.removeItem('cart');
-            // localStorage.removeItem('appliedDiscount');
-            
-            alert('Order placed successfully! Check console for the complete API payload with cart items.');
-        }
-
-        // Format card number input
-        document.getElementById('cardNumber').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            if (value.length > 16) formattedValue = formattedValue.substring(0, 19);
-            e.target.value = formattedValue;
-        });
-        
-        // Format expiry date input
-        document.getElementById('expiryDate').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.substring(0, 2) + '/' + value.substring(2, 4);
-            }
-            e.target.value = value;
-        });
-        
-        // Format CVV input
-        document.getElementById('cvv').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-
-        // Load cart items and update totals on page load
-        loadCartItems();
     </script>
 
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .selected { @apply bg-blue-50 border-blue-500; }
+        .border-dashed { @apply border-dashed; }
+        .quantity-btn {
+            @apply w-7 h-7 border rounded text-xs flex items-center justify-center transition;
+        }
+        .quantity-btn:hover {
+            @apply bg-blue-500 text-white;
+        }
+        .remove-btn {
+            @apply text-red-500 text-xs hover:underline;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
 
+<!-- Header Placeholder -->
+<div id="header-placeholder"></div>
+
+<div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8">
+    <!-- Checkout Form -->
+    <div class="bg-white rounded-xl p-6 md:p-8 border-2 border-primary shadow-lg">
+        <form id="checkoutForm">
+            <!-- Customer Information -->
+            <section>
+                <h2 class="text-2xl font-bold mb-5 pb-3 border-b-2 border-primary">Customer Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <div>
+                        <label for="fullName" class="block font-medium text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" id="fullName" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block font-medium text-gray-700 mb-2">Email *</label>
+                        <input type="email" id="email" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="phone" class="block font-medium text-gray-700 mb-2">Phone Number *</label>
+                        <input type="tel" id="phone" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                    </div>
+                    <div>
+                        <label for="whatsapp" class="block font-medium text-gray-700 mb-2">WhatsApp (Optional)</label>
+                        <input type="tel" id="whatsapp" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shipping Address -->
+            <section class="mt-10">
+                <h2 class="text-2xl font-bold mb-5 pb-3 border-b-2 border-primary">Shipping Address</h2>
+                <div id="addressList" class="space-y-3">
+                    <!-- Default Address -->
+                    <div class="p-4 bg-blue-50 border-2 border-blue-500 rounded-lg flex items-center justify-between selected">
+                        <label class="flex items-center gap-3 cursor-pointer flex-1">
+                            <input type="radio" name="selectedAddress" value="1" checked class="w-4 h-4 text-primary">
+                            <span class="text-sm">
+                                <strong>Home</strong><br>
+                                123 MG Road, Pune, Maharashtra - 411001, India
+                            </span>
+                        </label>
+                        <div class="flex gap-2">
+                            <button type="button" class="w-8 h-8 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-blue-700" onclick="editAddress(1)">Edit</button>
+                            <button type="button" class="w-8 h-8 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" onclick="deleteAddress(1)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="mt-4 w-full p-3 border-2 border-dashed border-gray-300 text-gray-600 rounded-lg text-sm hover:border-primary hover:text-primary transition" onclick="showAddressForm()">
+                    + Add New Address
+                </button>
+
+                <!-- New Address Form -->
+                <div id="newAddressForm" class="hidden mt-5 p-5 bg-gray-50 rounded-lg border">
+                    <input type="hidden" id="editAddressId">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="newAddress" placeholder="Street Address" class="p-3 border rounded-lg">
+                        <input type="text" id="newCity" placeholder="City" class="p-3 border rounded-lg">
+                        <input type="text" id="newState" placeholder="State" class="p-3 border rounded-lg">
+                        <input type="text" id="newPincode" placeholder="Pincode" class="p-3 border rounded-lg">
+                    </div>
+                    <div class="mt-4">
+                        <input type="text" id="newCountry" value="India" readonly class="p-3 border rounded-lg bg-gray-100">
+                    </div>
+                    <div class="mt-5 flex gap-3">
+                        <button type="button" onclick="saveAddress()" class="bg-primary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-[#2a9ba8]">Save</button>
+                        <button type="button" onclick="hideAddressForm()" class="bg-gray-300 text-gray-700 px-5 py-2.5 rounded-lg font-medium hover:bg-gray-400">Cancel</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Method -->
+            <section class="mt-10">
+                <h2 class="text-2xl font-bold mb-5 pb-3 border-b-2 border-primary">Payment Method</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input type="radio" name="paymentMethod" value="creditCard" checked class="w-4 h-4 text-primary">
+                        <span>Credit/Debit Card</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input type="radio" name="paymentMethod" value="razorpay" class="w-4 h-4 text-primary">
+                        <span>Razorpay</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input type="radio" name="paymentMethod" value="cod" class="w-4 h-4 text-primary">
+                        <span>Cash on Delivery (COD)</span>
+                    </label>
+                </div>
+
+                <div id="cardDetails" class="mt-5 space-y-4">
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" class="w-full p-3 border rounded-lg">
+                    <input type="text" id="nameOnCard" placeholder="Name on Card" class="w-full p-3 border rounded-lg">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" class="p-3 border rounded-lg">
+                        <input type="text" id="cvv" placeholder="CVV" maxlength="3" class="p-3 border rounded-lg">
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="bg-white rounded-xl p-6 md:p-8 border-2 border-primary shadow-lg h-fit sticky top-6">
+        <h2 class="text-2xl font-bold mb-5 pb-3 border-b-2 border-primary">Order Summary</h2>
+        <div id="orderItems" class="space-y-4 max-h-96 overflow-y-auto"></div>
+
+        <div class="mt-6 flex gap-2">
+            <input type="text" id="couponCode" placeholder="Enter coupon code" class="flex-1 p-3 border rounded-lg text-sm">
+            <button onclick="applyCoupon()" class="bg-primary text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-[#2a9ba8]">Apply</button>
+        </div>
+
+        <div class="mt-6 pt-4 border-t space-y-2">
+            <div class="flex justify-between text-gray-600"><span>Subtotal</span><span id="subtotal">₹0.00</span></div>
+            <div class="flex justify-between text-gray-600"><span>Shipping</span><span id="shipping">₹0.00</span></div>
+            <div class="flex justify-between text-gray-600"><span>Tax (5%)</span><span id="tax">₹0.00</span></div>
+            <div class="flex justify-between text-pharmacy-green hidden" id="discountRow"><span>Discount</span><span id="discount">-₹0.00</span></div>
+            <div class="flex justify-between font-bold text-lg pt-3 border-t"><span>Total</span><span id="total" class="text-primary">₹0.00</span></div>
+        </div>
+
+        <button onclick="placeOrder()" class="w-full mt-6 bg-primary text-white py-4 rounded-lg font-bold text-lg hover:bg-[#2a9ba8] transition flex items-center justify-center gap-2">
+            <i class="fas fa-lock"></i> Place Order
+        </button>
+
+        <div class="mt-6 text-center text-xs text-gray-500 space-y-1">
+            <a href="#" onclick="showPolicy('privacy')" class="hover:underline">Privacy Policy</a> • 
+            <a href="#" onclick="showPolicy('cancellation')" class="hover:underline">Cancellation</a> • 
+            <a href="#" onclick="showPolicy('shipping')" class="hover:underline">Shipping</a>
+        </div>
+
+        <div class="flex justify-center gap-3 mt-5">
+            <div class="w-10 h-6 bg-[#1a1f71] text-white rounded flex items-center justify-center text-xs font-bold">VISA</div>
+            <div class="w-10 h-6 bg-[#eb001b] text-white rounded flex items-center justify-center text-xs font-bold">MC</div>
+            <div class="w-10 h-6 bg-[#003087] text-white rounded flex items-center justify-center text-xs font-bold">PayPal</div>
+            <div class="w-10 h-6 bg-[#528ff0] text-white rounded flex items-center justify-center text-xs font-bold">Razor</div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== SCRIPTS ====================== -->
+<script>
+    // Load cart
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Load sample cart if empty (for testing)
+    if (cart.length === 0) {
+        cart = [
+            { id: 1, name: 'Paracetamol 500mg', price: 49, image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg', variant: 'Default', quantity: 2, prescriptionRequired: true },
+            { id: 2, name: 'Whisper Ultra Wings', price: 279, image: 'https://i.pinimg.com/736x/15/b9/8d/15b98d803f2e10178711489c46061497.jpg', variant: 'XL', quantity: 1 }
+        ];
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    let addressCounter = 1;
+
+    // Load order items
+    function loadOrderItems() {
+        const container = document.getElementById('orderItems');
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
+            return;
+        }
+
+        container.innerHTML = cart.map(item => `
+            <div class="flex items-center gap-4 py-3 border-b">
+                <img src="${item.image}" alt="${item.name}" class="w-14 h-14 rounded object-cover">
+                <div class="flex-1">
+                    <div class="font-medium text-sm">${item.name}</div>
+                    ${item.variant && item.variant !== 'Default' ? `<div class="text-xs text-gray-500">Size: ${item.variant}</div>` : ''}
+                    ${item.prescriptionRequired ? `<div class="text-xs text-red-600 font-medium">Prescription Required</div>` : ''}
+                </div>
+                <div class="text-right">
+                    <div class="font-semibold">₹${(item.price * item.quantity).toFixed(2)}</div>
+                    <div class="flex items-center gap-1 mt-1">
+                        <button onclick="updateQty(${item.id}, '${item.variant}', -1)" class="quantity-btn">-</button>
+                        <span class="w-6 text-center text-sm">${item.quantity}</span>
+                        <button onclick="updateQty(${item.id}, '${item.variant}', 1)" class="quantity-btn">+</button>
+                    </div>
+                    <button onclick="removeItem(${item.id}, '${item.variant}')" class="remove-btn mt-1 block">Remove</button>
+                </div>
+            </div>
+        `).join('');
+        updateTotals();
+    }
+
+    function updateQty(id, variant, change) {
+        const item = cart.find(i => i.id === id && i.variant === variant);
+        if (item) {
+            item.quantity = Math.max(1, item.quantity + change);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadOrderItems();
+        }
+    }
+
+    function removeItem(id, variant) {
+        cart = cart.filter(i => !(i.id === id && i.variant === variant));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadOrderItems();
+    }
+
+    function updateTotals() {
+        const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const shipping = subtotal > 500 ? 0 : 49;
+        const tax = subtotal * 0.05;
+        const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
+        const total = subtotal + shipping + tax - discount;
+
+        document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+        document.getElementById('shipping').textContent = `₹${shipping.toFixed(2)}`;
+        document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
+        document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
+
+        const discountRow = document.getElementById('discountRow');
+        const discountEl = document.getElementById('discount');
+        if (discount > 0) {
+            discountEl.textContent = `-₹${discount.toFixed(2)}`;
+            discountRow.classList.remove('hidden');
+        } else {
+            discountRow.classList.add('hidden');
+        }
+    }
+
+    function applyCoupon() {
+        const code = document.getElementById('couponCode').value.trim().toUpperCase();
+        const coupons = { 'MEDI10': 50, 'SAVE20': 100, 'HEALTH25': 75 };
+        if (coupons[code]) {
+            localStorage.setItem('appliedDiscount', coupons[code]);
+            updateTotals();
+            alert(`Coupon ${code} applied! Saved ₹${coupons[code]}`);
+            document.getElementById('couponCode').value = '';
+        } else {
+            alert('Invalid coupon code');
+        }
+    }
+
+    // Address Functions
+    function showAddressForm() {
+        document.getElementById('newAddressForm').classList.remove('hidden');
+        document.getElementById('editAddressId').value = '';
+        clearAddressForm();
+    }
+
+    function hideAddressForm() {
+        document.getElementById('newAddressForm').classList.add('hidden');
+    }
+
+    function clearAddressForm() {
+        ['newAddress', 'newCity', 'newState', 'newPincode'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('newCountry').value = 'India';
+    }
+
+    function saveAddress() {
+        const fields = ['newAddress', 'newCity', 'newState', 'newPincode'];
+        const values = fields.map(id => document.getElementById(id).value.trim());
+        if (values.some(v => !v)) return alert('Please fill all address fields');
+
+        const [addr, city, state, pin] = values;
+        const full = `${addr}, ${city}, ${state} - ${pin}`;
+        const id = document.getElementById('editAddressId').value || ++addressCounter;
+
+        if (document.getElementById('editAddressId').value) {
+            const input = document.querySelector(`input[value="${id}"]`);
+            const label = input.closest('label').querySelector('span');
+            label.innerHTML = `<strong>Address ${id}</strong><br>${full}`;
+            ['address', 'city', 'state', 'pincode'].forEach((k, i) => input.dataset[k] = values[i]);
+        } else {
+            const html = `
+                <div class="p-4 bg-gray-50 border rounded-lg flex items-center justify-between hover:bg-blue-50 transition">
+                    <label class="flex items-center gap-3 cursor-pointer flex-1">
+                        <input type="radio" name="selectedAddress" value="${id}" class="w-4 h-4 text-primary"
+                               data-address="${addr}" data-city="${city}" data-state="${state}" data-pincode="${pin}" data-country="India">
+                        <span class="text-sm"><strong>Address ${id}</strong><br>${full}</span>
+                    </label>
+                    <div class="flex gap-2">
+                        <button type="button" class="w-8 h-8 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-blue-700" onclick="editAddress(${id})">Edit</button>
+                        <button type="button" class="w-8 h-8 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" onclick="deleteAddress(${id})">Delete</button>
+                    </div>
+                </div>`;
+            document.getElementById('addressList').insertAdjacentHTML('beforeend', html);
+        }
+        hideAddressForm();
+    }
+
+    function editAddress(id) {
+        const input = document.querySelector(`input[value="${id}"]`);
+        document.getElementById('editAddressId').value = id;
+        document.getElementById('newAddress').value = input.dataset.address;
+        document.getElementById('newCity').value = input.dataset.city;
+        document.getElementById('newState').value = input.dataset.state;
+        document.getElementById('newPincode').value = input.dataset.pincode;
+        showAddressForm();
+    }
+
+    function deleteAddress(id) {
+        if (document.querySelectorAll('#addressList input').length <= 1) {
+            return alert('You must have at least one address');
+        }
+        document.querySelector(`input[value="${id}"]`).closest('div').remove();
+    }
+
+    // Payment toggle
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.getElementById('cardDetails').style.display = radio.value === 'creditCard' ? 'block' : 'none';
+        });
+    });
+
+    function showPolicy(type) {
+        const policies = {
+            privacy: "We respect your privacy. Your data is safe and never shared.",
+            cancellation: "Cancel within 24 hours for full refund.",
+            shipping: "Free shipping on orders above ₹500. Delivery in 2–5 days."
+        };
+        alert(policies[type]);
+    }
+
+    // PLACE ORDER – CLEARS CART COMPLETELY
+    function placeOrder() {
+        if (cart.length === 0) return alert('Your cart is empty!');
+
+        const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+        if (!selectedAddress) return alert('Please select a shipping address');
+
+        const form = document.getElementById('checkoutForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const shipping = subtotal > 500 ? 0 : 49;
+        const tax = subtotal * 0.05;
+        const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
+        const total = subtotal + shipping + tax - discount;
+
+        const order = {
+            id: Date.now(),
+            date: new Date().toLocaleDateString('en-IN'),
+            items: cart.map(i => ({
+                name: i.name,
+                image: i.image,
+                variant: i.variant || 'Default',
+                quantity: i.quantity,
+                price: i.price,
+                total: i.price * i.quantity
+            })),
+            customer: {
+                name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            },
+            address: selectedAddress.nextElementSibling.textContent.trim(),
+            payment: document.querySelector('input[name="paymentMethod"]:checked').parentElement.textContent.trim(),
+            subtotal, shipping, tax, discount, total,
+            status: 'Confirmed'
+        };
+
+        // Save order
+        const orders = JSON.parse(localStorage.getItem('medicart_orders') || '[]');
+        orders.unshift(order);
+        localStorage.setItem('medicart_orders', JSON.stringify(orders));
+
+        // === EMPTY THE CART ===
+        localStorage.removeItem('cart');           // Remove all cart items
+        localStorage.removeItem('appliedDiscount'); // Remove coupon
+        localStorage.setItem('cartCount', '0');    // Reset cart badge
+
+        alert('Order placed successfully! Your cart is now empty.');
+        window.location.href = 'my-orders.html';
+    }
+
+    // Card formatting
+    document.getElementById('cardNumber').addEventListener('input', e => {
+        let v = e.target.value.replace(/\D/g, '').slice(0, 16);
+        e.target.value = v.match(/.{1,4}/g)?.join(' ') || v;
+    });
+    document.getElementById('expiryDate').addEventListener('input', e => {
+        let v = e.target.value.replace(/\D/g, '').slice(0, 4);
+        if (v.length >= 2) v = v.slice(0,2) + '/' + v.slice(2);
+        e.target.value = v;
+    });
+    document.getElementById('cvv').addEventListener('input', e => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0,3);
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        loadOrderItems();
+
+        // Load header
+        fetch('/header.html')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('header-placeholder').innerHTML = html;
+                if (typeof initializePage === 'function') initializePage();
+            })
+            .catch(() => {});
+    });
+</script>
 
 </body>
 </html>

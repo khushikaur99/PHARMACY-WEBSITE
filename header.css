@@ -320,20 +320,32 @@ body[lang="hi"], body[lang="mr"] {
     display: none;
 }
 
-/* Language button */
+/* Modal content - reduced width */
+.language-modal-content {
+    width: 290px; /* smaller modal */
+    margin: auto;
+    background: #fff;
+    padding: 22px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Language buttons - increased width */
 .language-btn {
     transition: background-color 0.2s ease;
-    width: 100%;
-    padding: 10px 16px;
-    margin: 10px 0;
+    width: 280px; /* full width inside modal */
+    padding: 10px 18px;
+    margin: 10px 10px;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: white;
+    border-radius: 8px;
+    background: rgb(119, 215, 245);
     cursor: pointer;
+    font-weight: 500;
     box-sizing: border-box;
+    margin-left: 60px;
 }
 .language-btn:hover {
-    background-color: #f1f5f9;
+    background-color: #6acdeb;
 }
 
 /* Other existing styles */
@@ -507,3 +519,5 @@ body[lang="hi"], body[lang="mr"] {
         right: 0;
     }
 }
+
+

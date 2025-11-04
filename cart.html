@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">DEMO GOODNEEWZ - Cart</title>
+    <title data-i18n="title">MediCart - Cart</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="header.css">
 
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -26,6 +29,7 @@
             }
         }
     </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -61,9 +65,11 @@
         }
     </style>
 </head>
-<body class="bg-white" onload="initializePage()">
- <!-- Header Placeholder (loads header.html dynamically) -->
+<body class="bg-white">
+
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
+
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">Your Shopping Cart</h1>
@@ -76,13 +82,13 @@
                     <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
                     <h2 class="text-xl font-semibold text-gray-600 mb-2">Your cart is empty</h2>
                     <p class="text-gray-500 mb-6">Add some items to your cart to continue shopping</p>
-                    <a href="/products.html" class="inline-block bg-pharmacy-blue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                    <a href="/index.html" class="inline-block bg-pharmacy-blue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
                         <i class="fas fa-pills mr-2"></i>Browse Products
                     </a>
                 </div>
 
                 <div id="cart-items-container" class="space-y-4">
-                    <!-- Cart items will be dynamically inserted here -->
+                    <!-- Cart items will be inserted here -->
                 </div>
             </div>
 
@@ -100,7 +106,7 @@
                             <span class="text-gray-800">₹49.00</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Tax</span>
+                            <span class="text-gray-600">Tax (5%)</span>
                             <span id="tax" class="text-gray-800">₹0.00</span>
                         </div>
                         <div class="flex justify-between text-sm text-pharmacy-green">
@@ -114,28 +120,30 @@
                             </div>
                         </div>
                     </div>
-                <button 
-    id="checkout-btn" 
-    class="w-full bg-pharmacy-blue text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-    onclick="window.location.href='checkout.html'"
->
-    <i class="fas fa-lock mr-2"></i>
-    Proceed to Checkout
-</button>
+
+                    <button 
+                        id="checkout-btn" 
+                        class="w-full bg-pharmacy-blue text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        onclick="proceedToCheckout()"
+                    >
+                        <i class="fas fa-lock mr-2"></i>
+                        Proceed to Checkout
+                    </button>
 
                     <div class="mt-4 text-center">
-                        <a href="/products.html" class="text-pharmacy-blue hover:text-blue-800 text-sm">
+                        <a href="/index.html" class="text-pharmacy-blue hover:text-blue-800 text-sm">
                             <i class="fas fa-arrow-left mr-1"></i> Continue Shopping
                         </a>
                     </div>
                 </div>
+
                 <!-- Prescription Notice -->
                 <div id="prescription-notice" class="hidden bg-pharmacy-light-blue border border-pharmacy-blue rounded-xl p-4 mt-6">
                     <div class="flex items-start">
                         <i class="fas fa-info-circle text-pharmacy-blue text-lg mt-1 mr-3"></i>
                         <div>
-                            <h3 class="font-medium text-pharmacy-blue">Prescription Items</h3>
-                            <p class="text-sm text-gray-700 mt-1">Some items in your cart require a valid prescription. You'll need to upload your prescription during checkout.</p>
+                            <h3 class="font-medium text-pharmacy-blue">Prescription Required</h3>
+                            <p class="text-sm text-gray-700 mt-1">Some items need a valid prescription. Upload it during checkout.</p>
                         </div>
                     </div>
                 </div>
@@ -146,6 +154,7 @@
         <div class="mt-12">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Recently Viewed</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Sample Product Cards -->
                 <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                     <div class="h-48 bg-gray-100 flex items-center justify-center p-4">
                         <img src="https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg" alt="Glucose Monitor" class="h-40 object-contain">
@@ -165,7 +174,7 @@
                     </div>
                     <div class="p-4">
                         <h3 class="font-semibold text-gray-800">Insulin Pen</h3>
-                        <div class="flex items-center mt-2">
+                        <div class="flex items center mt-2">
                             <span class="text-pharmacy-blue font-bold">₹180.00</span>
                             <span class="text-gray-400 line-through text-sm ml-2">₹220.00</span>
                             <span class="text-pharmacy-green text-sm font-medium ml-2">18% off</span>
@@ -239,46 +248,41 @@
         </div>
     </footer>
 
+    <!-- ====================== CART SCRIPT (FIXED) ====================== -->
     <script>
-        // Initialize cart from localStorage
+        // Initialize cart from localStorage (safe fallback)
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // DOM elements
-        const cartCountElement = document.getElementById('cart-count');
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const emptyCartMessage = document.getElementById('empty-cart-message');
-        const subtotalElement = document.getElementById('subtotal');
-        const taxElement = document.getElementById('tax');
-        const totalElement = document.getElementById('total');
-        const discountElement = document.getElementById('discount');
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const prescriptionNotice = document.getElementById('prescription-notice');
+        // DOM Elements
+        let cartCountElement, cartItemsContainer, emptyCartMessage;
+        let subtotalElement, taxElement, totalElement, discountElement;
+        let checkoutBtn, prescriptionNotice;
 
         // Format currency
-        const formatCurrency = (amount) => {
-            return '₹' + amount.toFixed(2);
-        };
+        const formatCurrency = (amount) => '₹' + amount.toFixed(2);
 
-        // Calculate prices based on cart items
+        // Calculate prices
         const calculatePrices = () => {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const discount = cart.reduce((sum, item) => {
-                const originalPrice = item.originalPrice || null;
-                return originalPrice ? sum + ((originalPrice - item.price) * item.quantity) : sum;
+                const original = item.originalPrice || item.price;
+                return sum + ((original - item.price) * item.quantity);
             }, 0);
-            const tax = subtotal * 0.05; // 5% tax
-            const total = subtotal + tax + 49; // ₹49 shipping
+            const tax = subtotal * 0.05;
+            const total = subtotal + tax + 49 - discount;
 
-            subtotalElement.textContent = formatCurrency(subtotal);
-            taxElement.textContent = formatCurrency(tax);
-            discountElement.textContent = '-' + formatCurrency(discount);
-            totalElement.textContent = formatCurrency(total);
+            if (subtotalElement) subtotalElement.textContent = formatCurrency(subtotal);
+            if (taxElement) taxElement.textContent = formatCurrency(tax);
+            if (discountElement) discountElement.textContent = discount > 0 ? '-' + formatCurrency(discount) : '₹0.00';
+            if (totalElement) totalElement.textContent = formatCurrency(total);
         };
 
-        // Update cart count
+        // Update cart count in header
         const updateCartCount = () => {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountElement.textContent = totalItems;
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems || '0';
+            }
             localStorage.setItem('cartCount', totalItems);
         };
 
@@ -289,10 +293,10 @@
             calculatePrices();
         };
 
-        // Update cart item quantity
+        // Update item quantity
         window.updateCartItem = (index, newQuantity) => {
             if (newQuantity < 1) {
-                window.removeCartItem(index); // Remove item if quantity goes below 1
+                window.removeCartItem(index);
                 return;
             }
             cart[index].quantity = newQuantity;
@@ -300,16 +304,36 @@
             renderCartItems();
         };
 
-        // Remove item from cart
+        // Remove item
         window.removeCartItem = (index) => {
-            if (!confirm('Are you sure you want to remove this item from your cart?')) return;
+            if (!confirm('Remove this item from cart?')) return;
             cart.splice(index, 1);
             saveCart();
             renderCartItems();
         };
 
+        // FIXED: Proceed to checkout - SAVE CART TO SESSION & CLEAR LOCAL
+        window.proceedToCheckout = () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Save cart to sessionStorage for checkout page
+            sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+            // CLEAR cart from localStorage to prevent re-display
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartCount');
+
+            // Redirect to checkout
+            window.location.href = 'checkout.html';
+        };
+
         // Render cart items
         const renderCartItems = () => {
+            if (!cartItemsContainer) return;
+
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '';
                 emptyCartMessage.classList.remove('hidden');
@@ -321,80 +345,84 @@
             emptyCartMessage.classList.add('hidden');
             checkoutBtn.disabled = false;
 
-            // Render each cart item with size, variant, and age (if available)
-            cartItemsContainer.innerHTML = cart
-                .map((item, index) => {
-                    return `
-                    <div class="cart-item flex items-center justify-between bg-white rounded-xl shadow-sm p-4">
-                        <div class="flex items-center space-x-4">
-                            <img src="${item.image}" alt="${item.name}" class="h-20 w-20 object-contain rounded-lg">
-                            <div>
-                                <h3 class="font-semibold text-gray-800">${item.name}</h3>
-                                <p class="text-gray-600 text-sm">₹${item.price.toFixed(2)} each</p>
-                                ${item.variant && item.variant !== 'Default' ? `<p class="text-gray-600 text-sm">Variant: ${item.variant}</p>` : ''}
-                                ${item.size ? `<p class="text-gray-600 text-sm">Size: ${item.size}</p>` : ''}
-                                ${item.age ? `<p class="text-gray-600 text-sm">Age: ${item.age}</p>` : ''}
-                                ${item.prescriptionRequired ? `<span class="text-red-500 text-xs font-medium">Prescription Required</span>` : ''}
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <!-- Quantity controls -->
-                            <div class="flex items-center border rounded-lg">
-                                <button class="quantity-btn px-3 py-1 text-gray-600" onclick="updateCartItem(${index}, ${item.quantity - 1})">-</button>
-                                <span class="px-4 py-1">${item.quantity}</span>
-                                <button class="quantity-btn px-3 py-1 text-gray-600" onclick="updateCartItem(${index}, ${item.quantity + 1})">+</button>
-                            </div>
-                            <!-- Total price for this item -->
-                            <span class="font-semibold text-gray-800">₹${(item.price * item.quantity).toFixed(2)}</span>
-                            <!-- Remove button -->
-                            <button class="remove-btn text-gray-400 hover:text-red-500" onclick="removeCartItem(${index})">
-                                <i class="fas fa-trash"></i>
-                            </button>
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="cart-item flex items-center justify-between bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-center space-x-4">
+                        <img src="${item.image || 'https://via.placeholder.com/80'}" alt="${item.name}" class="h-20 w-20 object-contain rounded-lg">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">${item.name}</h3>
+                            <p class="text-gray-600 text-sm">₹${item.price.toFixed(2)} each</p>
+                            ${item.variant && item.variant !== 'Default' ? `<p class="text-gray-600 text-sm">Variant: ${item.variant}</p>` : ''}
+                            ${item.size ? `<p class="text-gray-600 text-sm">Size: ${item.size}</p>` : ''}
+                            ${item.age ? `<p class="text-gray-600 text-sm">Age: ${item.age}</p>` : ''}
+                            ${item.prescriptionRequired ? `<span class="text-red-500 text-xs font-medium">Prescription Required</span>` : ''}
                         </div>
                     </div>
-                    `;
-                })
-                .join('');
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center border rounded-lg">
+                            <button class="quantity-btn px-3 py-1 text-gray-600" onclick="updateCartItem(${index}, ${item.quantity - 1})">-</button>
+                            <span class="px-4 py-1 font-medium">${item.quantity}</span>
+                            <button class="quantity-btn px-3 py-1 text-gray-600" onclick="updateCartItem(${index}, ${item.quantity + 1})">+</button>
+                        </div>
+                        <span class="font-semibold text-gray-800">₹${(item.price * item.quantity).toFixed(2)}</span>
+                        <button class="remove-btn text-gray-400 hover:text-red-500" onclick="removeCartItem(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
 
-            // Show prescription notice if any item needs prescription
             const requiresPrescription = cart.some(item => item.prescriptionRequired);
-            if (requiresPrescription) {
-                prescriptionNotice.classList.remove('hidden');
-            } else {
-                prescriptionNotice.classList.add('hidden');
-            }
+            prescriptionNotice.classList.toggle('hidden', !requiresPrescription);
 
             calculatePrices();
         };
 
-        // Initialize page
-        const initCart = () => {
+        // Initialize cart after header loads
+        window.initCart = () => {
+            cartCountElement = document.getElementById('cart-count');
+            cartItemsContainer = document.getElementById('cart-items-container');
+            emptyCartMessage = document.getElementById('empty-cart-message');
+            subtotalElement = document.getElementById('subtotal');
+            taxElement = document.getElementById('tax');
+            totalElement = document.getElementById('total');
+            discountElement = document.getElementById('discount');
+            checkoutBtn = document.getElementById('checkout-btn');
+            prescriptionNotice = document.getElementById('prescription-notice');
+
             updateCartCount();
             renderCartItems();
         };
-
-        document.addEventListener('DOMContentLoaded', initCart);
     </script>
 
-    <!-- Dynamic Header Loader Script -->
+    <!-- ====================== HEADER LOADER ====================== -->
     <script>
-        // Load header.html dynamically on page load
-        window.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            const placeholder = document.getElementById('header-placeholder');
+
             fetch('/header.html')
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) throw new Error('Header not found');
+                    return response.text();
+                })
                 .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                    // Re-initialize any header-specific scripts if needed (e.g., call initializePage() again if it depends on header)
+                    placeholder.innerHTML = data;
+                    window.initCart();
+
                     if (typeof initializePage === 'function') {
                         initializePage();
                     }
                 })
-                .catch(error => {
-                    console.error('Error loading header:', error);
-                    // Fallback: Optionally display a message or load inline header as backup
+                .catch(err => {
+                    console.error('Failed to load header:', err);
+                    placeholder.innerHTML = '<p class="text-red-500 text-center">Header failed to load.</p>';
+                    window.initCart();
                 });
         });
     </script>
-<script src="header.js"></script>
+
+    <!-- Load header.js if exists -->
+    <script src="header.js" defer></script>
+
 </body>
 </html>
