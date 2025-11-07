@@ -1,530 +1,370 @@
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
+// mobility.js - Properly isolated for mobility aids products page
+(function() {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ================
-  // Data
-  // ================
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // ================ PRIVATE VARIABLES ================
+    const products = [
+        // Wheelchairs
+        { id: 414, name: 'Manual Wheelchair', price: 250, originalPrice: 300, discount: '17% off', category: 'Wheelchairs', brand: 'BrandX', image: 'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg' },
+        { id: 415, name: 'Electric Wheelchair', price: 800, originalPrice: 1000, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/electric-wheelchair.jpg' },
+        { id: 416, name: 'Foldable Wheelchair', price: 350, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandW', image: 'https://via.placeholder.com/150/foldable-wheelchair.jpg' },
+        { id: 417, name: 'Lightweight Wheelchair', price: 400, originalPrice: 450, discount: '11% off', category: 'Wheelchairs', brand: 'BrandY', image: 'https://via.placeholder.com/150/lightweight-wheelchair.jpg' },
+        { id: 418, name: 'Pediatric Wheelchair', price: 300, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandX', image: 'https://via.placeholder.com/150/pediatric-wheelchair.jpg' },
+        { id: 419, name: 'Wheelchair Cushion', price: 80, originalPrice: 100, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/wheelchair-cushion.jpg' },
 
-  const products = [
-    // Wheelchairs
-    { id: 414, name: 'Manual Wheelchair', price: 250, originalPrice: 300, discount: '17% off', category: 'Wheelchairs', brand: 'BrandX', image: 'https://i.pinimg.com/736x/41/b9/1d/41b91d1ad209c25f5f952214abd579d1.jpg', prescriptionRequired: false },
-    { id: 415, name: 'Electric Wheelchair', price: 800, originalPrice: 1000, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/electric-wheelchair.jpg', prescriptionRequired: false },
-    { id: 416, name: 'Foldable Wheelchair', price: 350, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandW', image: 'https://via.placeholder.com/150/foldable-wheelchair.jpg', prescriptionRequired: false },
-    { id: 417, name: 'Lightweight Wheelchair', price: 400, originalPrice: 450, discount: '11% off', category: 'Wheelchairs', brand: 'BrandY', image: 'https://via.placeholder.com/150/lightweight-wheelchair.jpg', prescriptionRequired: false },
-    { id: 418, name: 'Pediatric Wheelchair', price: 300, originalPrice: null, discount: '', category: 'Wheelchairs', brand: 'BrandX', image: 'https://via.placeholder.com/150/pediatric-wheelchair.jpg', prescriptionRequired: false },
-    { id: 419, name: 'Wheelchair Cushion', price: 80, originalPrice: 100, discount: '20% off', category: 'Wheelchairs', brand: 'BrandZ', image: 'https://via.placeholder.com/150/wheelchair-cushion.jpg', prescriptionRequired: false },
+        // Walkers & Walking Sticks
+        { id: 420, name: 'Folding Walker', price: 120, originalPrice: 150, discount: '20% off', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/folding-walker.jpg' },
+        { id: 421, name: 'Adjustable Walking Stick', price: 50, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/walking-stick.jpg' },
+        { id: 422, name: 'Rollator Walker', price: 200, originalPrice: 240, discount: '17% off', category: 'Walkers & Walking Sticks', brand: 'BrandX', image: 'https://via.placeholder.com/150/rollator-walker.jpg' },
+        { id: 423, name: 'Quad Cane', price: 60, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/quad-cane.jpg' },
+        { id: 424, name: 'Walker with Seat', price: 180, originalPrice: 220, discount: '18% off', category: 'Walkers & Walking Sticks', brand: 'BrandZ', image: 'https://via.placeholder.com/150/walker-seat.jpg' },
+        { id: 425, name: 'Ergonomic Walking Stick', price: 70, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/ergo-stick.jpg' },
 
-    // Walkers & Walking Sticks
-    { id: 420, name: 'Folding Walker', price: 120, originalPrice: 150, discount: '20% off', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/folding-walker.jpg', prescriptionRequired: false },
-    { id: 421, name: 'Adjustable Walking Stick', price: 50, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/walking-stick.jpg', prescriptionRequired: false },
-    { id: 422, name: 'Rollator Walker', price: 200, originalPrice: 240, discount: '17% off', category: 'Walkers & Walking Sticks', brand: 'BrandX', image: 'https://via.placeholder.com/150/rollator-walker.jpg', prescriptionRequired: false },
-    { id: 423, name: 'Quad Cane', price: 60, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandY', image: 'https://via.placeholder.com/150/quad-cane.jpg', prescriptionRequired: false },
-    { id: 424, name: 'Walker with Seat', price: 180, originalPrice: 220, discount: '18% off', category: 'Walkers & Walking Sticks', brand: 'BrandZ', image: 'https://via.placeholder.com/150/walker-seat.jpg', prescriptionRequired: false },
-    { id: 425, name: 'Ergonomic Walking Stick', price: 70, originalPrice: null, discount: '', category: 'Walkers & Walking Sticks', brand: 'BrandW', image: 'https://via.placeholder.com/150/ergo-stick.jpg', prescriptionRequired: false },
+        // Crutches
+        { id: 426, name: 'Underarm Crutches', price: 40, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/underarm-crutches.jpg' },
+        { id: 427, name: 'Forearm Crutches', price: 60, originalPrice: 75, discount: '20% off', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/forearm-crutches.jpg' },
+        { id: 428, name: 'Adjustable Crutches', price: 50, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandW', image: 'https://via.placeholder.com/150/adjustable-crutches.jpg' },
+        { id: 429, name: 'Crutch Pads', price: 20, originalPrice: 25, discount: '20% off', category: 'Crutches', brand: 'BrandX', image: 'https://via.placeholder.com/150/crutch-pads.jpg' },
+        { id: 430, name: 'Lightweight Crutches', price: 70, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/light-crutches.jpg' },
+        { id: 431, name: 'Crutch Grips', price: 15, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/crutch-grips.jpg' },
 
-    // Crutches
-    { id: 426, name: 'Underarm Crutches', price: 40, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/underarm-crutches.jpg', prescriptionRequired: false },
-    { id: 427, name: 'Forearm Crutches', price: 60, originalPrice: 75, discount: '20% off', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/forearm-crutches.jpg', prescriptionRequired: false },
-    { id: 428, name: 'Adjustable Crutches', price: 50, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandW', image: 'https://via.placeholder.com/150/adjustable-crutches.jpg', prescriptionRequired: false },
-    { id: 429, name: 'Crutch Pads', price: 20, originalPrice: 25, discount: '20% off', category: 'Crutches', brand: 'BrandX', image: 'https://via.placeholder.com/150/crutch-pads.jpg', prescriptionRequired: false },
-    { id: 430, name: 'Lightweight Crutches', price: 70, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandY', image: 'https://via.placeholder.com/150/light-crutches.jpg', prescriptionRequired: false },
-    { id: 431, name: 'Crutch Grips', price: 15, originalPrice: null, discount: '', category: 'Crutches', brand: 'BrandZ', image: 'https://via.placeholder.com/150/crutch-grips.jpg', prescriptionRequired: false },
+        // Support Belts & Braces
+        { id: 432, name: 'Lumbar Support Belt', price: 45, originalPrice: 55, discount: '18% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/lumbar-belt.jpg' },
+        { id: 433, name: 'Knee Brace', price: 35, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/knee-brace.jpg' },
+        { id: 434, name: 'Ankle Support', price: 30, originalPrice: 40, discount: '25% off', category: 'Support Belts & Braces', brand: 'BrandZ', image: 'https://via.placeholder.com/150/ankle-support.jpg' },
+        { id: 435, name: 'Back Brace', price: 60, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandW', image: 'https://via.placeholder.com/150/back-brace.jpg' },
+        { id: 436, name: 'Wrist Support', price: 25, originalPrice: 30, discount: '17% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/wrist-support.jpg' },
+        { id: 437, name: 'Posture Corrector', price: 50, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/posture-corrector.jpg' }
+    ];
 
-    // Support Belts & Braces
-    { id: 432, name: 'Lumbar Support Belt', price: 45, originalPrice: 55, discount: '18% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/lumbar-belt.jpg', prescriptionRequired: false },
-    { id: 433, name: 'Knee Brace', price: 35, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/knee-brace.jpg', prescriptionRequired: false },
-    { id: 434, name: 'Ankle Support', price: 30, originalPrice: 40, discount: '25% off', category: 'Support Belts & Braces', brand: 'BrandZ', image: 'https://via.placeholder.com/150/ankle-support.jpg', prescriptionRequired: false },
-    { id: 435, name: 'Back Brace', price: 60, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandW', image: 'https://via.placeholder.com/150/back-brace.jpg', prescriptionRequired: false },
-    { id: 436, name: 'Wrist Support', price: 25, originalPrice: 30, discount: '17% off', category: 'Support Belts & Braces', brand: 'BrandX', image: 'https://via.placeholder.com/150/wrist-support.jpg', prescriptionRequired: false },
-    { id: 437, name: 'Posture Corrector', price: 50, originalPrice: null, discount: '', category: 'Support Belts & Braces', brand: 'BrandY', image: 'https://via.placeholder.com/150/posture-corrector.jpg', prescriptionRequired: false }
-  ];
+    const priceRanges = [
+        { label: 'Under ₹100', min: 0, max: 100 },
+        { label: '₹100 - ₹300', min: 100, max: 300 },
+        { label: '₹300 - ₹500', min: 300, max: 500 },
+        { label: 'Over ₹500', min: 501, max: Infinity }
+    ];
 
-  // ================
-  // DOM Elements
-  // ================
-  const productGrid = document.getElementById('productGrid');
-  const categoryList = document.getElementById('categoryList');
-  const brandList = document.getElementById('brandList');
-  const brandToggle = (brandList && brandList.previousElementSibling) ? brandList.previousElementSibling.querySelector('span') : null;
-  const brandFilters = document.querySelectorAll('.brand-filter');
-  const sortSelect = document.getElementById('sortSelect');
-  const uploadModal = document.getElementById('uploadModal');
-  const validPrescriptionModal = document.getElementById('validPrescriptionModal');
-  const validPrescriptionBtn = document.getElementById('validPrescriptionBtn');
-  const cartCountElement = document.getElementById('cart-count');
+    // Filter state (private to this module)
+    let activeCategory = null;
+    let activePriceRange = null;
+    let selectedBrands = [];
+    let activeSort = 'relevance';
 
-  // keep track of active filters
-  let activeCategory = null; // null = all
-  let activeSort = null;
+    // DOM Elements (scoped to mobility page)
+    let productGrid, sortSelect, resetFiltersBtn;
 
-  // ================
-  // Helpers
-  // ================
-  function updateCartCount() {
-    if (!cartCountElement) return;
-    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    cartCountElement.textContent = totalItems;
-    localStorage.setItem('cartCount', totalItems);
-  }
+    // ================ PRIVATE FUNCTIONS ================
+    function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-  // Initialize cart from localStorage
-  (function loadCart() {
-    const stored = JSON.parse(localStorage.getItem('cart') || 'null');
-    if (Array.isArray(stored)) cart = stored;
-    updateCartCount();
-  })();
+    function createProductCard(p) {
+        const div = document.createElement('div');
+        div.className = 'product-card bg-white p-4 rounded-xl shadow hover:shadow-xl transition-all border border-primary/20 cursor-pointer';
+        
+        div.innerHTML = `
+            <img src="${p.image}" alt="${escapeHtml(p.name)}" class="product-image w-full h-40 rounded-lg mb-3 object-contain">
+            <p class="font-semibold text-gray-800 text-sm line-clamp-2">${escapeHtml(p.name)}</p>
+            <p class="text-xs text-gray-500 mt-1">${escapeHtml(p.brand)}</p>
+            <div class="mt-2 flex items-center gap-2">
+                <span class="price-tag text-lg font-bold text-green-600">₹${p.price.toFixed(2)}</span>
+                ${p.originalPrice ? `<span class="text-sm text-gray-500 line-through">₹${p.originalPrice}</span>` : ''}
+                ${p.discount ? `<span class="discount-tag text-xs px-2 py-1 rounded-full">${p.discount}</span>` : ''}
+            </div>
+            <button class="mt-3 w-full bg-primary hover:bg-primary/90 text-white py-2.5 rounded-lg font-medium" onclick="window.openProductDetails(${p.id})">
+                View Details
+            </button>
+        `;
+        return div;
+    }
 
-  // ================
-  // Product Rendering
-  // ================
-  function createProductCard(product) {
-    const productDiv = document.createElement('div');
-    productDiv.className = 'product-card bg-white p-4 shadow rounded-lg flex flex-col justify-between relative cursor-pointer hover:shadow-lg transition-shadow';
+    function displayProducts(list) {
+        if (!productGrid) return;
+        
+        productGrid.innerHTML = list.length === 0
+            ? `<div class="col-span-full text-center py-12">
+                <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-xl font-medium text-gray-700">No products found</h3>
+            </div>`
+            : '';
+        list.forEach(p => productGrid.appendChild(createProductCard(p)));
+    }
 
-    const prescriptionBadge = product.prescriptionRequired
-      ? '<div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">Rx Required</div>'
-      : '';
+    function renderCategoryItem(cat) {
+        const li = document.createElement('li');
+        li.innerHTML = `<div class="flex items-center gap-3 cursor-pointer group category-item" data-category="${cat}">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary font-medium">${cat}</span>
+        </div>`;
+        return li;
+    }
 
-    const actionButton = product.prescriptionRequired
-      ? `<button 
-            class="mt-3 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition flex items-center justify-center gap-2 upload-pres-btn" 
-            data-product='${escapeHtml(JSON.stringify(product))}'>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Upload Prescription
-          </button>`
-      : `<button 
-            class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition flex items-center justify-center gap-2 add-to-cart-btn" 
-            data-id="${product.id}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
-            View Details
-          </button>`;
+    function renderPriceItem(r) {
+        const li = document.createElement('li');
+        li.innerHTML = `<div class="flex items-center gap-3 cursor-pointer group price-range-item" data-min="${r.min}" data-max="${r.max}">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary font-medium">${r.label}</span>
+        </div>`;
+        return li;
+    }
 
-    productDiv.innerHTML = `
-      ${prescriptionBadge}
-      <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image w-full h-32 rounded-lg mb-3">
-      <p class="text-sm text-gray-600 font-medium">${escapeHtml(product.name)}</p>
-      <p class="text-xs text-gray-500">${escapeHtml(product.brand)}</p>
-      ${product.prescriptionRequired ? '<p class="text-red-600 text-xs mt-1 font-semibold">⚠️ Prescription needed</p>' : ''}
-      <p class="text-green-600 font-bold mt-2">₹${product.price.toFixed(2)} 
-        ${product.originalPrice ? `<span class="text-gray-500 line-through text-sm">₹${product.originalPrice.toFixed(2)}</span> <span class="text-green-600 text-sm">${escapeHtml(product.discount)}</span>` : ''}</p>
-      ${actionButton}
-    `;
+    function renderBrandItem(b) {
+        const li = document.createElement('li');
+        li.innerHTML = `<label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox" value="${b}" class="brand-checkbox hidden">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary">${b}</span>
+        </label>`;
+        return li;
+    }
 
-    // click handlers
-    productDiv.addEventListener('click', (event) => {
-      // If clicked a button inside, ignore (buttons have own handlers)
-      if (event.target.tagName === 'BUTTON' || event.target.closest('button')) return;
-      if (product.prescriptionRequired) {
-        // for card click, open modal as well
-        openUploadModalForProduct(product);
-      } else {
-        openProductDetails(product);
-      }
-    });
+    function initializeFilters() {
+        const uniqueCategories = ['All Products', ...new Set(products.map(p => p.category))];
+        const uniqueBrands = [...new Set(products.map(p => p.brand))];
 
-    // attach inner button handlers after insertion (or via delegation later)
-    return productDiv;
-  }
+        // Desktop elements
+        const catDesktop = document.getElementById('categoryListDesktop');
+        const priceDesktop = document.getElementById('priceRangeListDesktop');
+        const brandDesktop = document.getElementById('brandListDesktop');
+        
+        // Mobile elements
+        const catMobile = document.getElementById('categoryList');
+        const priceMobile = document.getElementById('priceRangeList');
+        const brandMobile = document.getElementById('brandList');
 
-  function displayProducts(list) {
-    if (!productGrid) return;
-    productGrid.innerHTML = '';
-    list.forEach(product => productGrid.appendChild(createProductCard(product)));
-  }
+        // Clear existing
+        [catDesktop, catMobile, priceDesktop, priceMobile, brandDesktop, brandMobile].forEach(el => {
+            if (el) el.innerHTML = '';
+        });
 
-  // initial display (all)
-  displayProducts(products);
+        // Populate categories
+        uniqueCategories.forEach(cat => {
+            if (catDesktop) catDesktop.appendChild(renderCategoryItem(cat));
+            if (catMobile) catMobile.appendChild(renderCategoryItem(cat));
+        });
 
-  // ================
-  // Product interactions
-  // ================
-  function openProductDetails(product) {
-    // go to productdetails with id query param
-    const productDetailsUrl = `/productdetails.html?id=${product.id}`;
-    window.location.href = productDetailsUrl;
-  }
-  window.openProductDetails = openProductDetails; // expose
+        // Populate price ranges
+        priceRanges.forEach(r => {
+            if (priceDesktop) priceDesktop.appendChild(renderPriceItem(r));
+            if (priceMobile) priceMobile.appendChild(renderPriceItem(r));
+        });
 
-  // add to cart (used by other pages too)
-  function addToCartById(productId) {
-    const product = products.find(p => p.id == productId);
-    if (!product) return;
-    const existing = cart.find(item => item.id === productId);
-    if (existing) existing.quantity = (existing.quantity || 1) + 1;
-    else cart.push({ ...product, quantity: 1 });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    // optional: small toast can be added, but keep as alert for now
-    // alert(`${product.name} added to cart`);
-  }
-  window.addToCart = addToCartById;
+        // Populate brands
+        uniqueBrands.forEach(b => {
+            if (brandDesktop) brandDesktop.appendChild(renderBrandItem(b));
+            if (brandMobile) brandMobile.appendChild(renderBrandItem(b));
+        });
+    }
 
-  // ================
-  // Category & Brand Filters
-  // ================
-  // Single combined click handler for category list (expand / filter)
-  categoryList?.addEventListener('click', (e) => {
-    // expand toggle
-    if (e.target.classList.contains('expand-toggle')) {
-      const li = e.target.parentElement;
-      const subcategory = li.querySelector('.subcategory');
-      if (subcategory) {
-        subcategory.classList.toggle('hidden');
-      } else {
-        const category = li.querySelector('.category-link')?.textContent?.trim();
-        if (category) {
-          const subItems = products
-            .filter(p => p.category === category)
-            .map(p => p.name);
-          if (subItems.length) {
-            const ul = document.createElement('ul');
-            ul.className = 'subcategory hidden ml-4 space-y-2';
-            subItems.forEach(item => {
-              const li2 = document.createElement('li');
-              li2.innerHTML = `<a href="#" class="subcategory-link text-sm text-gray-600 hover:text-primary">${escapeHtml(item)}</a>`;
-              ul.appendChild(li2);
+    function updateCategoryUI() {
+        document.querySelectorAll('.category-item .bullet').forEach(b => {
+            b.classList.toggle('selected', b.parentElement.dataset.category === activeCategory);
+        });
+    }
+
+    function updatePriceRangeUI() {
+        document.querySelectorAll('.price-range-item .bullet').forEach(b => {
+            const p = b.parentElement;
+            const min = +p.dataset.min;
+            const max = p.dataset.max === 'Infinity' ? Infinity : +p.dataset.max;
+            b.classList.toggle('selected', activePriceRange?.min === min && activePriceRange?.max === max);
+        });
+    }
+
+    function applyFilters() {
+        let list = [...products];
+        
+        // Category filter
+        if (activeCategory && activeCategory !== 'All Products') {
+            list = list.filter(p => p.category === activeCategory);
+        }
+        
+        // Price filter
+        if (activePriceRange) {
+            list = list.filter(p => p.price >= activePriceRange.min && p.price <= activePriceRange.max);
+        }
+        
+        // Brand filter
+        if (selectedBrands.length) {
+            list = list.filter(p => selectedBrands.includes(p.brand));
+        }
+        
+        // Sorting
+        if (activeSort === 'price-low') list.sort((a, b) => a.price - b.price);
+        if (activeSort === 'price-high') list.sort((a, b) => b.price - b.price);
+        
+        displayProducts(list);
+    }
+
+    function setupEventListeners() {
+        // Category click handlers
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const cat = item.dataset.category;
+                activeCategory = activeCategory === cat ? null : cat;
+                updateCategoryUI();
+                applyFilters();
+                if (window.innerWidth < 768) closeMobileDropdown('category');
             });
-            li.appendChild(ul);
-            ul.classList.toggle('hidden');
-          }
-        }
-      }
-      e.target.textContent = e.target.textContent === '+' ? '-' : '+';
-      return;
-    }
+        });
 
-    // filter by category link or subcategory link
-    if (e.target.classList.contains('category-link') || e.target.classList.contains('subcategory-link')) {
-      e.preventDefault();
-      const text = e.target.textContent.trim();
-      // if it's a product name (subcategory-link), filter by name else by category
-      let filtered;
-      if (e.target.classList.contains('subcategory-link')) {
-        filtered = products.filter(p => p.name === text);
-      } else {
-        filtered = products.filter(p => p.category === text);
-      }
-      activeCategory = text;
-      applyFilters(filtered);
-    }
-  });
+        // Price range click handlers
+        document.querySelectorAll('.price-range-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const min = +item.dataset.min;
+                const max = item.dataset.max === 'Infinity' ? Infinity : +item.dataset.max;
+                const range = { min, max };
+                activePriceRange = JSON.stringify(activePriceRange) === JSON.stringify(range) ? null : range;
+                updatePriceRangeUI();
+                applyFilters();
+                if (window.innerWidth < 768) closeMobileDropdown('price');
+            });
+        });
 
-  // brand toggle (expand/collapse)
-  if (brandToggle) {
-    brandToggle.addEventListener('click', () => {
-      brandList.classList.toggle('hidden');
-      brandToggle.textContent = brandToggle.textContent === '+' ? '-' : '+';
-    });
-  }
+        // Brand checkbox handlers
+        document.querySelectorAll('.brand-checkbox').forEach(cb => {
+            cb.addEventListener('change', () => {
+                selectedBrands = Array.from(document.querySelectorAll('.brand-checkbox:checked')).map(c => c.value);
+                applyFilters();
+            });
+        });
 
-  brandFilters.forEach(filter => {
-    filter.addEventListener('change', () => {
-      applyFilters(products);
-    });
-  });
-
-  // sorting
-  sortSelect?.addEventListener('change', () => {
-    activeSort = sortSelect.value;
-    applyFilters(products);
-  });
-
-  // Apply filters: input is a starting list (filtered by category already if provided)
-  function applyFilters(startList) {
-    let list = Array.isArray(startList) ? [...startList] : [...products];
-
-    // brand filters
-    const selectedBrands = Array.from(brandFilters).filter(f => f.checked).map(f => f.value);
-    if (selectedBrands.length > 0) {
-      list = list.filter(p => selectedBrands.includes(p.brand));
-    }
-
-    // sorting
-    if (activeSort === 'Price: Low to High') {
-      list.sort((a, b) => a.price - b.price);
-    } else if (activeSort === 'Price: High to Low') {
-      list.sort((a, b) => b.price - a.price);
-    } else if (activeSort === 'Discount') {
-      list.sort((a, b) => {
-        const da = parseFloat((a.discount || '').replace(/[^0-9.]/g, '')) || 0;
-        const db = parseFloat((b.discount || '').replace(/[^0-9.]/g, '')) || 0;
-        return db - da;
-      });
-    }
-    displayProducts(list);
-  }
-
-  // ================
-  // Upload Prescription Modal Integration
-  // ================
-  // Helper to open modal for a product
-  function openUploadModalForProduct(product) {
-    if (!uploadModal) {
-      // fallback: redirect to prescribed page
-      window.location.href = `/prescribed.html?id=${product.id}`;
-      return;
-    }
-
-    // set dataset and update modal placeholders
-    uploadModal.dataset.productId = product.id;
-    // Product name display area (assumes #modalProductName exists in HTML)
-    const modalProductName = uploadModal.querySelector('#modalProductName') || uploadModal.querySelector('#modalProductName') || document.getElementById('modalProductName');
-    if (modalProductName) modalProductName.textContent = `Upload Prescription for: ${product.name}`;
-
-    // product image placeholder if present
-    const modalProductImage = uploadModal.querySelector('.modal-product-image');
-    if (modalProductImage) modalProductImage.src = product.image;
-
-    // ensure file input exists and bind change handler
-    let fileInput = uploadModal.querySelector('#prescriptionFile');
-    if (!fileInput) {
-      // try to find any input[type=file]
-      fileInput = uploadModal.querySelector('input[type="file"]');
-    }
-    if (!fileInput) {
-      fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*,.pdf';
-      fileInput.id = 'prescriptionFile';
-      fileInput.className = 'hidden';
-      uploadModal.querySelector('label')?.appendChild(fileInput) || uploadModal.appendChild(fileInput);
-    }
-
-    // show file name display element if present
-    const fileNameDisplay = uploadModal.querySelector('#fileNameDisplay') || document.getElementById('fileNameDisplay');
-
-    // remove previous change listeners to avoid duplicates
-    const newFileInput = fileInput.cloneNode();
-    newFileInput.id = fileInput.id;
-    newFileInput.accept = fileInput.accept;
-    newFileInput.className = fileInput.className;
-    fileInput.parentNode.replaceChild(newFileInput, fileInput);
-    fileInput = newFileInput;
-
-    fileInput.addEventListener('change', function () {
-      const file = fileInput.files[0];
-      if (!file) {
-        if (fileNameDisplay) fileNameDisplay.textContent = '';
-        return;
-      }
-      if (fileNameDisplay) fileNameDisplay.textContent = file.name;
-
-      // optionally preview if image
-      if (file.type.startsWith('image/')) {
-        const previewImg = uploadModal.querySelector('#prescriptionPreviewImg');
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          if (previewImg) {
-            previewImg.src = evt.target.result;
-            previewImg.classList.remove('hidden');
-          }
-          // store temporarily on modal to submit on click of Submit
-          uploadModal.dataset.tempDataURL = evt.target.result;
-          uploadModal.dataset.tempFileName = file.name;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // not an image (pdf etc.), just store filename
-        uploadModal.dataset.tempDataURL = ''; // not stored as preview
-        uploadModal.dataset.tempFileName = file.name;
-      }
-    });
-
-    // wire Choose File label (if label exists) to open file input
-    const label = uploadModal.querySelector('label');
-    if (label) {
-      // remove previous listeners and add one
-      label.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const fi = uploadModal.querySelector('#prescriptionFile');
-        if (fi) fi.click();
-      }, { once: true });
-    }
-
-    // Submit button logic
-    const submitBtn = uploadModal.querySelector('#submitPrescription') || document.getElementById('submitPrescription');
-    if (submitBtn) {
-      // remove previous handler if any by cloning
-      const newBtn = submitBtn.cloneNode(true);
-      submitBtn.parentNode.replaceChild(newBtn, submitBtn);
-      newBtn.addEventListener('click', () => {
-        const prodId = uploadModal.dataset.productId;
-        const tmpName = uploadModal.dataset.tempFileName;
-        const tmpData = uploadModal.dataset.tempDataURL || null;
-        // fallback: if file input has file but we didn't capture dataset, read now
-        const fi = uploadModal.querySelector('#prescriptionFile');
-        if (!tmpName && fi && fi.files[0]) {
-          const file = fi.files[0];
-          const reader = new FileReader();
-          reader.onload = function (evt) {
-            savePrescription(prodId, file.name, evt.target.result);
-            uploadModal.classList.add('hidden');
-            clearModalTempState();
-          };
-          reader.readAsDataURL(file);
-          return;
+        // Sort select handler
+        if (sortSelect) {
+            sortSelect.addEventListener('change', () => {
+                activeSort = sortSelect.value;
+                applyFilters();
+            });
         }
 
-        if (!tmpName) {
-          alert('Please choose a prescription file before submitting.');
-          return;
+        // Reset filters handler
+        if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', resetAllFilters);
         }
-
-        // Save to localStorage
-        savePrescription(prodId, tmpName, tmpData);
-        // hide modal
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-        // optional feedback
-        alert('Prescription uploaded successfully.');
-      });
     }
 
-    // finally show the modal
-    uploadModal.classList.remove('hidden');
-  }
+    function resetAllFilters() {
+        activeCategory = null;
+        activePriceRange = null;
+        selectedBrands = [];
+        activeSort = 'relevance';
+        
+        if (sortSelect) sortSelect.value = 'relevance';
+        document.querySelectorAll('.brand-checkbox').forEach(cb => cb.checked = false);
+        
+        updateCategoryUI();
+        updatePriceRangeUI();
+        applyFilters();
 
-  // function to save prescription into localStorage
-  function savePrescription(productId, fileName, dataURL) {
-    if (!productId) return;
-    const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '{}');
-    prescriptions[productId] = {
-      fileName,
-      dataURL: dataURL || null,
-      uploadedAt: new Date().toISOString()
+        // Show success message
+        if (typeof Toastify !== 'undefined') {
+            Toastify({
+                text: "Filters reset successfully!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#10b981",
+                stopOnFocus: true,
+            }).showToast();
+        }
+    }
+
+    function initializeMobileDropdowns() {
+        document.querySelectorAll('.dropdown-header').forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.parentElement.querySelector('.dropdown-content');
+                const icon = this.querySelector('i');
+                content.classList.toggle('open');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-header').forEach(other => {
+                    if (other !== this) {
+                        const oc = other.parentElement.querySelector('.dropdown-content');
+                        const oi = other.querySelector('i');
+                        oc.classList.remove('open');
+                        oi.classList.remove('fa-chevron-up');
+                        oi.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        });
+    }
+
+    function closeMobileDropdown(type) {
+        const dd = document.querySelector(`.filter-dropdown[data-type="${type}"]`);
+        if (dd) {
+            const content = dd.querySelector('.dropdown-content');
+            const icon = dd.querySelector('.dropdown-header i');
+            if (content) content.classList.remove('open');
+            if (icon) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+    }
+
+    function toggleBrandList() {
+        const list = document.getElementById('brandListDesktop');
+        const toggle = document.getElementById('brandToggle');
+        if (list && toggle) {
+            list.classList.toggle('hidden');
+            toggle.textContent = list.classList.contains('hidden') ? '+' : '−';
+        }
+    }
+
+    // ================ INITIALIZATION ================
+    function initializeMobilityPage() {
+        console.log('Initializing mobility aids products page...');
+        
+        // Get DOM elements specific to mobility page
+        productGrid = document.getElementById('productGrid');
+        sortSelect = document.getElementById('sortSelect');
+        resetFiltersBtn = document.getElementById('resetFilters');
+
+        // Check if we're on the mobility page
+        if (!productGrid) {
+            console.log('Not on mobility aids products page, skipping initialization');
+            return;
+        }
+
+        // Initialize everything
+        initializeFilters();
+        initializeMobileDropdowns();
+        setupEventListeners();
+        applyFilters(); // Show all products initially
+        updateCategoryUI();
+        updatePriceRangeUI();
+
+        // Scroll to top button visibility
+        window.addEventListener('scroll', () => {
+            const goTopBtn = document.querySelector('.go-top-btn');
+            if (goTopBtn) {
+                goTopBtn.classList.toggle('visible', window.scrollY > 300);
+            }
+        });
+
+        console.log('Mobility aids products page initialized successfully');
+    }
+
+    // ================ GLOBAL EXPORTS ================
+    // Only expose what's absolutely necessary
+    window.openProductDetails = function(id) {
+        window.location.href = `/productdetails.html?id=${id}`;
     };
-    localStorage.setItem('prescriptions', JSON.stringify(prescriptions));
-  }
 
-  function clearModalTempState() {
-    if (!uploadModal) return;
-    delete uploadModal.dataset.tempFileName;
-    delete uploadModal.dataset.tempDataURL;
-    // clear preview if present
-    const previewImg = uploadModal.querySelector('#prescriptionPreviewImg');
-    if (previewImg) {
-      previewImg.src = '';
-      previewImg.classList.add('hidden');
-    }
-    const fileNameDisplay = uploadModal.querySelector('#fileNameDisplay');
-    if (fileNameDisplay) fileNameDisplay.textContent = '';
-    // reset file input
-    const fi = uploadModal.querySelector('#prescriptionFile');
-    if (fi) fi.value = '';
-  }
+    window.toggleBrandList = toggleBrandList;
 
-  // attach upload buttons via event delegation (handles dynamically created cards too)
-  document.body.addEventListener('click', (e) => {
-    // upload button
-    const up = e.target.closest('.upload-pres-btn');
-    if (up) {
-      e.stopPropagation();
-      const productData = up.getAttribute('data-product');
-      if (productData) {
-        try {
-          const product = JSON.parse(unescapeHtml(productData));
-          openUploadModalForProduct(product);
-        } catch (err) {
-          // fallback: if data not parseable, use redirect
-          window.location.href = `/prescribed.html`;
+    // ================ AUTO-INITIALIZATION ================
+    // Only initialize if we're on a mobility aids products page
+    if (document.getElementById('productGrid')) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMobilityPage);
+        } else {
+            // DOM already loaded
+            setTimeout(initializeMobilityPage, 100);
         }
-      }
-      return;
     }
 
-    // add-to-cart / view-details button -> open product details page (onclick uses openProductDetails)
-    const atc = e.target.closest('.add-to-cart-btn');
-    if (atc) {
-      e.stopPropagation();
-      const pid = atc.getAttribute('data-id');
-      if (pid) openProductDetails({ id: pid });
-      return;
-    }
-  });
-
-  // modal backdrop click to close
-  if (uploadModal) {
-    uploadModal.addEventListener('click', (e) => {
-      if (e.target === uploadModal) {
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-      }
-    });
-
-    // close button (if you have one with id closeUploadModal)
-    const closeUploadModalBtn = document.getElementById('closeUploadModal');
-    if (closeUploadModalBtn) {
-      closeUploadModalBtn.addEventListener('click', () => {
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-      });
-    }
-  }
-
-  // valid prescription modal wiring
-  if (validPrescriptionBtn && validPrescriptionModal) {
-    validPrescriptionBtn.addEventListener('click', () => validPrescriptionModal.classList.remove('hidden'));
-    validPrescriptionModal.addEventListener('click', (e) => { if (e.target === validPrescriptionModal) validPrescriptionModal.classList.add('hidden'); });
-    const validClose = validPrescriptionModal.querySelector('#closeValidPrescriptionModal') || validPrescriptionModal.querySelector('button');
-    if (validClose) validClose.addEventListener('click', () => validPrescriptionModal.classList.add('hidden'));
-  }
-
-  // ================
-  // Utility functions
-  // ================
-  function escapeHtml(str) {
-    if (typeof str !== 'string') return str;
-    return str.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
-  }
-
-  function unescapeHtml(encoded) {
-    // small helper in case we stored JSON with escaped quotes
-    if (!encoded) return encoded;
-    return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // safe JSON parse wrapper
-  function safeParseProductData(attr) {
-    if (!attr) return null;
-    try {
-      const jsonStr = attr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-      return JSON.parse(jsonStr);
-    } catch (err) {
-      return null;
-    }
-  }
-
-  // ================
-  // Finalize & Expose
-  // ================
-  // Expose upload function globally in case generated HTML uses onclick inline attributes
-  window.uploadPrescription = function (productObjOrId) {
-    // If called with a number or string id, find product object
-    if (typeof productObjOrId === 'number' || typeof productObjOrId === 'string') {
-      const p = products.find(x => x.id == productObjOrId);
-      if (p) openUploadModalForProduct(p);
-      else window.location.href = `/prescribed.html?id=${productObjOrId}`;
-    } else if (typeof productObjOrId === 'object' && productObjOrId !== null) {
-      openUploadModalForProduct(productObjOrId);
-    } else {
-      // fallback
-      window.location.href = '/prescribed.html';
-    }
-  };
-
-  // Expose addToCart in global scope
-  window.addToCart = addToCartById;
-
-  // ensure page has products shown with current filters
-  applyFilters(products);
-});
+})(); // End of IIFE

@@ -1,607 +1,352 @@
-// chronic.js
-// Full app script: products, rendering, filters, cart, product details, and Upload Prescription modal integration.
+// chronic.js - Properly isolated for chronic products page
+(function() {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ================
-  // Data
-  // ================
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // ================ PRIVATE VARIABLES ================
+    const products = [
+        { id: 1, name: 'Diabetes Care Kit', price: 45.80, originalPrice: 329, discount: '16% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg' },
+        { id: 2, name: 'Glucose Monitor', price: 65.50, originalPrice: 625, discount: '50% off', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg' },
+        { id: 4, name: 'Blood Sugar Test Strips', price: 25, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandW', image: 'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg' },
+        { id: 5, name: 'Diabetic Foot Cream', price: 35, originalPrice: 150, discount: '20% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/b1/3c/0a/b13c0a3f378c929991359e31b2c98b0a.jpg' },
+        { id: 6, name: 'Glucose Tablets', price: 15, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/46/13/15/46131555c6994d407730f268ee6390ef.jpg' },
+        { id: 7, name: 'BP Monitor', price: 95, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg' },
+        { id: 9, name: 'Wrist BP Monitor', price: 85, originalPrice: 400, discount: '12% off', category: 'Hypertension', brand: 'BrandX', image: 'https://i.pinimg.com/736x/73/1d/44/731d44443cdca68c78d5140fbd54602b.jpg' },
+        { id: 11, name: 'Digital BP Cuff', price: 90, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://rukminim2.flixcart.com/image/292/360/kbs9k7k0/bp-monitor-cuff/h/y/c/adult-size-digital-blood-pressure-monitor-cuff-psm-original-imaft25hkpp3rmyn.jpeg?q=90&crop=false' },
+        { id: 12, name: 'Hypertension Tea', price: 25, originalPrice: 120, discount: '25% off', category: 'Hypertension', brand: 'BrandW', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUIWfND9G-a5jv7Sg6oenF-im9IFPwG9M0A&s' },
+        { id: 13, name: 'Heart Health Supplement', price: 75, originalPrice: 350, discount: '14% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/736x/84/25/86/842586edc3d1515a35a5071dd16f9fb9.jpg' },
+        { id: 14, name: 'Cardiac Monitor', price: 95, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/9a/64/da/9a64da44712c93da0dd7fefebe3c4f2f.jpg' },
+        { id: 15, name: 'Omega-3 Capsules', price: 65, originalPrice: 300, discount: '17% off', category: 'Cardiac', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f3/e8/4c/f3e84c84576fb11c8edf2ed7442e6da2.jpg' },
+        { id: 16, name: 'Heart Rate Tracker', price: 80, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/e9/bc/b7/e9bcb7f63c77a9220832993dbdbcad72.jpg' },
+        { id: 17, name: 'Cholesterol Test Kit', price: 40, originalPrice: 140, discount: '21% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/6f/02/2e/6f022e5b238c1720823d99468e7c3fd9.jpg' }
+    ];
 
-  const products = [
-    // Diabetes Category (6 products)
-    { id: 1, name: 'Diabetes Care Kit', price: 268.80, originalPrice: 329, discount: '16% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg', prescriptionRequired: false },
-    { id: 2, name: 'Glucose Monitor', price: 312.50, originalPrice: 625, discount: '50% off', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg', prescriptionRequired: false },
-    { id: 3, name: 'Insulin Pen', price: 180, originalPrice: 220, discount: '18% off', category: 'Diabetes', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/8c/98/c0/8c98c0b824d4297ac6ef98d31313e68a.jpg', prescriptionRequired: true },
-    { id: 4, name: 'Blood Sugar Test Strips', price: 75, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandW', image: 'https://i.pinimg.com/736x/50/94/3b/50943b109020ca1be3acbf7a555ef79b.jpg', prescriptionRequired: false },
-    { id: 5, name: 'Diabetic Foot Cream', price: 120, originalPrice: 150, discount: '20% off', category: 'Diabetes', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/b1/3c/0a/b13c0a3f378c929991359e31b2c98b0a.jpg', prescriptionRequired: false },
-    { id: 6, name: 'Glucose Tablets', price: 50, originalPrice: null, discount: '', category: 'Diabetes', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/46/13/15/46131555c6994d407730f268ee6390ef.jpg', prescriptionRequired: false },
+    const priceRanges = [
+        { label: 'Under ₹4000', min: 0, max: 4000 },
+        { label: '₹2075 - ₹4150', min: 2075, max: 4150 },
+        { label: '₹4150 - ₹8300', min: 4150, max: 8300 },
+        { label: 'Over ₹8300', min: 8301, max: Infinity }
+    ];
 
-    // Hypertension Category (6 products)
-    { id: 7, name: 'BP Monitor', price: 420, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://i.pinimg.com/1200x/86/85/b8/8685b8bc870fd478367baee1e5065fe5.jpg', prescriptionRequired: false },
-    { id: 8, name: 'Hypertension Pills', price: 105, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandW', image: 'https://tribuneonlineng.com/wp-content/uploads/2019/10/hypertension-medication.jpg', prescriptionRequired: true },
-    { id: 9, name: 'Wrist BP Monitor', price: 350, originalPrice: 400, discount: '12% off', category: 'Hypertension', brand: 'BrandX', image: 'https://i.pinimg.com/736x/73/1d/44/731d44443cdca68c78d5140fbd54602b.jpg', prescriptionRequired: false },
-    { id: 11, name: 'Digital BP Cuff', price: 380, originalPrice: null, discount: '', category: 'Hypertension', brand: 'BrandZ', image: 'https://rukminim2.flixcart.com/image/292/360/kbs9k7k0/bp-monitor-cuff/h/y/c/adult-size-digital-blood-pressure-monitor-cuff-psm-original-imaft25hkpp3rmyn.jpeg?q=90&crop=false', prescriptionRequired: false },
-    { id: 12, name: 'Hypertension Tea', price: 90, originalPrice: 120, discount: '25% off', category: 'Hypertension', brand: 'BrandW', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUIWfND9G-a5jv7Sg6oenF-im9IFPwG9M0A&s', prescriptionRequired: false },
+    // Filter state (private to this module)
+    let activeCategory = null;
+    let activePriceRange = null;
+    let selectedBrands = [];
+    let activeSort = 'relevance';
 
-    // Cardiac Category (6 products)
-    { id: 13, name: 'Heart Health Supplement', price: 300, originalPrice: 350, discount: '14% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/736x/84/25/86/842586edc3d1515a35a5071dd16f9fb9.jpg', prescriptionRequired: false },
-    { id: 14, name: 'Cardiac Monitor', price: 450, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/9a/64/da/9a64da44712c93da0dd7fefebe3c4f2f.jpg', prescriptionRequired: false },
-    { id: 15, name: 'Omega-3 Capsules', price: 250, originalPrice: 300, discount: '17% off', category: 'Cardiac', brand: 'BrandZ', image: 'https://i.pinimg.com/736x/f3/e8/4c/f3e84c84576fb11c8edf2ed7442e6da2.jpg', prescriptionRequired: false },
-    { id: 16, name: 'Heart Rate Tracker', price: 320, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandW', image: 'https://i.pinimg.com/1200x/e9/bc/b7/e9bcb7f63c77a9220832993dbdbcad72.jpg', prescriptionRequired: false },
-    { id: 17, name: 'Cholesterol Test Kit', price: 110, originalPrice: 140, discount: '21% off', category: 'Cardiac', brand: 'BrandX', image: 'https://i.pinimg.com/1200x/6f/02/2e/6f022e5b238c1720823d99468e7c3fd9.jpg', prescriptionRequired: false },
-    { id: 18, name: 'CoQ10 Supplement', price: 280, originalPrice: null, discount: '', category: 'Cardiac', brand: 'BrandY', image: 'https://i.pinimg.com/1200x/d6/8d/00/d68d006919f9062fdd79953cb91d413f.jpg', prescriptionRequired: true },
+    // DOM Elements (scoped to chronic page)
+    let productGrid, sortSelect, resetFiltersBtn;
 
-    // Asthma Category (6 products)
-    { id: 19, name: 'Inhaler', price: 200, originalPrice: 250, discount: '20% off', category: 'Asthma', brand: 'BrandZ', image: 'https://via.placeholder.com/150/inhaler.jpg', prescriptionRequired: true },
-    { id: 20, name: 'Asthma Relief Spray', price: 150, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandW', image: 'https://via.placeholder.com/150/asthma-spray.jpg', prescriptionRequired: true },
-    { id: 21, name: 'Nebulizer', price: 500, originalPrice: 600, discount: '17% off', category: 'Asthma', brand: 'BrandX', image: 'https://via.placeholder.com/150/nebulizer.jpg', prescriptionRequired: false },
-    { id: 22, name: 'Peak Flow Meter', price: 80, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandY', image: 'https://via.placeholder.com/150/peak-flow-meter.jpg', prescriptionRequired: false },
-    { id: 23, name: 'Asthma Spacer', price: 120, originalPrice: 150, discount: '20% off', category: 'Asthma', brand: 'BrandZ', image: 'https://via.placeholder.com/150/asthma-spacer.jpg', prescriptionRequired: false },
-    { id: 24, name: 'Breathing Exercise Device', price: 100, originalPrice: null, discount: '', category: 'Asthma', brand: 'BrandW', image: 'https://via.placeholder.com/150/breathing-device.jpg', prescriptionRequired: false },
+    // ================ PRIVATE FUNCTIONS ================
+    function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-    // Thyroid Category (6 products)
-    { id: 25, name: 'Thyroid Supplement', price: 120, originalPrice: 150, discount: '20% off', category: 'Thyroid', brand: 'BrandX', image: 'https://via.placeholder.com/150/thyroid-supplement.jpg', prescriptionRequired: false },
-    { id: 26, name: 'Thyroid Test Kit', price: 90, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandY', image: 'https://via.placeholder.com/150/thyroid-test.jpg', prescriptionRequired: false },
-    { id: 27, name: 'Iodine Drops', price: 70, originalPrice: 90, discount: '22% off', category: 'Thyroid', brand: 'BrandZ', image: 'https://via.placeholder.com/150/iodine-drops.jpg', prescriptionRequired: false },
-    { id: 28, name: 'Thyroid Support Capsules', price: 140, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandW', image: 'https://via.placeholder.com/150/thyroid-capsules.jpg', prescriptionRequired: true },
-    { id: 29, name: 'Selenium Supplement', price: 110, originalPrice: 130, discount: '15% off', category: 'Thyroid', brand: 'BrandX', image: 'https://via.placeholder.com/150/selenium-supplement.jpg', prescriptionRequired: false },
-    { id: 30, name: 'Thyroid Monitoring Device', price: 200, originalPrice: null, discount: '', category: 'Thyroid', brand: 'BrandY', image: 'https://via.placeholder.com/150/thyroid-monitor.jpg', prescriptionRequired: false }
-  ];
+    function createProductCard(p) {
+        const div = document.createElement('div');
+        div.className = 'product-card bg-white p-4 rounded-xl shadow hover:shadow-xl transition-all border border-primary/20 cursor-pointer';
+        div.innerHTML = `
+            <img src="${p.image}" alt="${escapeHtml(p.name)}" class="product-image w-full h-40 rounded-lg mb-3 object-contain">
+            <p class="font-semibold text-gray-800 text-sm line-clamp-2">${escapeHtml(p.name)}</p>
+            <p class="text-xs text-gray-500 mt-1">${escapeHtml(p.brand)}</p>
+            <div class="mt-2 flex items-center gap-2">
+                <span class="price-tag text-lg font-bold text-green-600">₹${p.price.toFixed(2)}</span>
+                ${p.originalPrice ? `<span class="text-sm text-gray-500 line-through">₹${p.originalPrice}</span>` : ''}
+                ${p.discount ? `<span class="discount-tag text-xs px-2 py-1 rounded-full">${p.discount}</span>` : ''}
+            </div>
+            <button class="mt-3 w-full bg-primary hover:bg-primary/90 text-white py-2.5 rounded-lg font-medium" onclick="window.openProductDetails(${p.id})">
+                View Details
+            </button>
+        `;
+        return div;
+    }
 
-  // ================
-  // DOM Elements
-  // ================
-  const productGrid = document.getElementById('productGrid');
-  const categoryList = document.getElementById('categoryList');
-  const brandList = document.getElementById('brandList');
-  const brandToggle = (brandList && brandList.previousElementSibling) ? brandList.previousElementSibling.querySelector('span') : null;
-  const brandFilters = document.querySelectorAll('.brand-filter');
-  const sortSelect = document.getElementById('sortSelect');
-  const uploadModal = document.getElementById('uploadModal');
-  const validPrescriptionModal = document.getElementById('validPrescriptionModal');
-  const validPrescriptionBtn = document.getElementById('validPrescriptionBtn');
-  const cartCountElement = document.getElementById('cart-count');
+    function displayProducts(list) {
+        if (!productGrid) return;
+        
+        productGrid.innerHTML = list.length === 0
+            ? `<div class="col-span-full text-center py-12">
+                <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-xl font-medium text-gray-700">No products found</h3>
+            </div>`
+            : '';
+        list.forEach(p => productGrid.appendChild(createProductCard(p)));
+    }
 
-  // keep track of active filters
-  let activeCategory = null; // null = all
-  let activeSort = null;
+    function renderCategoryItem(cat) {
+        const li = document.createElement('li');
+        li.innerHTML = `<div class="flex items-center gap-3 cursor-pointer group category-item" data-category="${cat}">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary font-medium">${cat}</span>
+        </div>`;
+        return li;
+    }
 
-  // ================
-  // Helpers
-  // ================
-  function updateCartCount() {
-    if (!cartCountElement) return;
-    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    cartCountElement.textContent = totalItems;
-    localStorage.setItem('cartCount', totalItems);
-  }
+    function renderPriceItem(r) {
+        const li = document.createElement('li');
+        li.innerHTML = `<div class="flex items-center gap-3 cursor-pointer group price-range-item" data-min="${r.min}" data-max="${r.max}">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary font-medium">${r.label}</span>
+        </div>`;
+        return li;
+    }
 
-  // Initialize cart from localStorage
-  (function loadCart() {
-    const stored = JSON.parse(localStorage.getItem('cart') || 'null');
-    if (Array.isArray(stored)) cart = stored;
-    updateCartCount();
-  })();
+    function renderBrandItem(b) {
+        const li = document.createElement('li');
+        li.innerHTML = `<label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox" value="${b}" class="brand-checkbox hidden">
+            <div class="bullet"></div>
+            <span class="text-gray-700 group-hover:text-primary">${b}</span>
+        </label>`;
+        return li;
+    }
 
-  // ================
-  // Product Rendering
-  // ================
-  function createProductCard(product) {
-    const productDiv = document.createElement('div');
-    productDiv.className = 'product-card bg-white p-4 shadow rounded-lg flex flex-col justify-between relative cursor-pointer hover:shadow-lg transition-shadow';
+    function initializeFilters() {
+        const uniqueCategories = ['All Products', ...new Set(products.map(p => p.category))];
+        const uniqueBrands = [...new Set(products.map(p => p.brand))];
 
-    const prescriptionBadge = product.prescriptionRequired
-      ? '<div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">Rx Required</div>'
-      : '';
+        // Desktop elements
+        const catDesktop = document.getElementById('categoryListDesktop');
+        const priceDesktop = document.getElementById('priceRangeListDesktop');
+        const brandDesktop = document.getElementById('brandListDesktop');
+        
+        // Mobile elements
+        const catMobile = document.getElementById('categoryList');
+        const priceMobile = document.getElementById('priceRangeList');
+        const brandMobile = document.getElementById('brandList');
 
-    const actionButton = product.prescriptionRequired
-      ? `<button 
-            class="mt-3 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition flex items-center justify-center gap-2 upload-pres-btn" 
-            data-product='${escapeHtml(JSON.stringify(product))}'>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Upload Prescription
-          </button>`
-      : `<button 
-            class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition flex items-center justify-center gap-2 add-to-cart-btn" 
-            data-id="${product.id}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
-            View Details
-          </button>`;
+        // Clear existing
+        [catDesktop, catMobile, priceDesktop, priceMobile, brandDesktop, brandMobile].forEach(el => {
+            if (el) el.innerHTML = '';
+        });
 
-    productDiv.innerHTML = `
-      ${prescriptionBadge}
-      <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image w-full h-32 rounded-lg mb-3">
-      <p class="text-sm text-gray-600 font-medium">${escapeHtml(product.name)}</p>
-      <p class="text-xs text-gray-500">${escapeHtml(product.brand)}</p>
-      ${product.prescriptionRequired ? '<p class="text-red-600 text-xs mt-1 font-semibold">⚠️ Prescription needed</p>' : ''}
-      <p class="text-green-600 font-bold mt-2">₹${product.price.toFixed(2)} 
-        ${product.originalPrice ? `<span class="text-gray-500 line-through text-sm">₹${product.originalPrice.toFixed(2)}</span> <span class="text-green-600 text-sm">${escapeHtml(product.discount)}</span>` : ''}</p>
-      ${actionButton}
-    `;
+        // Populate categories
+        uniqueCategories.forEach(cat => {
+            if (catDesktop) catDesktop.appendChild(renderCategoryItem(cat));
+            if (catMobile) catMobile.appendChild(renderCategoryItem(cat));
+        });
 
-    // click handlers
-    productDiv.addEventListener('click', (event) => {
-      // If clicked a button inside, ignore (buttons have own handlers)
-      if (event.target.tagName === 'BUTTON' || event.target.closest('button')) return;
-      if (product.prescriptionRequired) {
-        // for card click, open modal as well
-        openUploadModalForProduct(product);
-      } else {
-        openProductDetails(product);
-      }
-    });
+        // Populate price ranges
+        priceRanges.forEach(r => {
+            if (priceDesktop) priceDesktop.appendChild(renderPriceItem(r));
+            if (priceMobile) priceMobile.appendChild(renderPriceItem(r));
+        });
 
-    // attach inner button handlers after insertion (or via delegation later)
-    return productDiv;
-  }
+        // Populate brands
+        uniqueBrands.forEach(b => {
+            if (brandDesktop) brandDesktop.appendChild(renderBrandItem(b));
+            if (brandMobile) brandMobile.appendChild(renderBrandItem(b));
+        });
+    }
 
-  function displayProducts(list) {
-    if (!productGrid) return;
-    productGrid.innerHTML = '';
-    list.forEach(product => productGrid.appendChild(createProductCard(product)));
-  }
+    function updateCategoryUI() {
+        document.querySelectorAll('.category-item .bullet').forEach(b => {
+            b.classList.toggle('selected', b.parentElement.dataset.category === activeCategory);
+        });
+    }
 
-  // initial display (all)
-  displayProducts(products);
+    function updatePriceRangeUI() {
+        document.querySelectorAll('.price-range-item .bullet').forEach(b => {
+            const p = b.parentElement;
+            const min = +p.dataset.min;
+            const max = p.dataset.max === 'Infinity' ? Infinity : +p.dataset.max;
+            b.classList.toggle('selected', activePriceRange?.min === min && activePriceRange?.max === max);
+        });
+    }
 
-  // ================
-  // Product interactions
-  // ================
-  function openProductDetails(product) {
-    // go to productdetails with id query param
-    const productDetailsUrl = `/productdetails.html?id=${product.id}`;
-    window.location.href = productDetailsUrl;
-  }
-  window.openProductDetails = openProductDetails; // expose
+    function applyFilters() {
+        let list = [...products];
+        
+        // Category filter
+        if (activeCategory && activeCategory !== 'All Products') {
+            list = list.filter(p => p.category === activeCategory);
+        }
+        
+        // Price filter
+        if (activePriceRange) {
+            list = list.filter(p => p.price >= activePriceRange.min && p.price <= activePriceRange.max);
+        }
+        
+        // Brand filter
+        if (selectedBrands.length) {
+            list = list.filter(p => selectedBrands.includes(p.brand));
+        }
+        
+        // Sorting
+        if (activeSort === 'price-low') list.sort((a, b) => a.price - b.price);
+        if (activeSort === 'price-high') list.sort((a, b) => b.price - a.price);
+        
+        displayProducts(list);
+    }
 
-  // add to cart (used by other pages too)
-  function addToCartById(productId) {
-    const product = products.find(p => p.id == productId);
-    if (!product) return;
-    const existing = cart.find(item => item.id === productId);
-    if (existing) existing.quantity = (existing.quantity || 1) + 1;
-    else cart.push({ ...product, quantity: 1 });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    // optional: small toast can be added, but keep as alert for now
-    // alert(`${product.name} added to cart`);
-  }
-  window.addToCart = addToCartById;
-
-  // ================
-  // Category & Brand Filters
-  // ================
-  // Single combined click handler for category list (expand / filter)
-  categoryList?.addEventListener('click', (e) => {
-    // expand toggle
-    if (e.target.classList.contains('expand-toggle')) {
-      const li = e.target.parentElement;
-      const subcategory = li.querySelector('.subcategory');
-      if (subcategory) {
-        subcategory.classList.toggle('hidden');
-      } else {
-        const category = li.querySelector('.category-link')?.textContent?.trim();
-        if (category) {
-          const subItems = products
-            .filter(p => p.category === category)
-            .map(p => p.name);
-          if (subItems.length) {
-            const ul = document.createElement('ul');
-            ul.className = 'subcategory hidden ml-4 space-y-2';
-            subItems.forEach(item => {
-              const li2 = document.createElement('li');
-              li2.innerHTML = `<a href="#" class="subcategory-link text-sm text-gray-600 hover:text-primary">${escapeHtml(item)}</a>`;
-              ul.appendChild(li2);
+    function setupEventListeners() {
+        // Category click handlers
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const cat = item.dataset.category;
+                activeCategory = activeCategory === cat ? null : cat;
+                updateCategoryUI();
+                applyFilters();
+                if (window.innerWidth < 768) closeMobileDropdown('category');
             });
-            li.appendChild(ul);
-            ul.classList.toggle('hidden');
-          }
-        }
-      }
-      e.target.textContent = e.target.textContent === '+' ? '-' : '+';
-      return;
-    }
+        });
 
-    // filter by category link or subcategory link
-    if (e.target.classList.contains('category-link') || e.target.classList.contains('subcategory-link')) {
-      e.preventDefault();
-      const text = e.target.textContent.trim();
-      // if it's a product name (subcategory-link), filter by name else by category
-      let filtered;
-      if (e.target.classList.contains('subcategory-link')) {
-        filtered = products.filter(p => p.name === text);
-      } else {
-        filtered = products.filter(p => p.category === text);
-      }
-      activeCategory = text;
-      applyFilters(filtered);
-    }
-  });
+        // Price range click handlers
+        document.querySelectorAll('.price-range-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const min = +item.dataset.min;
+                const max = item.dataset.max === 'Infinity' ? Infinity : +item.dataset.max;
+                const range = { min, max };
+                activePriceRange = JSON.stringify(activePriceRange) === JSON.stringify(range) ? null : range;
+                updatePriceRangeUI();
+                applyFilters();
+                if (window.innerWidth < 768) closeMobileDropdown('price');
+            });
+        });
 
-  // brand toggle (expand/collapse)
-  if (brandToggle) {
-    brandToggle.addEventListener('click', () => {
-      brandList.classList.toggle('hidden');
-      brandToggle.textContent = brandToggle.textContent === '+' ? '-' : '+';
-    });
-  }
+        // Brand checkbox handlers
+        document.querySelectorAll('.brand-checkbox').forEach(cb => {
+            cb.addEventListener('change', () => {
+                selectedBrands = Array.from(document.querySelectorAll('.brand-checkbox:checked')).map(c => c.value);
+                applyFilters();
+            });
+        });
 
-  brandFilters.forEach(filter => {
-    filter.addEventListener('change', () => {
-      applyFilters(products);
-    });
-  });
-
-  // sorting
-  sortSelect?.addEventListener('change', () => {
-    activeSort = sortSelect.value;
-    applyFilters(products);
-  });
-
-  // Apply filters: input is a starting list (filtered by category already if provided)
-  function applyFilters(startList) {
-    let list = Array.isArray(startList) ? [...startList] : [...products];
-
-    // brand filters
-    const selectedBrands = Array.from(brandFilters).filter(f => f.checked).map(f => f.value);
-    if (selectedBrands.length > 0) {
-      list = list.filter(p => selectedBrands.includes(p.brand));
-    }
-
-    // sorting
-    if (activeSort === 'Price: Low to High') {
-      list.sort((a, b) => a.price - b.price);
-    } else if (activeSort === 'Price: High to Low') {
-      list.sort((a, b) => b.price - a.price);
-    } else if (activeSort === 'Discount') {
-      list.sort((a, b) => {
-        const da = parseFloat((a.discount || '').replace(/[^0-9.]/g, '')) || 0;
-        const db = parseFloat((b.discount || '').replace(/[^0-9.]/g, '')) || 0;
-        return db - da;
-      });
-    }
-    displayProducts(list);
-  }
-
-  // ================
-  // Upload Prescription Modal Integration
-  // ================
-  // Helper to open modal for a product
-  function openUploadModalForProduct(product) {
-    if (!uploadModal) {
-      // fallback: redirect to prescribed page
-      window.location.href = `/prescribed.html?id=${product.id}`;
-      return;
-    }
-
-    // set dataset and update modal placeholders
-    uploadModal.dataset.productId = product.id;
-    // Product name display area (assumes #modalProductName exists in HTML)
-    const modalProductName = uploadModal.querySelector('#modalProductName') || uploadModal.querySelector('#modalProductName') || document.getElementById('modalProductName');
-    if (modalProductName) modalProductName.textContent = `Upload Prescription for: ${product.name}`;
-
-    // product image placeholder if present
-    const modalProductImage = uploadModal.querySelector('.modal-product-image');
-    if (modalProductImage) modalProductImage.src = product.image;
-
-    // ensure file input exists and bind change handler
-    let fileInput = uploadModal.querySelector('#prescriptionFile');
-    if (!fileInput) {
-      // try to find any input[type=file]
-      fileInput = uploadModal.querySelector('input[type="file"]');
-    }
-    if (!fileInput) {
-      fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*,.pdf';
-      fileInput.id = 'prescriptionFile';
-      fileInput.className = 'hidden';
-      uploadModal.querySelector('label')?.appendChild(fileInput) || uploadModal.appendChild(fileInput);
-    }
-
-    // show file name display element if present
-    const fileNameDisplay = uploadModal.querySelector('#fileNameDisplay') || document.getElementById('fileNameDisplay');
-
-    // remove previous change listeners to avoid duplicates
-    const newFileInput = fileInput.cloneNode();
-    newFileInput.id = fileInput.id;
-    newFileInput.accept = fileInput.accept;
-    newFileInput.className = fileInput.className;
-    fileInput.parentNode.replaceChild(newFileInput, fileInput);
-    fileInput = newFileInput;
-
-    fileInput.addEventListener('change', function () {
-      const file = fileInput.files[0];
-      if (!file) {
-        if (fileNameDisplay) fileNameDisplay.textContent = '';
-        return;
-      }
-      if (fileNameDisplay) fileNameDisplay.textContent = file.name;
-
-      // optionally preview if image
-      if (file.type.startsWith('image/')) {
-        const previewImg = uploadModal.querySelector('#prescriptionPreviewImg');
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          if (previewImg) {
-            previewImg.src = evt.target.result;
-            previewImg.classList.remove('hidden');
-          }
-          // store temporarily on modal to submit on click of Submit
-          uploadModal.dataset.tempDataURL = evt.target.result;
-          uploadModal.dataset.tempFileName = file.name;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // not an image (pdf etc.), just store filename
-        uploadModal.dataset.tempDataURL = ''; // not stored as preview
-        uploadModal.dataset.tempFileName = file.name;
-      }
-    });
-
-    // wire Choose File label (if label exists) to open file input
-    const label = uploadModal.querySelector('label');
-    if (label) {
-      // remove previous listeners and add one
-      label.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const fi = uploadModal.querySelector('#prescriptionFile');
-        if (fi) fi.click();
-      }, { once: true });
-    }
-
-    // Submit button logic
-    const submitBtn = uploadModal.querySelector('#submitPrescription') || document.getElementById('submitPrescription');
-    if (submitBtn) {
-      // remove previous handler if any by cloning
-      const newBtn = submitBtn.cloneNode(true);
-      submitBtn.parentNode.replaceChild(newBtn, submitBtn);
-      newBtn.addEventListener('click', () => {
-        const prodId = uploadModal.dataset.productId;
-        const tmpName = uploadModal.dataset.tempFileName;
-        const tmpData = uploadModal.dataset.tempDataURL || null;
-        // fallback: if file input has file but we didn't capture dataset, read now
-        const fi = uploadModal.querySelector('#prescriptionFile');
-        if (!tmpName && fi && fi.files[0]) {
-          const file = fi.files[0];
-          const reader = new FileReader();
-          reader.onload = function (evt) {
-            savePrescription(prodId, file.name, evt.target.result);
-            uploadModal.classList.add('hidden');
-            clearModalTempState();
-          };
-          reader.readAsDataURL(file);
-          return;
+        // Sort select handler
+        if (sortSelect) {
+            sortSelect.addEventListener('change', () => {
+                activeSort = sortSelect.value;
+                applyFilters();
+            });
         }
 
-        if (!tmpName) {
-          alert('Please choose a prescription file before submitting.');
-          return;
+        // Reset filters handler
+        if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', resetAllFilters);
         }
-
-        // Save to localStorage
-        savePrescription(prodId, tmpName, tmpData);
-        // hide modal
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-        // optional feedback
-        alert('Prescription uploaded successfully.');
-      });
     }
 
-    // finally show the modal
-    uploadModal.classList.remove('hidden');
-  }
+    function resetAllFilters() {
+        activeCategory = null;
+        activePriceRange = null;
+        selectedBrands = [];
+        activeSort = 'relevance';
+        
+        if (sortSelect) sortSelect.value = 'relevance';
+        document.querySelectorAll('.brand-checkbox').forEach(cb => cb.checked = false);
+        
+        updateCategoryUI();
+        updatePriceRangeUI();
+        applyFilters();
 
-  // function to save prescription into localStorage
-  function savePrescription(productId, fileName, dataURL) {
-    if (!productId) return;
-    const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '{}');
-    prescriptions[productId] = {
-      fileName,
-      dataURL: dataURL || null,
-      uploadedAt: new Date().toISOString()
+        // Show success message
+        if (typeof Toastify !== 'undefined') {
+            Toastify({
+                text: "Filters reset successfully!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#10b981",
+                stopOnFocus: true,
+            }).showToast();
+        }
+    }
+
+    function initializeMobileDropdowns() {
+        document.querySelectorAll('.dropdown-header').forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.parentElement.querySelector('.dropdown-content');
+                const icon = this.querySelector('i');
+                content.classList.toggle('open');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-header').forEach(other => {
+                    if (other !== this) {
+                        const oc = other.parentElement.querySelector('.dropdown-content');
+                        const oi = other.querySelector('i');
+                        oc.classList.remove('open');
+                        oi.classList.remove('fa-chevron-up');
+                        oi.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        });
+    }
+
+    function closeMobileDropdown(type) {
+        const dd = document.querySelector(`.filter-dropdown[data-type="${type}"]`);
+        if (dd) {
+            const content = dd.querySelector('.dropdown-content');
+            const icon = dd.querySelector('.dropdown-header i');
+            if (content) content.classList.remove('open');
+            if (icon) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+    }
+
+    function toggleBrandList() {
+        const list = document.getElementById('brandListDesktop');
+        const toggle = document.getElementById('brandToggle');
+        if (list && toggle) {
+            list.classList.toggle('hidden');
+            toggle.textContent = list.classList.contains('hidden') ? '+' : '−';
+        }
+    }
+
+    // ================ INITIALIZATION ================
+    function initializeChronicPage() {
+        console.log('Initializing chronic products page...');
+        
+        // Get DOM elements specific to chronic page
+        productGrid = document.getElementById('productGrid');
+        sortSelect = document.getElementById('sortSelect');
+        resetFiltersBtn = document.getElementById('resetFilters');
+
+        // Check if we're on the chronic page
+        if (!productGrid) {
+            console.log('Not on chronic products page, skipping initialization');
+            return;
+        }
+
+        // Initialize everything
+        initializeFilters();
+        initializeMobileDropdowns();
+        setupEventListeners();
+        applyFilters(); // Show all products initially
+        updateCategoryUI();
+        updatePriceRangeUI();
+
+        // Scroll to top button visibility
+        window.addEventListener('scroll', () => {
+            const goTopBtn = document.querySelector('.go-top-btn');
+            if (goTopBtn) {
+                goTopBtn.classList.toggle('visible', window.scrollY > 300);
+            }
+        });
+
+        console.log('Chronic products page initialized successfully');
+    }
+
+    // ================ GLOBAL EXPORTS ================
+    // Only expose what's absolutely necessary
+    window.openProductDetails = function(id) {
+        window.location.href = `/productdetails.html?id=${id}`;
     };
-    localStorage.setItem('prescriptions', JSON.stringify(prescriptions));
-  }
 
-  function clearModalTempState() {
-    if (!uploadModal) return;
-    delete uploadModal.dataset.tempFileName;
-    delete uploadModal.dataset.tempDataURL;
-    // clear preview if present
-    const previewImg = uploadModal.querySelector('#prescriptionPreviewImg');
-    if (previewImg) {
-      previewImg.src = '';
-      previewImg.classList.add('hidden');
-    }
-    const fileNameDisplay = uploadModal.querySelector('#fileNameDisplay');
-    if (fileNameDisplay) fileNameDisplay.textContent = '';
-    // reset file input
-    const fi = uploadModal.querySelector('#prescriptionFile');
-    if (fi) fi.value = '';
-  }
+    window.toggleBrandList = toggleBrandList;
 
-  // attach upload buttons via event delegation (handles dynamically created cards too)
-  document.body.addEventListener('click', (e) => {
-    // upload button
-    const up = e.target.closest('.upload-pres-btn');
-    if (up) {
-      e.stopPropagation();
-      const productData = up.getAttribute('data-product');
-      if (productData) {
-        try {
-          const product = JSON.parse(unescapeHtml(productData));
-          openUploadModalForProduct(product);
-        } catch (err) {
-          // fallback: if data not parseable, use redirect
-          window.location.href = `/prescribed.html`;
+    // ================ AUTO-INITIALIZATION ================
+    // Only initialize if we're on a chronic products page
+    if (document.getElementById('productGrid')) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeChronicPage);
+        } else {
+            // DOM already loaded
+            setTimeout(initializeChronicPage, 100);
         }
-      }
-      return;
     }
 
-    // add-to-cart / view-details button -> open product details page (onclick uses openProductDetails)
-    const atc = e.target.closest('.add-to-cart-btn');
-    if (atc) {
-      e.stopPropagation();
-      const pid = atc.getAttribute('data-id');
-      if (pid) openProductDetails({ id: pid });
-      return;
-    }
-  });
-
-  // modal backdrop click to close
-  if (uploadModal) {
-    uploadModal.addEventListener('click', (e) => {
-      if (e.target === uploadModal) {
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-      }
-    });
-
-    // close button (if you have one with id closeUploadModal)
-    const closeUploadModalBtn = document.getElementById('closeUploadModal');
-    if (closeUploadModalBtn) {
-      closeUploadModalBtn.addEventListener('click', () => {
-        uploadModal.classList.add('hidden');
-        clearModalTempState();
-      });
-    }
-  }
-
-  // valid prescription modal wiring
-  if (validPrescriptionBtn && validPrescriptionModal) {
-    validPrescriptionBtn.addEventListener('click', () => validPrescriptionModal.classList.remove('hidden'));
-    validPrescriptionModal.addEventListener('click', (e) => { if (e.target === validPrescriptionModal) validPrescriptionModal.classList.add('hidden'); });
-    const validClose = validPrescriptionModal.querySelector('#closeValidPrescriptionModal') || validPrescriptionModal.querySelector('button');
-    if (validClose) validClose.addEventListener('click', () => validPrescriptionModal.classList.add('hidden'));
-  }
-
-  // ================
-  // Utility functions
-  // ================
-  function escapeHtml(str) {
-    if (typeof str !== 'string') return str;
-    return str.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
-  }
-
-  function unescapeHtml(encoded) {
-    // small helper in case we stored JSON with escaped quotes
-    if (!encoded) return encoded;
-    return encoded.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // We stored escaped JSON string in data-product (escapeHtml used earlier), recover it:
-  function unescapeHtmlForJSON(escapedStr) {
-    if (!escapedStr) return escapedStr;
-    // replace HTML entities that were used on JSON string
-    return escapedStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // Sometimes we stored product JSON with escapeHtml on full string; define small unescape for that
-  function unescapeHtml(jsonStr) {
-    if (!jsonStr) return jsonStr;
-    return jsonStr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // fallback parser used above
-  function unescapeHtmlForParsing(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // Convert our stored escaped JSON back to original
-  function unescapeHtmlAndParse(s) {
-    if (!s) return null;
-    try {
-      const json = s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-      return JSON.parse(json);
-    } catch (err) {
-      return null;
-    }
-  }
-
-  // small wrapper used earlier
-  function unescapeHtmlSafe(s) {
-    return s ? s.replace(/&quot;/g, '"').replace(/&amp;/g, '&') : s;
-  }
-
-  // the upload button uses escapeHtml(JSON.stringify(product)). For parsing use:
-  function unescapeHtmlAndParseAlternate(s) {
-    if (!s) return null;
-    try {
-      const replaced = s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-      return JSON.parse(replaced);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  // Because we used escapeHtml(JSON.stringify(product)) earlier, provide robust parse:
-  function unescapeHtmlForJSONParsing(s) {
-    if (!s) return s;
-    let r = s;
-    r = r.replace(/&quot;/g, '"');
-    r = r.replace(/&amp;/g, '&');
-    return r;
-  }
-
-  // parse helper used earlier in event delegation
-  function unescapeHtml(s) {
-    if (!s) return s;
-    return s.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-  }
-
-  // safe JSON parse wrapper
-  function safeParseProductData(attr) {
-    if (!attr) return null;
-    try {
-      const jsonStr = attr.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-      return JSON.parse(jsonStr);
-    } catch (err) {
-      return null;
-    }
-  }
-
-  // earlier we referenced unescapeHtml in delegation; ensure a function exists
-  function unescapeHtmlForDelegation(s) {
-    return safeParseProductData(s) ? safeParseProductData(s) : null;
-  }
-
-  // Small fix: the delegation earlier used unescapeHtml/unescapeHtmlForJSON - replace with safeParseProductData call
-  // So adjust the delegation code above to use safeParseProductData (we already attempted parsing with unescapeHtml in the upload handler).
-
-  // ================
-  // Finalize & Expose
-  // ================
-  // Expose upload function globally in case generated HTML uses onclick inline attributes
-  window.uploadPrescription = function (productObjOrId) {
-    // If called with a number or string id, find product object
-    if (typeof productObjOrId === 'number' || typeof productObjOrId === 'string') {
-      const p = products.find(x => x.id == productObjOrId);
-      if (p) openUploadModalForProduct(p);
-      else window.location.href = `/prescribed.html?id=${productObjOrId}`;
-    } else if (typeof productObjOrId === 'object' && productObjOrId !== null) {
-      openUploadModalForProduct(productObjOrId);
-    } else {
-      // fallback
-      window.location.href = '/prescribed.html';
-    }
-  };
-
-  // Expose addToCart in global scope
-  window.addToCart = addToCartById;
-
-  // ensure page has products shown with current filters
-  applyFilters(products);
-});
+})(); // End of IIFE

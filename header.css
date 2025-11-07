@@ -521,3 +521,106 @@ body[lang="hi"], body[lang="mr"] {
 }
 
 
+
+
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE MENU – exact style from the screenshot
+   ────────────────────────────────────────────────────────────── */
+#mobileMenu {
+    width: 280px;                     /* a little wider than the 64-tailwind default */
+}
+#mobileMenu .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+#mobileMenu .mobile-header h2 {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #1f2937;
+}
+
+/* ---- list --------------------------------------------------- */
+#mobileMenu .mobile-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+#mobileMenu .mobile-menu-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+#mobileMenu .mobile-menu-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 1rem;
+    font-weight: 500;
+    color: #374151;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+#mobileMenu .mobile-menu-link:hover {
+    background: #f3f4f6;
+}
+#mobileMenu .mobile-menu-link i.fa-chevron-right {
+    font-size: .75rem;
+    transition: transform .25s;
+}
+#mobileMenu .mobile-menu-link.active i.fa-chevron-right {
+    transform: rotate(90deg);
+}
+
+/* ---- sub-menu ------------------------------------------------ */
+#mobileMenu .mobile-submenu {
+    background: #f9fafb;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+}
+#mobileMenu .mobile-submenu.open {
+    max-height: 600px;               /* enough for every sub-item */
+}
+#mobileMenu .mobile-submenu a {
+    display: flex;
+    align-items: center;
+    padding: 0.65rem 2.5rem;
+    color: #4b5563;
+    font-size: .95rem;
+    text-decoration: none;
+}
+#mobileMenu .mobile-submenu a:hover {
+    background: #e5e7eb;
+}
+
+/* ---- overlay ------------------------------------------------ */
+#mobileMenuOverlay.show { display: block; }
+
+/* ---- tiny phones (< 360px) ----------------------------------- */
+@media (max-width: 359px) {
+    #mobileMenu { width: 260px; }
+    #mobileMenu .mobile-menu-link { padding: .75rem .75rem; font-size: .9rem; }
+    #mobileMenu .mobile-submenu a { padding-left: 2rem; font-size: .85rem; }
+}
+
+/* Hamburger & icons stay together on mobile */
+@media (max-width: 1023px) {
+  #common-header .flex.items-center.space-x-3 > * {
+    @apply text-lg;
+  }
+}
+
+/* Rotate chevron when submenu is open */
+.mobile-menu-toggle.active i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Sub-menu hidden by default */
+.mobile-submenu {
+  @apply pl-8 mt-2 space-y-2 hidden;
+}
+.mobile-submenu a {
+  @apply block py-1 text-sm text-gray-700 hover:text-primary;
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="header.css">
+     <link rel="stylesheet" href="index.css">
     <script>
         tailwind.config = {
             theme: {
@@ -23,460 +24,7 @@
         }
     </script>
 
-    <style>
-       /* Custom responsive styles */
-        @media (max-width: 768px) {
-            /* Main Banner */
-            #mainBannerSection {
-                height: 500px !important;
-            }
-            
-            .search-container {
-                padding: 1rem !important;
-            }
-            
-            .search-container h1 {
-                font-size: 1.5rem !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            .search-container h4 {
-                font-size: 1.1rem !important;
-                margin-bottom: 1.5rem !important;
-            }
-            
-            #searchInput {
-                padding: 0.75rem 1rem !important;
-                font-size: 0.875rem !important;
-            }
-            
-            /* Order Options */
-            .order-options-container p {
-                font-size: 0.875rem !important;
-            }
-            
-            .order-buttons-container {
-                flex-direction: column !important;
-                gap: 0.75rem !important;
-            }
-            
-            .order-button {
-                padding: 0.5rem 1rem !important;
-                font-size: 0.875rem !important;
-                width: 100% !important;
-                max-width: 250px !important;
-            }
-            
-            /* Carousel */
-            .carousel-container {
-                padding: 0.5rem !important;
-                margin-top: 1rem !important;
-            }
-            
-            .carousel-image {
-                height: 200px !important;
-                object-fit: cover !important;
-            }
-            
-            #prev, #next {
-                padding: 0.25rem !important;
-                width: 2rem !important;
-                height: 2rem !important;
-            }
-            
-            #prev {
-                left: 0.5rem !important;
-            }
-            
-            #next {
-                right: 0.5rem !important;
-            }
-            
-            .dot {
-                width: 0.5rem !important;
-                height: 0.5rem !important;
-            }
-            
-            /* Categories Grid */
-            #categoryGrid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 0.75rem !important;
-            }
-            
-            .category-card {
-                padding: 0.75rem !important;
-            }
-            
-            .category-card img {
-                height: 100px !important;
-            }
-            
-            .category-card p {
-                font-size: 0.75rem !important;
-            }
-            
-            /* Doctor Section */
-            #doctorSection {
-                min-height: 350px !important;
-            }
-            
-            .doctor-grid {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .doctor-image {
-                height: 300px !important;
-            }
-            
-            .doctor-content {
-                padding: 1rem !important;
-            }
-            
-            .doctor-content h1 {
-                font-size: 1.5rem !important;
-                margin-bottom: 0.75rem !important;
-            }
-            
-            .doctor-content p {
-                font-size: 0.875rem !important;
-                line-height: 1.4 !important;
-            }
-            
-            /* Products */
-            .products-section {
-                padding: 1rem 0 !important;
-            }
-            
-            .products-section h2 {
-                font-size: 1.5rem !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            .product-card {
-                min-width: 200px !important;
-                padding: 0.75rem !important;
-            }
-            
-            .product-card img {
-                height: 120px !important;
-            }
-            
-            .product-card h3 {
-                font-size: 0.875rem !important;
-                margin-bottom: 0.5rem !important;
-            }
-            
-            .price-container {
-                margin-bottom: 0.5rem !important;
-            }
-            
-            .price-container span {
-                font-size: 0.875rem !important;
-            }
-            
-            .view-details-btn {
-                padding: 0.5rem !important;
-                font-size: 0.75rem !important;
-            }
-            
-            .scroll-button {
-                padding: 0.5rem !important;
-                width: 2rem !important;
-                height: 2rem !important;
-            }
-            
-            /* Secondary Banner */
-            #secondaryBannerSection {
-                padding: 0.5rem 0 !important;
-            }
-            
-            #secondaryBannerImage {
-                max-height: 200px !important;
-            }
-            
-            /* Articles */
-            #articlesSection {
-                padding: 2rem 0 !important;
-            }
-            
-            #articlesSection h2 {
-                font-size: 1.5rem !important;
-                margin-bottom: 1.5rem !important;
-            }
-            
-            .articles-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-            }
-            
-            .article-card img {
-                height: 150px !important;
-            }
-            
-            .article-card-content {
-                padding: 1rem !important;
-            }
-            
-            .article-card h3 {
-                font-size: 1.1rem !important;
-                margin-bottom: 0.5rem !important;
-            }
-            
-            .article-card p {
-                font-size: 0.875rem !important;
-                margin-bottom: 0.75rem !important;
-            }
-            
-            /* Why Choose Us */
-            #whyChooseSection h2 {
-                font-size: 1.75rem !important;
-                margin-bottom: 2rem !important;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1.5rem !important;
-            }
-            
-            .feature-card {
-                padding: 1.5rem !important;
-            }
-            
-            .feature-icon {
-                font-size: 2.5rem !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            .feature-card h3 {
-                font-size: 1.25rem !important;
-                margin-bottom: 0.75rem !important;
-            }
-            
-            .feature-card p {
-                font-size: 0.875rem !important;
-            }
-            
-            /* Footer */
-            #footerSection {
-                padding: 2rem 0 !important;
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr !important;
-                gap: 2rem !important;
-                text-align: center !important;
-            }
-            
-            .footer-section h3 {
-                font-size: 1.1rem !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            .footer-section p, .footer-section li {
-                font-size: 0.875rem !important;
-            }
-            
-            .social-links {
-                justify-content: center !important;
-                margin-top: 1rem !important;
-            }
-            
-            .copyright {
-                margin-top: 1.5rem !important;
-                font-size: 0.75rem !important;
-            }
-            
-            /* Modals */
-            #uploadModal .modal-content,
-            #validPrescriptionModal .modal-content {
-                width: 95% !important;
-                margin: 1rem !important;
-                padding: 1rem !important;
-            }
-            
-            .modal-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-            }
-            
-            .upload-steps li {
-                margin-bottom: 1rem !important;
-            }
-            
-            .upload-steps img {
-                width: 2.5rem !important;
-                height: 2.5rem !important;
-            }
-            
-            .prescription-icons-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1rem !important;
-            }
-            
-            .prescription-icon {
-                font-size: 1.5rem !important;
-            }
-            
-            .prescription-icon span {
-                font-size: 0.75rem !important;
-            }
-            
-            /* Search Suggestions */
-            .search-suggestions {
-                max-height: 300px !important;
-            }
-            
-            .suggestion-item {
-                padding: 0.75rem !important;
-            }
-            
-            .suggestion-item svg {
-                width: 1rem !important;
-                height: 1rem !important;
-                margin-right: 0.75rem !important;
-            }
-            
-            .suggestion-item p {
-                font-size: 0.875rem !important;
-            }
-            
-            .suggestion-item .text-xs {
-                font-size: 0.75rem !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            /* Extra small screen adjustments */
-            #mainBannerSection {
-                height: 450px !important;
-            }
-            
-            .search-container h1 {
-                font-size: 1.25rem !important;
-            }
-            
-            .search-container h4 {
-                font-size: 1rem !important;
-            }
-            
-            #searchInput {
-                padding: 0.5rem 0.75rem !important;
-            }
-            
-            .carousel-image {
-                height: 150px !important;
-            }
-            
-            #categoryGrid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 0.5rem !important;
-            }
-            
-            .category-card {
-                padding: 0.5rem !important;
-            }
-            
-            .category-card img {
-                height: 80px !important;
-            }
-            
-            #doctorSection {
-                min-height: 300px !important;
-            }
-            
-            .doctor-image {
-                height: 200px !important;
-            }
-            
-            .doctor-content h1 {
-                font-size: 1.25rem !important;
-            }
-            
-            .doctor-content h2 {
-                font-size: 1.1rem !important;
-            }
-            
-            .product-card {
-                min-width: 160px !important;
-                padding: 0.5rem !important;
-            }
-            
-            .product-card img {
-                height: 100px !important;
-            }
-            
-            .wishlist-icon {
-                padding: 0.25rem !important;
-                width: 1.5rem !important;
-                height: 1.5rem !important;
-            }
-            
-            #secondaryBannerImage {
-                max-height: 150px !important;
-            }
-            
-            #uploadModal .modal-content,
-            #validPrescriptionModal .modal-content {
-                padding: 0.75rem !important;
-            }
-            
-            .prescription-icons-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
-        /* Medium screen adjustments */
-        @media (max-width: 1024px) {
-            #categoryGrid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 1rem !important;
-            }
-            
-            #doctorSection {
-                min-height: 400px !important;
-            }
-            
-            .doctor-content {
-                padding: 1.5rem !important;
-            }
-            
-            .doctor-content h1 {
-                font-size: 1.75rem !important;
-            }
-            
-            .doctor-content h2 {
-                font-size: 1.25rem !important;
-            }
-            
-            .articles-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1rem !important;
-            }
-            
-            #whyChooseSection {
-                padding: 3rem 0 !important;
-            }
-            
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1.5rem !important;
-            }
-        }
-
-        /* Custom scrollbar hiding */
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Smooth transitions */
-        .transition-all {
-            transition: all 0.3s ease;
-        }
-    </style>
+  
 </head>
 <body class="bg-white" onload="initializePage()">
     <!-- Header Placeholder (loads header.html dynamically) -->
@@ -709,7 +257,7 @@
    <!-- Divider -->
 <hr class="my-4 border-t-4 border-blue-500 rounded">
     <!-- Do's and Don'ts -->
-    <h3 class="text-lg font-semibold mb-4">DO’S AND DON’Ts</h3>
+    <h3 class="text-lg font-semibold mb-4">DO'S AND DON'Ts</h3>
     <ul class="space-y-3 text-sm">
       <li class="flex items-start gap-2">
         <span class="text-green-600 font-bold">✔</span>
@@ -750,14 +298,17 @@
                 </div>
             </div>
         </section>
-        <div class="container mx-auto py-14">
-            <h2 class="text-2xl font-bold text-center mb-6">Browse by Health Categories</h2>
-            <div id="categoryGrid" class="grid grid-cols-6 gap-4">
-                <!-- Categories will be dynamically inserted here -->
-            </div>
-        </div>
-       
-<div class="relative flex items-center" id="doctorSection" style="min-height:500px;">
+      <!-- Health Categories -->
+<div class="container mx-auto py-14">
+    <h2 class="text-2xl font-bold text-center mb-6">Browse by Health Categories</h2>
+
+    <!-- 2 cards on phones, 3 on tablets, 4 on small desktops, 6 on large desktops -->
+    <div id="categoryGrid"
+         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Categories will be dynamically inserted here -->
+    </div>
+</div>
+<div class="relative flex items-center" id="doctorSection" style="min-height:400px;">
   <!-- Dynamic doctor content will be inserted here -->
 </div>
 <!-- Feminine Hygiene Section -->
@@ -803,7 +354,7 @@
             Dynamic why choose content will be inserted here
         </section>  -->
 <!-- Footer Section -->
-<footer class="bg-white text-dark py-6 border-t border-gray-200">
+<footer class="bg-white text-dark py-4 border-t border-gray-200">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 text-center md:text-left">
       
@@ -811,7 +362,7 @@
       <div class="flex flex-col items-center md:items-start">
         <img src="/IMG/LOGO-removebg-preview.png" alt="Company Logo" class="h-16 w-auto mb-2">
         <p class="text-gray-600 text-sm leading-relaxed mb-2 max-w-xs">
-          “Delivering trusted healthcare and wellness solutions. We’re committed to providing quality medicines and exceptional care for every customer.”
+          "Delivering trusted healthcare and wellness solutions. We're committed to providing quality medicines and exceptional care for every customer."
         </p>
         <p class="text-primary text-sm font-medium">Excellence in Every Detail</p>
       </div>
@@ -840,45 +391,45 @@
         </ul>
       </div>
       
-      <!-- Contact Info -->
-      <div class="flex flex-col items-center md:items-start">
-        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Get in Touch</h3>
-        <div class="space-y-1 mb-3">
-          <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
-            <i class="fas fa-map-marker-alt text-primary mt-0.5 mr-2 text-xs"></i>
-            <span>123 Business Street, Suite 100<br>Pimpri, Maharashtra, India</span>
-          </div>
-          <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
-            <i class="fas fa-envelope text-primary mr-2 text-xs"></i>
-            <a href="mailto:info@yourcompany.com" class="hover:text-primary transition-colors">info@yourcompany.com</a>
-          </div>
-          <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
-            <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
-            <a href="tel:+911234567890" class="hover:text-primary transition-colors">+91 12345 67890</a>
-          </div>
-          <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
-            <i class="fas fa-clock text-primary mt-0.5 mr-2 text-xs"></i>
-            <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
-          </div>
-        </div>
-        
-        <!-- Social Media -->
-        <div class="flex justify-center md:justify-start space-x-2 mt-3">
-          <a href="https://instagram.com" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all transform hover:scale-110 text-sm">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://youtube.com" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all transform hover:scale-110 text-sm">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </div>
-      </div>
+<!-- Contact Info -->
+<div class="flex flex-col items-center md:items-start">
+  <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-2">Get in Touch</h3>
+  <div class="space-y-1 mb-3">
+    <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-map-marker-alt text-primary mt-0.5 mr-2 text-xs"></i>
+      <span>123 Business Street, Suite 100<br>Pimpri, Maharashtra, India</span>
+    </div>
+    <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-envelope text-primary mr-2 text-xs"></i>
+      <a href="mailto:info@yourcompany.com" class="hover:text-primary transition-colors">Shilpaghodke41@gmail.com</a>
+    </div>
+    <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+      <a href="tel:+91 91460 72858" class="hover:text-primary transition-colors">+91 91460 72858(Mrs.Shilpa Ghodke)</a><br>
+     
+    </div>
+        <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+ <a href="tel:+91 84080 14111" class="hover:text-primary transition-colors">+91 84080 14111(Mr. Alok Gandhi)</a><br>     
+    </div>
+    <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-clock text-primary mt-0.5 mr-2 text-xs"></i>
+      <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
     </div>
     
-    <!-- Bottom Bar -->
-    <div class="border-t border-gray-200 pt-3 mt-4">
-      <div class="flex justify-center items-center text-xs text-gray-600 text-center">
-        <p>© <span id="year"></span> GOODNEEWZ. All rights reserved.</p>
-      </div>
+    <!-- New Line Added -->
+    <div class="flex items-center justify-center md:justify-start text-gray-700 text-sm font-medium mt-3">
+      <i class="fas fa-headset text-primary mr-2 text-base"></i>
+      <span>Call <a href="tel:+918382058205" class="text-primary hover:underline font-bold">8382058205</a> for online consultation.</span>
+    </div>
+  </div>
+        
+</div>
+ <!-- Bottom Bar – PERFECTLY CENTERED -->
+    <div class="col-span-full border-t border-gray-200 pt-4 mt-6">
+      <p class="text-center text-xs text-gray-600">
+        © <span id="year"></span> GOODNEEWZ. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>
@@ -891,7 +442,7 @@
 
 
     </div>
-    <script src="header.js"></script>
+  
 
     <!-- Dynamic Header Loader Script -->
     <script>
@@ -913,7 +464,7 @@
         });
     </script>
   
-
-        <script src="index.js"></script>
+  <script src="header.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>

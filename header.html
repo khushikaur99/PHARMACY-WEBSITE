@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="header.css">
 </head>
 <body>
-
 <!-- Common Header Fragment -->
 <header id="common-header">
    <!-- Top Header -->
@@ -82,7 +81,7 @@
                     <i class="fas fa-heart"></i>
                     <span class="hidden md:inline ml-1" data-i18n="wishlist">Wishlist</span>
                 </a>
-        
+       
                 <!-- NEW: My Orders -->
                 <a href="/MY ORDERS/myorders.html" class="flex items-center text-gray-700 hover:text-primary text-base sm:text-sm"
                    onclick="goToMyOrders(); return false;">
@@ -202,28 +201,122 @@
                             <a href="/SPECIALITY CARE/AYURVEDIC/ayurved.html" class="block px-4 py-2" data-i18n="ayurveda_herbal">Ayurveda & Herbal Products</a>
                         </div>
                     </div>
-                   
+                  
                 </div>
             </div>
         </div>
     </nav>
     <!-- Mobile Menu Overlay -->
     <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="fixed top-0 right-0 h-full w-64 sm:w-80 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
-        <div class="p-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold" data-i18n="menu">Menu</h2>
-                <button id="closeMobileMenu" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <ul class="space-y-4">
-                <!-- Mobile menu items (same as original) -->
-                <!-- ... -->
-            </ul>
-        </div>
+ <!-- Mobile Menu (exact design) -->
+<div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+<div id="mobileMenu"
+     class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
+    <!-- Header -->
+    <div class="mobile-header">
+        <h2 data-i18n="menu">Menu</h2>
+        <button id="closeMobileMenu" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times text-xl"></i>
+        </button>
     </div>
+    <!-- Menu List -->
+    <ul class="mobile-menu-list">
+        <!-- Mother Care -->
+        <li class="mobile-menu-item">
+            <a href="/MOTHERCARE/mother.html" class="mobile-menu-link">
+                <span><i class="fas fa-female mr-3 text-primary"></i> <span data-i18n="mother_care">Mother Care</span></span>
+            </a>
+        </li>
+        <!-- Baby Care -->
+        <li class="mobile-menu-item">
+            <a href="/BABYCARE/baby.html" class="mobile-menu-link">
+                <span><i class="fas fa-baby mr-3 text-primary"></i> <span data-i18n="baby_care">Baby Care</span></span>
+            </a>
+        </li>
+        <!-- Medicine & Healthcare (dropdown) -->
+        <li class="mobile-menu-item">
+            <a href="#" class="mobile-menu-link mobile-menu-toggle">
+                <span><i class="fas fa-pills mr-3 text-primary"></i> <span data-i18n="medicine_healthcare">Medicine & Healthcare</span></span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <div class="mobile-submenu">
+                <a href="/Medicine & Healthcare/priscribed.html"><span data-i18n="prescription_medicines">Prescription Medicines (Upload Prescription)</span></a>
+                <a href="/Medicine & Healthcare/otc.html"><span data-i18n="otc_medicines">Over-the-Counter (OTC) Medicines</span></a>
+                <a href="/Medicine & Healthcare/CHRONIC/chronic.html"><span data-i18n="chronic_care">Chronic Care (Diabetes, Hypertension, Cardiac, Asthma, Thyroid)</span></a>
+                <a href="/Medicine & Healthcare/FIRST AID & EMERGENCY/first.html"><span data-i18n="first_aid">First Aid & Emergency</span></a>
+                <a href="/Medicine & Healthcare/PAIN & RELIEF/pain.html"><span data-i18n="pain_relief">Pain Relief & Fever</span></a>
+                <a href="/Medicine & Healthcare/ALLERGY & COLD CARE/allergy.html"><span data-i18n="allergy_cold">Allergy & Cold Care</span></a>
+                <a href="/Medicine & Healthcare/DIGESTIVE/digestive.html"><span data-i18n="digestive_health">Digestive Health</span></a>
+            </div>
+        </li>
+        <!-- Wellness (dropdown) -->
+        <li class="mobile-menu-item">
+            <a href="#" class="mobile-menu-link mobile-menu-toggle">
+                <span><i class="fas fa-spa mr-3 text-primary"></i> <span data-i18n="wellness">Wellness</span></span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <div class="mobile-submenu">
+                <a href="/WELLNESS1/VITAMIN/vitamins.html"><span data-i18n="vitamins_supplements">Vitamins & Supplements</span></a>
+                <a href="/WELLNESS1/SKIN & HAIR/skin.html"><span data-i18n="skin_hair_care">Skin & Hair Care</span></a>
+                <a href="/WELLNESS1/ORAL CARE/oral.html"><span data-i18n="oral_care">Oral Care</span></a>
+                <a href="/WELLNESS1/MENSTRUAL CARE/menstrual.html"><span data-i18n="menstrual_care">Menstrual & Intimate Care</span></a>
+                <a href="/WELLNESS1/FITNESS AND MANAGEMENT/fitness.html"><span data-i18n="fitness_weight">Fitness & Weight Management</span></a>
+            </div>
+        </li>
+        <!-- Devices (dropdown) -->
+        <li class="mobile-menu-item">
+            <a href="#" class="mobile-menu-link mobile-menu-toggle">
+                <span><i class="fas fa-thermometer-half mr-3 text-primary"></i> <span data-i18n="devices">Devices</span></span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <div class="mobile-submenu">
+                <a href="/DEVICES/MONITORING DEVICES/monitor.html"><span data-i18n="monitoring_devices">Monitoring Devices (BP Monitors, Glucometers)</span></a>
+                <a href="/DEVICES/MOBILITY AIDS/mobility.html"><span data-i18n="mobility_aids">Mobility Aids (Walkers, Wheelchairs)</span></a>
+                <a href="/DEVICES/RESPIRATORY CARE/respiratory.html"><span data-i18n="respiratory_care">Respiratory Care (Nebulizers, Oxygen)</span></a>
+            </div>
+        </li>
+        <!-- Speciality Care (dropdown) -->
+        <li class="mobile-menu-item">
+            <a href="#" class="mobile-menu-link mobile-menu-toggle">
+                <span><i class="fas fa-stethoscope mr-3 text-primary"></i> <span data-i18n="speciality_care">Speciality Care</span></span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <div class="mobile-submenu">
+                <a href="/SPECIALITY CARE/WOMENS HEALTH/women.html"><span data-i18n="womens_health">Women's Health</span></a>
+                <a href="/SPECIALITY CARE/MEN'S HEALTH/men.html"><span data-i18n="mens_health">Men's Health</span></a>
+                <a href="/SPECIALITY CARE/SENIOR CARE/senior.html"><span data-i18n="senior_care">Senior Care</span></a>
+                <a href="/SPECIALITY CARE/IMMUNITY BOOSTER/immunity.html"><span data-i18n="immunity_boosters">Immunity Boosters</span></a>
+                <a href="/SPECIALITY CARE/AYURVEDIC/ayurved.html"><span data-i18n="ayurveda_herbal">Ayurveda & Herbal Products</span></a>
+            </div>
+        </li>
+        <!-- ────── USER LINKS (same as top-right) ────── -->
+        <li class="mobile-menu-item">
+            <a href="/WISHLIST/wishlist.html" class="mobile-menu-link">
+                <span><i class="fas fa-heart mr-3 text-primary"></i> <span data-i18n="wishlist">Wishlist</span></span>
+            </a>
+        </li>
+        <li class="mobile-menu-item">
+            <a href="/MY ORDERS/myorders.html" class="mobile-menu-link" onclick="goToMyOrders(); return false;">
+                <span><i class="fas fa-box mr-3 text-primary"></i> <span data-i18n="my_orders">My Orders</span></span>
+            </a>
+        </li>
+        <li class="mobile-menu-item">
+            <a href="/PROFILE/profile.html" class="mobile-menu-link" onclick="goToMyProfile(); return false;">
+                <span><i class="fas fa-id-card mr-3 text-primary"></i> <span data-i18n="my_profile">My Profile</span></span>
+            </a>
+        </li>
+        <li class="mobile-menu-item">
+            <a href="/CONTACT.html" class="mobile-menu-link" onclick="goToContact(); return false;">
+                <span><i class="fas fa-phone mr-3 text-primary"></i> <span data-i18n="contact">Contact</span></span>
+            </a>
+        </li>
+        <li class="mobile-menu-item">
+            <a href="/about.html" class="mobile-menu-link">
+                <span><i class="fas fa-info-circle mr-3 text-primary"></i> <span data-i18n="about">About</span></span>
+            </a>
+        </li>
+    </ul>
+</div>
     <!-- Auth Slider -->
     <div id="auth-slider">
         <div class="auth-header">
@@ -289,7 +382,7 @@
         </div>
         <small class="text-red-500 text-xs hidden" id="passwordError"></small>
     </div>
-    
+   
     <div class="form-group">
         <label data-i18n="confirm_password">Confirm Password</label>
         <div class="relative">
@@ -362,7 +455,6 @@
         </div>
     </div>
 </header>
-
 <script src="header.js"></script>
 </body>
 </html>
