@@ -3,94 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">DEMO GOODNEEWZ</title>
+    <title>Product Details - DEMO GOODNEEWZ</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
-    <link rel="stylesheet"href="header.css">
+     <link rel="stylesheet" href="/header.css">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                           primary: '#36C2CE',
-                        secondary: '#0ea5e9',
-                        accent: '#10b981',
-                        dark: '#1e293b',
-                        'pharmacy-blue': '#2c5aa0',
-                        'pharmacy-light-blue': '#e6f0ff',
-                        'pharmacy-dark-blue': '#1e3d72'
-                    },
-                    fontFamily: {
-                        'sans': ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif']
-                    }
-                }
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'pharmacy-blue': '#2c5aa0',
+            'pharmacy-dark-blue': '#1e3a8a',
+            'pharmacy-light-blue': '#e6f0ff',
+            primary: '#36C2CE',
+            secondary: '#0ea5e9',
+            accent: '#10b981',
+            dark: '#1e293b',
+          }
+        }
+      }
+    }
+  </script>
+    <style>
+        /* Mobile-first responsive styles */
+        @media (max-width: 640px) {
+            /* Product header adjustments */
+            .product-header {
+                padding: 1rem !important;
+            }
+            
+            .product-info-container {
+                flex-direction: column;
+            }
+            
+            /* Image section */
+            .product-image-container {
+                margin-bottom: 1.5rem;
+            }
+            
+            .main-product-image {
+                height: 250px !important;
+            }
+            
+            /* Thumbnail adjustments */
+            .thumbnail-container {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+            
+            /* Product info adjustments */
+            .product-title {
+                font-size: 1.5rem !important;
+                text-align: center;
+            }
+            
+            .share-container {
+                justify-content: center;
+            }
+            
+            .price-container {
+                padding: 1rem !important;
+                text-align: center;
+            }
+            
+            .price-container .flex {
+                justify-content: center;
+            }
+            
+            .selling-price {
+                font-size: 2rem !important;
+            }
+            
+            /* Offers section */
+            .offers-container {
+                padding: 1rem !important;
+            }
+            
+            /* Variant buttons */
+            .variant-buttons {
+                justify-content: center;
+            }
+            
+            .variant-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            /* Action buttons */
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                margin-bottom: 0.75rem;
+            }
+            
+            /* Tabs */
+            .tabs-container {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+                border-bottom: 1px solid #e5e7eb;
+                border-left: none !important;
+            }
+            
+            .tab.active {
+                border-left: 3px solid #2c5aa0 !important;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            
+            /* Related products */
+            .related-products-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+            }
+            
+            /* Footer adjustments */
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                text-align: center;
+            }
+            
+            .footer-section {
+                align-items: center !important;
             }
         }
-    </script>
+        
+        @media (max-width: 480px) {
+            .main-product-image {
+                height: 200px !important;
+            }
+            
+            .product-title {
+                font-size: 1.25rem !important;
+            }
+            
+            .selling-price {
+                font-size: 1.75rem !important;
+            }
+            
+            .related-products-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .thumbnail {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        /* General responsive improvements */
+        .product-info-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .tab-content {
+            transition: all 0.3s ease;
+        }
+        
+        .variant-btn.active, .age-btn.active, .size-btn.active {
+            border: 2px solid #2c5aa0;
+            background-color: #e6f0ff;
+            color: #2c5aa0;
+            font-weight: 600;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu {
+            transition: all 0.3s ease;
+        }
+        
+        /* Back button positioning */
+        .back-button-container {
+            padding: 0.5rem 1rem;
+        }
+        
+        /* Share button styles */
+        .share-button:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Share menu styles */
+        .share-menu {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .share-option:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+        
+        .share-notification {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-blue-50 font-sans text-gray-800">
-
-    
-<body class="bg-white" onload="initializePage()">
   
-    <!-- Header Placeholder (loads header.html dynamically) -->
-    <div id="header-placeholder"></div>
-
+    <!-- Header Placeholder -->
+    <div id="header-placeholder" class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://via.placeholder.com/150x50?text=LOGO" alt="Company Logo" class="h-10">
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-700 hover:text-pharmacy-blue transition">
+                    <i class="fas fa-search text-lg"></i>
+                </a>
+                <a href="#" class="text-gray-700 hover:text-pharmacy-blue transition relative">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-pharmacy-blue text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                <a href="#" class="text-gray-700 hover:text-pharmacy-blue transition">
+                    <i class="fas fa-user text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Product Header -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-            <!-- Back Arrow Button -->
-<div class="max-w-7xl mx-auto px-4 py-1">
-    <button onclick="history.back()" class="flex items-center gap-1 text-gray-700 hover:text-primary transition">
-        <i class="fas fa-arrow-left text-lg"></i>
-        <span class="font-medium">Back</span>
-    </button>
-</div>
-            <div class="flex flex-wrap lg:flex-nowrap gap-8 p-8">
+   
+  <div id="header-placeholder"></div>
+            <div class="product-header flex flex-col lg:flex-row gap-8 p-4 lg:p-8">
                 <!-- Product Images -->
-                <div class="flex-1 min-w-0 lg:min-w-80">
+                <div class="product-image-container flex-1 min-w-0 lg:min-w-80">
                     <div class="relative group">
                         <img id="main-product-image" 
-                             src="https://via.placeholder.com/500x400" 
+                             src="https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg" 
                              alt="Product Image" 
-                             class="w-full h-96 object-contain border-2 border-gray-100 rounded-xl p-6 bg-gradient-to-br from-white to-gray-50 mb-4 transition-all duration-300 group-hover:shadow-lg">
+                             class="main-product-image w-full h-96 object-contain border-2 border-gray-100 rounded-xl p-6 bg-gradient-to-br from-white to-gray-50 mb-4 transition-all duration-300 group-hover:shadow-lg">
                         <div class="absolute inset-0 rounded-xl bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div class="flex gap-3 flex-wrap" id="thumbnail-container">
+                    <div class="thumbnail-container flex gap-3 flex-wrap justify-center" id="thumbnail-container">
                         <!-- Thumbnails will be added here -->
                     </div>
                 </div>
                 
                 <!-- Product Info -->
-                <div class="flex-1 min-w-0 lg:min-w-96">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-3 leading-tight" id="product-name">Product Name Here</h1>
+                <div class="product-info-container flex-1 min-w-0 lg:min-w-96 relative">
+                    <h1 class="product-title text-3xl font-bold text-gray-900 mb-3 leading-tight" id="product-name">Diabetes Care Kit</h1>
                     
-                    <!-- Rating -->
-                    <div class="flex items-center mb-6">
-                        <div class="flex text-yellow-400 text-lg mr-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="text-gray-600 font-medium">(142 Reviews)</span>
+                    <!-- Share Section (Replaced Reviews) -->
+                    <div class="share-container flex items-center mb-6">
+                        <button id="share-btn" class="share-button flex items-center gap-2  text-gray-600 hover:text-pharmacy-blue px-2 py-2 rounded-lg transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="font-medium">Share</span>
+                        </button>
                     </div>
                     
                     <!-- Price Container -->
-                    <div class="bg-gradient-to-r from-pharmacy-light-blue to-blue-50 rounded-xl p-6 mb-6">
+                    <div class="price-container bg-gradient-to-r from-pharmacy-light-blue to-blue-50 rounded-xl p-6 mb-6">
                         <div class="flex items-center flex-wrap gap-3">
-                            <span class="text-4xl font-bold text-pharmacy-blue" id="selling-price">₹499</span>
-                            <span class="text-xl text-gray-500 line-through" id="original-price">₹799</span>
-                            <span class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold" id="discount">38% OFF</span>
+                            <span class="selling-price text-4xl font-bold text-pharmacy-blue" id="selling-price">₹268.80</span>
+                            <span class="text-xl text-gray-500 line-through" id="original-price">₹329</span>
+                            <span class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold" id="discount">16% OFF</span>
                         </div>
                     </div>
                     
                     <!-- Offers -->
-                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-r-xl p-4 mb-6">
+                    <div class="offers-container bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-r-xl p-4 mb-6">
                         <div class="font-bold text-green-700 mb-2">Available Offers</div>
                         <div id="offers-list" class="space-y-1 text-sm text-green-600">
                             <div class="flex items-center"><i class="fas fa-check-circle mr-2"></i>10% Instant Discount on ICICI Bank Credit Cards</div>
@@ -102,7 +300,7 @@
                     <!-- Variants Section -->
                     <div class="mb-6">
                         <div class="font-bold text-gray-700 mb-3">Pack Size:</div>
-                        <div class="flex gap-3 flex-wrap" id="variant-options">
+                        <div class="variant-buttons flex gap-3 flex-wrap" id="variant-options">
                             <button class="variant-btn px-4 py-2 border-2 border-pharmacy-blue bg-pharmacy-light-blue text-pharmacy-blue font-semibold rounded-lg transition-all duration-200 hover:shadow-md">30 tablets</button>
                             <button class="variant-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg transition-all duration-200 hover:border-pharmacy-blue hover:shadow-md">60 tablets</button>
                             <button class="variant-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg transition-all duration-200 hover:border-pharmacy-blue hover:shadow-md">90 tablets</button>
@@ -132,18 +330,13 @@
                         </div>
                     </div>
                     
-                    <!-- Prescription Badge -->
-                    <div id="prescription-badge" class="hidden absolute top-4 right-4 bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-2 rounded-lg text-xs font-bold shadow-lg">
-                        Prescription Required
-                    </div>
-                    
                     <!-- Action Buttons -->
-                    <div class="flex gap-4 flex-col sm:flex-row">
-                        <button class="btn-add-to-cart flex-1 bg-gradient-to-r from-pharmacy-blue to-pharmacy-dark-blue hover:from-pharmacy-dark-blue hover:to-pharmacy-blue text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-3">
+                    <div class="action-buttons flex gap-4 flex-col sm:flex-row">
+                        <button class="action-btn btn-add-to-cart flex-1 bg-gradient-to-r from-pharmacy-blue to-pharmacy-dark-blue hover:from-pharmacy-dark-blue hover:to-pharmacy-blue text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-3">
                             <i class="fas fa-shopping-cart text-lg"></i>
                             Add to Cart
                         </button>
-                        <button class="btn-buy-now flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <button class="action-btn btn-buy-now flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
                             Buy Now
                         </button>
                     </div>
@@ -154,66 +347,722 @@
         <!-- Product Details Tabs -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
             <div class="border-b border-gray-200">
-                <nav class="flex">
+                <nav class="tabs-container flex flex-col sm:flex-row">
                     <button class="tab flex-1 py-4 px-6 text-center font-semibold border-b-3 border-pharmacy-blue text-pharmacy-blue bg-pharmacy-light-blue" data-tab="description">Description</button>
                     <button class="tab flex-1 py-4 px-6 text-center font-semibold border-b-3 border-transparent text-gray-600 hover:text-pharmacy-blue hover:bg-gray-50 transition-all duration-200" data-tab="ingredients">Ingredients</button>
                     <button class="tab flex-1 py-4 px-6 text-center font-semibold border-b-3 border-transparent text-gray-600 hover:text-pharmacy-blue hover:bg-gray-50 transition-all duration-200" data-tab="benefits">Benefits</button>
+                    <button class="tab flex-1 py-4 px-6 text-center font-semibold border-b-3 border-transparent text-gray-600 hover:text-pharmacy-blue hover:bg-gray-50 transition-all duration-200" data-tab="directions">Directions</button>
                 </nav>
             </div>
             
-            <div class="p-8">
+            <div class="p-4 lg:p-8">
                 <div id="description" class="tab-content">
                     <h3 class="text-2xl font-bold text-pharmacy-blue mb-4 pb-2 border-b-2 border-pharmacy-blue">Product Description</h3>
-                    <p id="product-description" class="text-gray-700 leading-relaxed">Detailed product description will appear here. This section provides comprehensive information about the product, its uses, and key features.</p>
+                    <p id="product-description" class="text-gray-700 leading-relaxed">Comprehensive diabetes care kit containing all essential items for daily diabetes management. This kit includes a glucometer, test strips, lancets, control solution, and a carrying case for convenient storage and portability.</p>
                 </div>
                 
                 <div id="ingredients" class="tab-content hidden">
                     <h3 class="text-2xl font-bold text-pharmacy-blue mb-4 pb-2 border-b-2 border-pharmacy-blue">Ingredients</h3>
-                    <p id="product-ingredients" class="text-gray-700 leading-relaxed">Active and inactive ingredients list will be displayed here for medicines and healthcare products.</p>
+                    <p id="product-ingredients" class="text-gray-700 leading-relaxed">Glucometer, test strips, lancets, control solution, carrying case. All components are made with high-quality materials to ensure accurate readings and reliable performance.</p>
                 </div>
                 
                 <div id="benefits" class="tab-content hidden">
                     <h3 class="text-2xl font-bold text-pharmacy-blue mb-4 pb-2 border-b-2 border-pharmacy-blue">Benefits</h3>
-                    <p id="product-benefits" class="text-gray-700 leading-relaxed">Key benefits and advantages of using this product will be listed in this section.</p>
+                    <p id="product-benefits" class="text-gray-700 leading-relaxed">Helps in regular blood sugar monitoring, convenient all-in-one kit, portable for travel. Regular monitoring can help maintain healthy blood sugar levels and prevent complications associated with diabetes.</p>
                 </div>
                 
                 <div id="directions" class="tab-content hidden">
                     <h3 class="text-2xl font-bold text-pharmacy-blue mb-4 pb-2 border-b-2 border-pharmacy-blue">Directions for Use</h3>
-                    <p id="product-directions" class="text-gray-700 leading-relaxed">Proper usage instructions and dosage information will be provided in this section.</p>
+                    <p id="product-directions" class="text-gray-700 leading-relaxed">Use as directed by your physician. Perform blood sugar tests as recommended. Follow the instructions provided with each component for accurate results.</p>
                 </div>
             </div>
         </div>
         
         <!-- Related Products Section -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div class="p-8">
+            <div class="p-4 lg:p-8">
                 <h3 class="text-2xl font-bold text-pharmacy-blue mb-6 pb-2 border-b-2 border-pharmacy-blue">Related Products</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="related-products">
+                <div class="related-products-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="related-products">
                     <!-- Related products will be loaded here dynamically -->
                 </div>
             </div>
         </div>
     </div>
-        <!-- Dynamic Header Loader Script -->
+
+    <!-- Footer Section -->
+    <footer class="bg-white text-dark py-4 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="footer-grid grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 text-center md:text-left">
+                
+                <!-- Company Info & Logo -->
+                <div class="footer-section flex flex-col items-center md:items-start">
+                    <img src="https://via.placeholder.com/150x50?text=LOGO" alt="Company Logo" class="h-16 w-auto mb-2">
+                    <p class="text-gray-600 text-sm leading-relaxed mb-2 max-w-xs">
+                        "Delivering trusted healthcare and wellness solutions. We're committed to providing quality medicines and exceptional care for every customer."
+                    </p>
+                    <p class="text-primary text-sm font-medium">Excellence in Every Detail</p>
+                </div>
+                
+                <!-- Quick Links (Hidden on small screens) -->
+                <div class="hidden md:block">
+                    <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Quick Links</h3>
+                    <ul class="space-y-1">
+                        <li><a href="index.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Home</a></li>
+                        <li><a href="about.html" class="text-gray-600 hover:text-primary transition-colors text-sm">About Us</a></li>
+                        <li><a href="/BABYCARE/baby.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Baby Care</a></li>
+                        <li><a href="/CONTACT.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Contact Us</a></li>
+                        <li><a href="/MOTHERCARE/mother.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Mother Care</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Policies -->
+                <div class="footer-section flex flex-col items-center md:items-start">
+                    <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Policies</h3>
+                    <ul class="space-y-1">
+                        <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Disclaimer</a></li>
+                        <li><a href="privacy.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Privacy Policy</a></li>
+                        <li><a href="refund.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Refund Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Terms of Service</a></li>
+                        <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Cancellation Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="footer-section flex flex-col items-center md:items-start">
+                    <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-2">Get in Touch</h3>
+                    <div class="space-y-1 mb-3">
+                        <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+                            <i class="fas fa-map-marker-alt text-primary mt-0.5 mr-2 text-xs"></i>
+                            <span>123 Business Street, Suite 100<br>Pimpri, Maharashtra, India</span>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+                            <i class="fas fa-envelope text-primary mr-2 text-xs"></i>
+                            <a href="mailto:info@yourcompany.com" class="hover:text-primary transition-colors">Shilpaghodke41@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+                            <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+                            <a href="tel:+91 91460 72858" class="hover:text-primary transition-colors">+91 91460 72858(Mrs.Shilpa Ghodke)</a><br>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+                            <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+                            <a href="tel:+91 84080 14111" class="hover:text-primary transition-colors">+91 84080 14111(Mr. Alok Gandhi)</a><br>     
+                        </div>
+                        <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+                            <i class="fas fa-clock text-primary mt-0.5 mr-2 text-xs"></i>
+                            <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+                        </div>
+                        
+                        <!-- New Line Added -->
+                        <div class="flex items-center justify-center md:justify-start text-gray-700 text-sm font-medium mt-3">
+                            <i class="fas fa-headset text-primary mr-2 text-base"></i>
+                            <span>Call <a href="tel:+918382058205" class="text-primary hover:underline font-bold">8382058205</a> for online consultation.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar – PERFECTLY CENTERED -->
+            <div class="col-span-full border-t border-gray-200 pt-4 mt-6">
+                <p class="text-center text-xs text-gray-600">
+                    © <span id="year"></span> GOODNEEWZ. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Share Menu Modal -->
+    <div id="share-menu" class="share-menu fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-900">Share Product</h3>
+                <button id="close-share-menu" class="close-share-menu text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="WhatsApp">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fab fa-whatsapp text-green-600 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">WhatsApp</span>
+                </button>
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="Facebook">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fab fa-facebook text-blue-600 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Facebook</span>
+                </button>
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="Twitter">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fab fa-twitter text-blue-400 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Twitter</span>
+                </button>
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="Copy Link">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-link text-gray-600 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Copy Link</span>
+                </button>
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="Email">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-envelope text-red-500 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Email</span>
+                </button>
+                <button class="share-option flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-pharmacy-blue hover:bg-blue-50 transition-colors" data-platform="SMS">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-sms text-green-500 text-xl"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">SMS</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Load header.html dynamically on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            fetch('/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                    // Re-initialize any header-specific scripts if needed (e.g., call initializePage() again if it depends on header)
-                    if (typeof initializePage === 'function') {
-                        initializePage();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading header:', error);
-                    // Fallback: Optionally display a message or load inline header as backup
+        // Product data
+        const products = [
+            { 
+                id: 1, 
+                name: 'Diabetes Care Kit', 
+                price: 268.80, 
+                originalPrice: 329, 
+                discount: '16% off', 
+                category: 'Diabetes', 
+                brand: 'BrandX', 
+                image: 'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg',
+                    'https://i.pinimg.com/1200x/fc/ae/6e/fcae6eadb23d4025c2ee3fb7d12222a3.jpg'
+                ],
+                prescriptionRequired: false,
+                description: 'Comprehensive diabetes care kit containing all essential items for daily diabetes management.',
+                ingredients: 'Glucometer, test strips, lancets, control solution, carrying case',
+                benefits: 'Helps in regular blood sugar monitoring, convenient all-in-one kit, portable for travel',
+                directions: 'Use as directed by your physician. Perform blood sugar tests as recommended.'
+            },
+            { 
+                id: 2, 
+                name: 'Glucose Monitor', 
+                price: 312.50, 
+                originalPrice: 625, 
+                discount: '50% off', 
+                category: 'Diabetes', 
+                brand: 'BrandY', 
+                image: 'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                thumbnails: [
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg',
+                    'https://i.pinimg.com/736x/9b/09/c7/9b09c72b81855836ae8d27d1451f345c.jpg'
+                ],
+                prescriptionRequired: false,
+                description: 'Advanced glucose monitoring system with high accuracy and easy-to-use interface.',
+                ingredients: 'Electronic monitoring device, user manual, batteries',
+                benefits: 'Accurate readings, large display, memory function to track readings',
+                directions: 'Insert test strip, apply blood sample, wait for results. Calibrate as needed.'
+            },
+            { 
+                id: 3, 
+                name: 'Insulin Pen', 
+                price: 180, 
+                originalPrice: 220, 
+                discount: '18% off', 
+                category: 'Diabetes', 
+                brand: 'BrandZ', 
+                image: 'https://via.placeholder.com/500x400/0ea5e9/FFFFFF?text=Insulin+Pen',
+                thumbnails: [
+                    'https://via.placeholder.com/80x80/0ea5e9/FFFFFF?text=Thumb1',
+                    'https://via.placeholder.com/80x80/FF6347/FFFFFF?text=Thumb2',
+                    'https://via.placeholder.com/80x80/4682B4/FFFFFF?text=Thumb3',
+                    'https://via.placeholder.com/80x80/32CD32/FFFFFF?text=Thumb4'
+                ],
+                prescriptionRequired: false,
+                description: 'Pre-filled insulin pen for convenient and accurate insulin administration.',
+                ingredients: 'Insulin solution, pen device, needles',
+                benefits: 'Easy to use, precise dosing, discreet administration',
+                directions: 'Prime pen before use, select dose, inject as directed by healthcare provider.'
+            }
+        ];
+
+        // Initialize cart from localStorage or create an empty array
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to update cart count in the UI
+        function updateCartCount() {
+            const cartCountElement = document.querySelector('.fa-shopping-cart + span');
+            if (cartCountElement) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        // Function to add product to cart
+        function addToCart(product) {
+            // Check for existing item based on id, variant, and size
+            const existingItem = cart.find(item => 
+                item.id === product.id && 
+                item.variant === product.variant && 
+                item.size === product.size
+            );
+            if (existingItem) {
+                existingItem.quantity += 1; // Increment quantity if identical item exists
+            } else {
+                cart.push({ ...product, quantity: 1 }); // Add new product to cart
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        // Function to get URL parameters
+        function getUrlParams() {
+            const params = {};
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            for (const [key, value] of urlParams) {
+                params[key] = value;
+            }
+            return params;
+        }
+
+        // Function to render thumbnails
+        function renderThumbnails(thumbnails) {
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            if (thumbnailContainer) {
+                thumbnailContainer.innerHTML = '';
+                thumbnails.forEach((thumbSrc, index) => {
+                    const thumbnail = document.createElement('img');
+                    thumbnail.src = thumbSrc;
+                    thumbnail.alt = `Thumbnail ${index + 1}`;
+                    thumbnail.className = 'w-20 h-20 object-contain border-2 rounded-lg cursor-pointer transition-all duration-200 hover:border-pharmacy-blue hover:shadow-md';
+                    thumbnail.classList.add(index === 0 ? 'border-pharmacy-blue' : 'border-gray-200');
+                    thumbnail.addEventListener('click', () => {
+                        document.getElementById('main-product-image').src = thumbSrc;
+                        document.querySelectorAll('#thumbnail-container img').forEach(img => {
+                            img.classList.remove('border-pharmacy-blue');
+                            img.classList.add('border-gray-200');
+                        });
+                        thumbnail.classList.add('border-pharmacy-blue');
+                        thumbnail.classList.remove('border-gray-200');
+                    });
+                    thumbnailContainer.appendChild(thumbnail);
                 });
+            }
+        }
+
+        // Function to render variants
+        function renderVariants(variants) {
+            const variantOptions = document.getElementById('variant-options');
+            if (variantOptions) {
+                variantOptions.innerHTML = '';
+                variants.forEach((variant, index) => {
+                    const button = document.createElement('button');
+                    button.className = `variant-btn px-4 py-2 border ${index === 0 ? 'border-2 border-pharmacy-blue bg-pharmacy-light-blue text-pharmacy-blue font-semibold' : 'border-gray-300 bg-white text-gray-700'} rounded-lg transition-all duration-200 hover:border-pharmacy-blue hover:shadow-md`;
+                    button.textContent = variant;
+                    button.addEventListener('click', () => {
+                        document.querySelectorAll('.variant-btn').forEach(btn => {
+                            btn.classList.remove('border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                            btn.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+                        });
+                        button.classList.add('border-2', 'border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                        button.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+                    });
+                    variantOptions.appendChild(button);
+                });
+            }
+        }
+
+        // Function to render size options
+        function renderSizes(sizes) {
+            const sizeOptions = document.getElementById('size-options');
+            if (sizeOptions) {
+                sizeOptions.innerHTML = '';
+                sizes.forEach((size, index) => {
+                    const button = document.createElement('button');
+                    button.className = `size-btn px-4 py-2 border ${index === 0 ? 'border-2 border-pharmacy-blue bg-pharmacy-light-blue text-pharmacy-blue font-semibold' : 'border-gray-300 bg-white text-gray-700'} rounded-lg transition-all duration-200 hover:border-pharmacy-blue hover:shadow-md`;
+                    button.textContent = size;
+                    button.addEventListener('click', () => {
+                        document.querySelectorAll('.size-btn').forEach(btn => {
+                            btn.classList.remove('border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                            btn.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+                        });
+                        button.classList.add('border-2', 'border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                        button.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+                    });
+                    sizeOptions.appendChild(button);
+                });
+            }
+        }
+
+        // Function to render related products
+        function loadRelatedProducts(category, currentProductId) {
+            const relatedProductsContainer = document.getElementById('related-products');
+            if (relatedProductsContainer) {
+                relatedProductsContainer.innerHTML = '';
+                let relatedProducts = products.filter(p => p.category === category && p.id != currentProductId);
+                if (relatedProducts.length < 4) {
+                    const otherProducts = products.filter(p => p.category !== category && p.id != currentProductId).slice(0, 4 - relatedProducts.length);
+                    relatedProducts = [...relatedProducts, ...otherProducts];
+                }
+                relatedProducts.slice(0, 4).forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group';
+                    productCard.innerHTML = `
+                        <div class="relative">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-contain p-4 bg-gradient-to-br from-gray-50 to-gray-100 group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-gray-900 mb-1 group-hover:text-pharmacy-blue transition-colors duration-200">${product.name}</h4>
+                            <p class="text-gray-600 text-sm mb-3">${product.brand}</p>
+                            <div class="flex items-center gap-2">
+                                <span class="text-pharmacy-blue font-bold">₹${product.price}</span>
+                                ${product.originalPrice ? `<span class="text-gray-400 line-through text-sm">₹${product.originalPrice}</span>` : ''}
+                                ${product.discount ? `<span class="text-sm font-semibold text-green-600">${product.discount}</span>` : ''}
+                            </div>
+                            <a href="productdetails.html?id=${product.id}" class="btn-add-to-cart mt-2 bg-gradient-to-r from-pharmacy-blue to-pharmacy-dark-blue hover:from-pharmacy-dark-blue hover:to-pharmacy-blue text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </a>
+                        </div>
+                    `;
+                    productCard.addEventListener('click', (e) => {
+                        if (!e.target.closest('.btn-add-to-cart')) {
+                            window.location.href = `productdetails.html?id=${product.id}`;
+                        }
+                    });
+                    relatedProductsContainer.appendChild(productCard);
+                });
+            }
+        }
+
+        // Function to initialize tabs
+        function initTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.classList.remove('border-pharmacy-blue', 'text-pharmacy-blue', 'bg-pharmacy-light-blue');
+                        t.classList.add('border-transparent', 'text-gray-600', 'hover:text-pharmacy-blue', 'hover:bg-gray-50');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                    tab.classList.add('border-pharmacy-blue', 'text-pharmacy-blue', 'bg-pharmacy-light-blue');
+                    tab.classList.remove('border-transparent', 'text-gray-600', 'hover:text-pharmacy-blue', 'hover:bg-gray-50');
+                    document.getElementById(tab.dataset.tab).classList.remove('hidden');
+                });
+            });
+        }
+
+        // Function to initialize selection buttons (variants, age, size)
+        function initSelectionButtons() {
+            document.querySelectorAll('.variant-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.variant-btn').forEach(b => {
+                        b.classList.remove('border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                        b.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+                    });
+                    btn.classList.add('border-2', 'border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+                });
+            });
+            document.querySelectorAll('.age-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.age-btn').forEach(b => {
+                        b.classList.remove('border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                        b.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+                    });
+                    btn.classList.add('border-2', 'border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+                });
+            });
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.size-btn').forEach(b => {
+                        b.classList.remove('border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                        b.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+                    });
+                    btn.classList.add('border-2', 'border-pharmacy-blue', 'bg-pharmacy-light-blue', 'text-pharmacy-blue', 'font-semibold');
+                    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+                });
+            });
+        }
+
+        // Function to initialize cart functionality
+        function initCart() {
+            updateCartCount();
+            const addToCartButton = document.querySelector('.btn-add-to-cart');
+            if (addToCartButton) {
+                addToCartButton.addEventListener('click', () => {
+                    const params = getUrlParams();
+                    const productId = params.id || '1';
+                    const product = products.find(p => p.id == productId);
+                    if (product) {
+                        const selectedVariant = document.querySelector('.variant-btn.border-pharmacy-blue')?.textContent || 'Default';
+                        const selectedAge = document.querySelector('.age-btn.border-pharmacy-blue')?.textContent || null;
+                        const selectedSize = document.querySelector('.size-btn.border-pharmacy-blue')?.textContent || null;
+                        const cartItem = {
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            variant: selectedVariant,
+                            age: selectedAge,
+                            size: selectedSize,
+                            prescriptionRequired: product.prescriptionRequired,
+                            brand: product.brand,
+                            quantity: 1
+                        };
+                        addToCart(cartItem);
+                        alert(`${product.name}${selectedSize ? ' (' + selectedSize + ')' : ''} added to cart!`);
+                    } else {
+                        console.error('Product not found');
+                        alert('Product not found. Please try again.');
+                    }
+                });
+            } else {
+                console.error('Add to Cart button not found');
+            }
+            const buyNowButton = document.querySelector('.btn-buy-now');
+            if (buyNowButton) {
+                buyNowButton.addEventListener('click', () => {
+                    const params = getUrlParams();
+                    const productId = params.id || '1';
+                    const product = products.find(p => p.id == productId);
+                    if (product) {
+                        const selectedVariant = document.querySelector('.variant-btn.border-pharmacy-blue')?.textContent || 'Default';
+                        const selectedAge = document.querySelector('.age-btn.border-pharmacy-blue')?.textContent || null;
+                        const selectedSize = document.querySelector('.size-btn.border-pharmacy-blue')?.textContent || null;
+                        const cartItem = {
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            variant: selectedVariant,
+                            age: selectedAge,
+                            size: selectedSize,
+                            prescriptionRequired: product.prescriptionRequired,
+                            brand: product.brand,
+                            quantity: 1
+                        };
+                        addToCart(cartItem); // Add to cart before redirecting
+                    } else {
+                        console.error('Product not found');
+                        alert('Product not found. Please try again.');
+                        return;
+                    }
+                    // Redirect to checkout.html
+                    window.location.href = 'checkout.html';
+                });
+            }
+        }
+
+        // Function to load product data
+        function loadProductData() {
+            const params = getUrlParams();
+            const productId = params.id || '1';
+            const product = products.find(p => p.id == productId);
+            if (product) {
+                // Update product details
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('selling-price').textContent = `₹${product.price}`;
+                if (product.originalPrice) {
+                    document.getElementById('original-price').textContent = `₹${product.originalPrice}`;
+                    document.getElementById('discount').textContent = product.discount;
+                    document.getElementById('original-price').style.display = 'inline';
+                    document.getElementById('discount').style.display = 'inline';
+                } else {
+                    document.getElementById('original-price').style.display = 'none';
+                    document.getElementById('discount').style.display = 'none';
+                }
+                document.getElementById('product-description').textContent = product.description || 'No description available.';
+                document.getElementById('product-ingredients').textContent = product.ingredients || 'Not specified.';
+                document.getElementById('product-benefits').textContent = product.benefits || 'Not specified.';
+                document.getElementById('product-directions').textContent = product.directions || 'Use as directed.';
+                document.getElementById('main-product-image').src = product.image;
+                document.getElementById('main-product-image').alt = product.name;
+
+                // Handle conditional sections
+                const babyCareSection = document.getElementById('baby-care-section');
+                const motherCareSection = document.getElementById('mother-care-section');
+                if (babyCareSection && motherCareSection) {
+                    if (product.category === 'Baby Care') {
+                        babyCareSection.classList.remove('hidden');
+                        motherCareSection.classList.add('hidden');
+                    } else if (product.category === 'Mother Care' || product.category === 'Feminine Care') {
+                        motherCareSection.classList.remove('hidden');
+                        babyCareSection.classList.add('hidden');
+                    } else {
+                        babyCareSection.classList.add('hidden');
+                        motherCareSection.classList.add('hidden');
+                    }
+                }
+
+                // Render thumbnails
+                renderThumbnails(product.thumbnails || [product.image]);
+
+                // Render variants and sizes
+                const variants = product.variants || ['Default', 'Option 1', 'Option 2'];
+                renderVariants(variants);
+                const sizes = product.variants || []; // Use variants as sizes for consistency
+                if (sizes.length > 0) {
+                    renderSizes(sizes);
+                }
+                
+                // Load related products
+                loadRelatedProducts(product.category, product.id);
+            } else {
+                document.getElementById('product-name').textContent = 'Product Not Found';
+                document.getElementById('product-description').textContent = 'The requested product could not be found. Please check the product ID and try again.';
+                document.getElementById('selling-price').textContent = '';
+                document.getElementById('original-price').style.display = 'none';
+                document.getElementById('discount').style.display = 'none';
+                document.getElementById('main-product-image').src = 'https://via.placeholder.com/500x400?text=Not+Found';
+                document.getElementById('thumbnail-container').innerHTML = '';
+                document.getElementById('related-products').innerHTML = '<p class="text-center text-gray-500">No related products available.</p>';
+            }
+        }
+
+        // Share functionality
+        function initShare() {
+            const shareButton = document.getElementById('share-btn');
+            const shareMenu = document.getElementById('share-menu');
+            const closeShareMenu = document.getElementById('close-share-menu');
+            
+            if (shareButton) {
+                shareButton.addEventListener('click', showShareMenu);
+            }
+            
+            if (closeShareMenu) {
+                closeShareMenu.addEventListener('click', () => {
+                    shareMenu.classList.add('hidden');
+                });
+            }
+            
+            // Close menu when clicking outside
+            shareMenu.addEventListener('click', (e) => {
+                if (e.target === shareMenu) {
+                    shareMenu.classList.add('hidden');
+                }
+            });
+            
+            // Handle share options
+            const shareOptions = document.querySelectorAll('.share-option');
+            shareOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const platform = option.dataset.platform;
+                    handleShare(platform);
+                    shareMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        function showShareMenu() {
+            const shareMenu = document.getElementById('share-menu');
+            shareMenu.classList.remove('hidden');
+        }
+
+        function handleShare(platform) {
+            const productName = document.getElementById('product-name').textContent;
+            const productPrice = document.getElementById('selling-price').textContent;
+            const currentUrl = window.location.href;
+            const shareText = `Check out ${productName} for ${productPrice} on DEMO GOODNEEWZ!`;
+            
+            const fullText = `${shareText} ${currentUrl}`;
+            
+            switch(platform) {
+                case 'WhatsApp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(fullText)}`, '_blank');
+                    break;
+                case 'Facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
+                    break;
+                case 'Twitter':
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(currentUrl)}`, '_blank');
+                    break;
+                case 'Copy Link':
+                    navigator.clipboard.writeText(currentUrl)
+                        .then(() => showShareNotification('Link copied to clipboard!'))
+                        .catch(() => alert(`Copy this link: ${currentUrl}`));
+                    break;
+                case 'Email':
+                    window.open(`mailto:?subject=${encodeURIComponent(productName)}&body=${encodeURIComponent(fullText)}`);
+                    break;
+                case 'SMS':
+                    window.open(`sms:?body=${encodeURIComponent(fullText)}`);
+                    break;
+                default:
+                    if (navigator.share) {
+                        navigator.share({
+                            title: productName,
+                            text: shareText,
+                            url: currentUrl,
+                        });
+                    } else {
+                        navigator.clipboard.writeText(fullText)
+                            .then(() => showShareNotification('Product details copied to clipboard!'))
+                            .catch(() => alert(fullText));
+                    }
+            }
+        }
+
+        function showShareNotification(message) {
+            // Remove existing notification if any
+            const existingNotification = document.querySelector('.share-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'share-notification fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.textContent = message;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductData();
+            initTabs();
+            initSelectionButtons();
+            initCart();
+            initShare();
+            
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
     </script>
-<script src="header.js"></script>
-    <script src="productdetails.js"></script>
+
+      <script src="/header.js"></script>
+<script>
+    // Dynamic Header Loader
+    window.addEventListener('DOMContentLoaded', function() {
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                if (typeof initializePage === 'function') initializePage();
+                if (typeof initializeHeader === 'function') initializeHeader();
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    });
+</script>
 </body>
 </html>

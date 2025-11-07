@@ -331,5 +331,5 @@
             // DOM already loaded
             setTimeout(initializeFitnessNutritionPage, 100);
         }
-    }
+    }document.getElementById('hero').style.backgroundImage = "url('https://i.pinimg.com/1200x/b3/75/ee/b375ee913e729ba6567db170935b9d07.jpg')";
 })(); // End of IIFE

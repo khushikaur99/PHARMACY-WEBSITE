@@ -1264,3 +1264,87 @@ document.addEventListener('DOMContentLoaded', () => {
     initSelectionButtons();
     initCart();
 });
+
+
+// Function to share product
+function shareProduct() {
+    const productName = document.getElementById('product-name').textContent;
+    const productPrice = document.getElementById('selling-price').textContent;
+    const productImage = document.getElementById('main-product-image').src;
+    const currentUrl = window.location.href;
+    
+    const shareText = `Check out ${productName} for ${productPrice} on DEMO GOODNEEWZ!`;
+    
+    // Check if Web Share API is available (mobile devices)
+    if (navigator.share) {
+        navigator.share({
+            title: productName,
+            text: shareText,
+            url: currentUrl,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing:', error));
+    } 
+    // Fallback for desktop browsers
+    else if (navigator.clipboard) {
+        // Copy to clipboard
+        navigator.clipboard.writeText(`${shareText} ${currentUrl}`)
+            .then(() => {
+                // Show success message
+                showShareNotification('Product link copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback to alert
+                alert(`${shareText}\n${currentUrl}`);
+            });
+    } else {
+        // Final fallback
+        alert(`${shareText}\n${currentUrl}`);
+    }
+}
+
+// Function to show share notification
+function showShareNotification(message) {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.share-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'share-notification fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+    notification.textContent = message;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Function to initialize share functionality
+function initShare() {
+    const shareButton = document.getElementById('share-btn');
+    if (shareButton) {
+        shareButton.addEventListener('click', shareProduct);
+    }
+}
+
+// Update the existing initialization function to include share functionality
+document.addEventListener('DOMContentLoaded', () => {
+    loadProductData();
+    initTabs();
+    initSelectionButtons();
+    initCart();
+    initShare(); // Add this line
+});

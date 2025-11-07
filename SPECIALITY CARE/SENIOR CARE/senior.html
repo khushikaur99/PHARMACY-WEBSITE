@@ -39,8 +39,7 @@
   <div id="header-placeholder"></div>
 
   <!-- HERO BANNER -->
-  <section class="hero-banner h-96 bg-cover bg-center bg-no-repeat" 
-           style="background-image: url('https://i.pinimg.com/1200x/b3/75/ee/b375ee913e729ba6567db170935b9d07.jpg');">
+  <section id="hero" class="h-96 bg-cover bg-center bg-no-repeat">
   </section>
 
   <!-- MAIN CONTENT -->
@@ -133,6 +132,91 @@
       </section>
     </div>
   </div>
+<!-- Footer Section -->
+<footer class="bg-white text-dark py-4 border-t border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 text-center md:text-left">
+      
+      <!-- Company Info & Logo -->
+      <div class="flex flex-col items-center md:items-start">
+        <img src="/IMG/LOGO-removebg-preview.png" alt="Company Logo" class="h-16 w-auto mb-2">
+        <p class="text-gray-600 text-sm leading-relaxed mb-2 max-w-xs">
+          "Delivering trusted healthcare and wellness solutions. We're committed to providing quality medicines and exceptional care for every customer."
+        </p>
+        <p class="text-primary text-sm font-medium">Excellence in Every Detail</p>
+      </div>
+      
+      <!-- Quick Links (Hidden on small screens) -->
+      <div class="hidden md:block">
+        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Home</a></li>
+          <li><a href="about.html" class="text-gray-600 hover:text-primary transition-colors text-sm">About Us</a></li>
+          <li><a href="/BABYCARE/baby.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Baby Care</a></li>
+          <li><a href="/CONTACT.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Contact Us</a></li>
+          <li><a href="/MOTHERCARE/mother.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Mother Care</a></li>
+        </ul>
+      </div>
+      
+      <!-- Policies -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Policies</h3>
+        <ul class="space-y-1">
+          <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Disclaimer</a></li>
+          <li><a href="privacy.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Privacy Policy</a></li>
+          <li><a href="refund.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Refund Policy</a></li>
+          <li><a href="terms.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Terms of Service</a></li>
+          <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Cancellation Policy</a></li>
+        </ul>
+      </div>
+      
+<!-- Contact Info -->
+<div class="flex flex-col items-center md:items-start">
+  <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-2">Get in Touch</h3>
+  <div class="space-y-1 mb-3">
+    <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-map-marker-alt text-primary mt-0.5 mr-2 text-xs"></i>
+      <span>123 Business Street, Suite 100<br>Pimpri, Maharashtra, India</span>
+    </div>
+    <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-envelope text-primary mr-2 text-xs"></i>
+      <a href="mailto:info@yourcompany.com" class="hover:text-primary transition-colors">Shilpaghodke41@gmail.com</a>
+    </div>
+    <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+      <a href="tel:+91 91460 72858" class="hover:text-primary transition-colors">+91 91460 72858(Mrs.Shilpa Ghodke)</a><br>
+     
+    </div>
+        <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+ <a href="tel:+91 84080 14111" class="hover:text-primary transition-colors">+91 84080 14111(Mr. Alok Gandhi)</a><br>     
+    </div>
+    <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+      <i class="fas fa-clock text-primary mt-0.5 mr-2 text-xs"></i>
+      <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+    </div>
+    
+    <!-- New Line Added -->
+    <div class="flex items-center justify-center md:justify-start text-gray-700 text-sm font-medium mt-3">
+      <i class="fas fa-headset text-primary mr-2 text-base"></i>
+      <span>Call <a href="tel:+918382058205" class="text-primary hover:underline font-bold">8382058205</a> for online consultation.</span>
+    </div>
+  </div>
+        
+</div>
+ <!-- Bottom Bar – PERFECTLY CENTERED -->
+    <div class="col-span-full border-t border-gray-200 pt-4 mt-6">
+      <p class="text-center text-xs text-gray-600">
+        © <span id="year"></span> GOODNEEWZ. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Dynamically set current year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
   <!-- Floating Buttons -->
   <div class="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
