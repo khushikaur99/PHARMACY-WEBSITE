@@ -42,7 +42,13 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-
+<!-- Back Arrow Button -->
+<div class="max-w-7xl mx-auto px-4 py-4">
+    <button onclick="history.back()" class="flex items-center gap-2 text-gray-700 hover:text-primary transition">
+        <i class="fas fa-arrow-left text-lg"></i>
+        <span class="font-medium">Back</span>
+    </button>
+</div>
 <!-- Header Placeholder -->
 <div id="header-placeholder"></div>
 
@@ -82,7 +88,8 @@
                     <!-- Default Address -->
                     <div class="p-4 bg-blue-50 border-2 border-blue-500 rounded-lg flex items-center justify-between selected">
                         <label class="flex items-center gap-3 cursor-pointer flex-1">
-                            <input type="radio" name="selectedAddress" value="1" checked class="w-4 h-4 text-primary">
+                            <input type="radio" name="selectedAddress" value="1" checked class="w-4 h-4 text-primary"
+                                   data-address="123 MG Road" data-city="Pune" data-state="Maharashtra" data-pincode="411001">
                             <span class="text-sm">
                                 <strong>Home</strong><br>
                                 123 MG Road, Pune, Maharashtra - 411001, India
@@ -99,7 +106,7 @@
                     + Add New Address
                 </button>
 
-                <!-- New Address Form -->
+                <!-- Address Form -->
                 <div id="newAddressForm" class="hidden mt-5 p-5 bg-gray-50 rounded-lg border">
                     <input type="hidden" id="editAddressId">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -169,28 +176,12 @@
         <button onclick="placeOrder()" class="w-full mt-6 bg-primary text-white py-4 rounded-lg font-bold text-lg hover:bg-[#2a9ba8] transition flex items-center justify-center gap-2">
             <i class="fas fa-lock"></i> Place Order
         </button>
-
-        <div class="mt-6 text-center text-xs text-gray-500 space-y-1">
-            <a href="#" onclick="showPolicy('privacy')" class="hover:underline">Privacy Policy</a> • 
-            <a href="#" onclick="showPolicy('cancellation')" class="hover:underline">Cancellation</a> • 
-            <a href="#" onclick="showPolicy('shipping')" class="hover:underline">Shipping</a>
-        </div>
-
-        <div class="flex justify-center gap-3 mt-5">
-            <div class="w-10 h-6 bg-[#1a1f71] text-white rounded flex items-center justify-center text-xs font-bold">VISA</div>
-            <div class="w-10 h-6 bg-[#eb001b] text-white rounded flex items-center justify-center text-xs font-bold">MC</div>
-            <div class="w-10 h-6 bg-[#003087] text-white rounded flex items-center justify-center text-xs font-bold">PayPal</div>
-            <div class="w-10 h-6 bg-[#528ff0] text-white rounded flex items-center justify-center text-xs font-bold">Razor</div>
-        </div>
     </div>
 </div>
 
-<!-- ====================== SCRIPTS ====================== -->
 <script>
-    // Load cart
+    // Cart
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Load sample cart if empty (for testing)
     if (cart.length === 0) {
         cart = [
             { id: 1, name: 'Paracetamol 500mg', price: 49, image: 'https://i.pinimg.com/1200x/df/3b/b2/df3bb27c00bb0f4b54692f9000a56b1f.jpg', variant: 'Default', quantity: 2, prescriptionRequired: true },
@@ -201,14 +192,13 @@
 
     let addressCounter = 1;
 
-    // Load order items
+    // Load Items
     function loadOrderItems() {
         const container = document.getElementById('orderItems');
         if (cart.length === 0) {
             container.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
             return;
         }
-
         container.innerHTML = cart.map(item => `
             <div class="flex items-center gap-4 py-3 border-b">
                 <img src="${item.image}" alt="${item.name}" class="w-14 h-14 rounded object-cover">
@@ -281,7 +271,7 @@
         }
     }
 
-    // Address Functions
+    // === ADDRESS FUNCTIONS ===
     function showAddressForm() {
         document.getElementById('newAddressForm').classList.remove('hidden');
         document.getElementById('editAddressId').value = '';
@@ -293,35 +283,60 @@
     }
 
     function clearAddressForm() {
-        ['newAddress', 'newCity', 'newState', 'newPincode'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('newAddress').value = '';
+        document.getElementById('newCity').value = '';
+        document.getElementById('newState').value = '';
+        document.getElementById('newPincode').value = '';
         document.getElementById('newCountry').value = 'India';
     }
 
+    function editAddress(id) {
+        const input = document.querySelector(`input[value="${id}"]`);
+        if (!input) return;
+
+        document.getElementById('editAddressId').value = id;
+        document.getElementById('newAddress').value = input.dataset.address || '';
+        document.getElementById('newCity').value = input.dataset.city || '';
+        document.getElementById('newState').value = input.dataset.state || '';
+        document.getElementById('newPincode').value = input.dataset.pincode || '';
+        document.getElementById('newAddressForm').classList.remove('hidden');
+    }
+
     function saveAddress() {
-        const fields = ['newAddress', 'newCity', 'newState', 'newPincode'];
-        const values = fields.map(id => document.getElementById(id).value.trim());
-        if (values.some(v => !v)) return alert('Please fill all address fields');
+        const addr = document.getElementById('newAddress').value.trim();
+        const city = document.getElementById('newCity').value.trim();
+        const state = document.getElementById('newState').value.trim();
+        const pin = document.getElementById('newPincode').value.trim();
 
-        const [addr, city, state, pin] = values;
+        if (!addr || !city || !state || !pin) {
+            return alert('Please fill all fields');
+        }
+
         const full = `${addr}, ${city}, ${state} - ${pin}`;
-        const id = document.getElementById('editAddressId').value || ++addressCounter;
+        const editId = document.getElementById('editAddressId').value;
 
-        if (document.getElementById('editAddressId').value) {
-            const input = document.querySelector(`input[value="${id}"]`);
-            const label = input.closest('label').querySelector('span');
-            label.innerHTML = `<strong>Address ${id}</strong><br>${full}`;
-            ['address', 'city', 'state', 'pincode'].forEach((k, i) => input.dataset[k] = values[i]);
+        if (editId) {
+            // EDIT EXISTING
+            const input = document.querySelector(`input[value="${editId}"]`);
+            const span = input.parentElement.querySelector('span');
+            span.innerHTML = `<strong>Address ${editId}</strong><br>${full}`;
+            input.dataset.address = addr;
+            input.dataset.city = city;
+            input.dataset.state = state;
+            input.dataset.pincode = pin;
         } else {
+            // ADD NEW
+            addressCounter++;
             const html = `
                 <div class="p-4 bg-gray-50 border rounded-lg flex items-center justify-between hover:bg-blue-50 transition">
                     <label class="flex items-center gap-3 cursor-pointer flex-1">
-                        <input type="radio" name="selectedAddress" value="${id}" class="w-4 h-4 text-primary"
-                               data-address="${addr}" data-city="${city}" data-state="${state}" data-pincode="${pin}" data-country="India">
-                        <span class="text-sm"><strong>Address ${id}</strong><br>${full}</span>
+                        <input type="radio" name="selectedAddress" value="${addressCounter}" class="w-4 h-4 text-primary"
+                               data-address="${addr}" data-city="${city}" data-state="${state}" data-pincode="${pin}">
+                        <span class="text-sm"><strong>Address ${addressCounter}</strong><br>${full}</span>
                     </label>
                     <div class="flex gap-2">
-                        <button type="button" class="w-8 h-8 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-blue-700" onclick="editAddress(${id})">Edit</button>
-                        <button type="button" class="w-8 h-8 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" onclick="deleteAddress(${id})">Delete</button>
+                        <button type="button" class="w-8 h-8 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-blue-700" onclick="editAddress(${addressCounter})">Edit</button>
+                        <button type="button" class="w-8 h-8 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" onclick="deleteAddress(${addressCounter})">Delete</button>
                     </div>
                 </div>`;
             document.getElementById('addressList').insertAdjacentHTML('beforeend', html);
@@ -329,18 +344,8 @@
         hideAddressForm();
     }
 
-    function editAddress(id) {
-        const input = document.querySelector(`input[value="${id}"]`);
-        document.getElementById('editAddressId').value = id;
-        document.getElementById('newAddress').value = input.dataset.address;
-        document.getElementById('newCity').value = input.dataset.city;
-        document.getElementById('newState').value = input.dataset.state;
-        document.getElementById('newPincode').value = input.dataset.pincode;
-        showAddressForm();
-    }
-
     function deleteAddress(id) {
-        if (document.querySelectorAll('#addressList input').length <= 1) {
+        if (document.querySelectorAll('#addressList > div').length <= 1) {
             return alert('You must have at least one address');
         }
         document.querySelector(`input[value="${id}"]`).closest('div').remove();
@@ -353,97 +358,23 @@
         });
     });
 
-    function showPolicy(type) {
-        const policies = {
-            privacy: "We respect your privacy. Your data is safe and never shared.",
-            cancellation: "Cancel within 24 hours for full refund.",
-            shipping: "Free shipping on orders above ₹500. Delivery in 2–5 days."
-        };
-        alert(policies[type]);
-    }
-
-    // PLACE ORDER – CLEARS CART COMPLETELY
     function placeOrder() {
-        if (cart.length === 0) return alert('Your cart is empty!');
-
-        const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-        if (!selectedAddress) return alert('Please select a shipping address');
-
-        const form = document.getElementById('checkoutForm');
-        if (!form.checkValidity()) {
-            form.reportValidity();
+        if (cart.length === 0) return alert('Cart is empty');
+        const addr = document.querySelector('input[name="selectedAddress"]:checked');
+        if (!addr) return alert('Select address');
+        if (!document.getElementById('checkoutForm').checkValidity()) {
+            document.getElementById('checkoutForm').reportValidity();
             return;
         }
 
-        const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-        const shipping = subtotal > 500 ? 0 : 49;
-        const tax = subtotal * 0.05;
-        const discount = parseFloat(localStorage.getItem('appliedDiscount') || '0');
-        const total = subtotal + shipping + tax - discount;
-
-        const order = {
-            id: Date.now(),
-            date: new Date().toLocaleDateString('en-IN'),
-            items: cart.map(i => ({
-                name: i.name,
-                image: i.image,
-                variant: i.variant || 'Default',
-                quantity: i.quantity,
-                price: i.price,
-                total: i.price * i.quantity
-            })),
-            customer: {
-                name: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value
-            },
-            address: selectedAddress.nextElementSibling.textContent.trim(),
-            payment: document.querySelector('input[name="paymentMethod"]:checked').parentElement.textContent.trim(),
-            subtotal, shipping, tax, discount, total,
-            status: 'Confirmed'
-        };
-
-        // Save order
-        const orders = JSON.parse(localStorage.getItem('medicart_orders') || '[]');
-        orders.unshift(order);
-        localStorage.setItem('medicart_orders', JSON.stringify(orders));
-
-        // === EMPTY THE CART ===
-        localStorage.removeItem('cart');           // Remove all cart items
-        localStorage.removeItem('appliedDiscount'); // Remove coupon
-        localStorage.setItem('cartCount', '0');    // Reset cart badge
-
-        alert('Order placed successfully! Your cart is now empty.');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('appliedDiscount');
+        alert('Order placed! Redirecting...');
         window.location.href = 'my-orders.html';
     }
 
-    // Card formatting
-    document.getElementById('cardNumber').addEventListener('input', e => {
-        let v = e.target.value.replace(/\D/g, '').slice(0, 16);
-        e.target.value = v.match(/.{1,4}/g)?.join(' ') || v;
-    });
-    document.getElementById('expiryDate').addEventListener('input', e => {
-        let v = e.target.value.replace(/\D/g, '').slice(0, 4);
-        if (v.length >= 2) v = v.slice(0,2) + '/' + v.slice(2);
-        e.target.value = v;
-    });
-    document.getElementById('cvv').addEventListener('input', e => {
-        e.target.value = e.target.value.replace(/\D/g, '').slice(0,3);
-    });
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-        loadOrderItems();
-
-        // Load header
-        fetch('/header.html')
-            .then(r => r.text())
-            .then(html => {
-                document.getElementById('header-placeholder').innerHTML = html;
-                if (typeof initializePage === 'function') initializePage();
-            })
-            .catch(() => {});
-    });
+    // Init
+    document.addEventListener('DOMContentLoaded', loadOrderItems);
 </script>
 
 </body>

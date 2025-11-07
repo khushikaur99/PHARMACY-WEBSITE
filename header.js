@@ -76,7 +76,12 @@ const translations = {
         existing_customer: "Already a user? Login",
         close: "Close",
         reset_password: "Reset Password",
-        send_reset_link: "Send Reset Link"
+        send_reset_link: "Send Reset Link",
+        // === NEWLY ADDED KEYS ===
+        my_orders: "My Orders",
+        my_profile: "My Profile",
+        contact: "Contact",
+        about: "About"
     },
     hi: {
         title: "मेडिकेयर - आपकी विश्वसनीय फार्मेसी",
@@ -155,7 +160,12 @@ const translations = {
         existing_customer: "पहले से उपयोगकर्ता? लॉगिन",
         close: "बंद करें",
         reset_password: "पासवर्ड रीसेट करें",
-        send_reset_link: "रीसेट लिंक भेजें"
+        send_reset_link: "रीसेट लिंक भेजें",
+        // === NEWLY ADDED KEYS ===
+        my_orders: "मेरे ऑर्डर",
+        my_profile: "मेरी प्रोफाइल",
+        contact: "संपर्क",
+        about: "हमारे बारे में"
     },
     mr: {
         title: "मेडिकेअर - तुमचा विश्वासू फार्मसी",
@@ -234,7 +244,12 @@ const translations = {
         existing_customer: "आधीच वापरकर्ता? लॉगिन",
         close: "बंद करा",
         reset_password: "पासवर्ड रीसेट करा",
-        send_reset_link: "रीसेट लिंक पाठवा"
+        send_reset_link: "रीसेट लिंक पाठवा",
+        // === NEWLY ADDED KEYS ===
+        my_orders: "माझे ऑर्डर्स",
+        my_profile: "माझी प्रोफाइल",
+        contact: "संपर्क",
+        about: "आमच्याबद्दल"
     }
 };
 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/header.css">
+  <title>My Profile</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#36C2CE',
+            secondary: '#0ea5e9',
+            accent: '#10b981',
+            dark: '#1e293b',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col"
+      style="background-image: url('https://i.pinimg.com/736x/1e/e5/07/1ee5072a72ffa83aace4863dd6bd23cd.jpg');">
+
+  <div id="header-placeholder"></div>
+
+  <!-- Centered Main Container -->
+  <div class="flex-grow flex items-center justify-center py-10">
+    <div class="w-full max-w-6xl bg-white shadow-md rounded-lg flex flex-col md:flex-row overflow-hidden">
+
+      <!-- Sidebar -->
+      <div class="w-full md:w-1/3 bg-primary/10 border-r border-primary p-6 flex flex-col items-center">
+        <div class="w-24 h-24 bg-primary text-white rounded-full flex items-center justify-center text-5xl mb-4">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <h2 class="text-xl font-bold text-dark mb-1" id="profileName">Nikhil Mule</h2>
+        <p class="text-sm text-gray-600 mb-6">Member</p>
+
+        <nav class="w-full">
+          <button id="profileTab" class="w-full text-left flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white mb-2">
+            <i class="fa-solid fa-user"></i> Profile Information
+          </button>
+          <button id="addressTab" class="w-full text-left flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/20">
+            <i class="fa-solid fa-location-dot"></i> Addresses
+          </button>
+        </nav>
+      </div>
+
+      <!-- Right Section -->
+      <div class="w-full md:w-3/3 p-6">
+        <!-- Profile Info -->
+        <div id="profileInfo">
+          <div class="flex justify-between items-center mb-4 ">
+            <h2 class="text-2xl font-bold text-dark">Personal Information</h2>
+            <button id="editBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition">
+              Edit Profile
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 bg-primary/20 text-primary rounded-full flex items-center justify-center text-3xl font-bold">
+              <i class="fa-regular fa-user"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-dark" id="displayName">Nikhil Mule</h3>
+              <p class="text-sm text-gray-500">Member since 2024</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Full Name *</label>
+              <input id="fullName" type="text" value="Nikhil Mule"
+                class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary outline-none" disabled />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Phone Number *</label>
+              <input id="phoneNumber" type="text" value="7821099694"
+                class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary outline-none" disabled />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Email Address *</label>
+              <input id="emailAddress" type="email" value="nikhilmule@gmail.com"
+                class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary outline-none" disabled />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Account Status</label>
+              <input id="accountStatus" type="text" value="Active"
+                class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary focus:ring-primary outline-none" disabled />
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <button id="changePasswordBtn" class="bg-dark text-white px-4 py-2 rounded-md hover:bg-primary transition">
+              Change Password
+            </button>
+          </div>
+        </div>
+
+        <!-- Addresses -->
+        <div id="addressInfo" class="hidden">
+          <div class="flex justify-between items-center mb-4 ">
+            <h2 class="text-2xl font-bold text-dark">Saved Addresses</h2>
+            <button id="addAddressBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition">
+              <i class="fa-solid fa-plus mr-2"></i> Add New Address
+            </button>
+          </div>
+
+          <div id="addressList" class="space-y-4">
+            <p class="text-gray-600" id="noAddressMsg">You currently have no saved addresses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="passwordModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center mt-20 flex items-center justify-center ">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6 relative">
+      <h3 class="text-xl font-semibold text-dark mb-4">Change Password</h3>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+      <input type="password" id="currentPass" class="w-full border border-gray-300 rounded-md px-3 py-2 mb-3 focus:border-primary outline-none">
+
+      <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+      <input type="password" id="newPass" class="w-full border border-gray-300 rounded-md px-3 py-2 mb-3 focus:border-primary outline-none">
+
+      <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+      <input type="password" id="confirmPass" class="w-full border border-gray-300 rounded-md px-3 py-2 mb-5 focus:border-primary outline-none">
+
+      <div class="flex justify-end gap-3">
+        <button id="cancelPassBtn" class="bg-gray-300 text-dark px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
+        <button id="savePassBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Modal -->
+  <div id="addressModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center mt-20">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-lg p-6 relative">
+      <h3 class="text-xl font-semibold text-dark mb-4" id="addressModalTitle">Add New Address</h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Full Name *</label>
+          <input id="addressName" type="text" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Phone Number *</label>
+          <input id="addressPhone" type="text" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary outline-none" />
+        </div>
+
+        <div class="col-span-2">
+          <label class="block text-sm font-medium text-gray-700">Address Line *</label>
+          <input id="addressLine" type="text" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">City *</label>
+          <input id="addressCity" type="text" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Pincode *</label>
+          <input id="addressPincode" type="text" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:border-primary outline-none" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 mt-5">
+        <button id="cancelAddressBtn" class="bg-gray-300 text-dark px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
+        <button id="saveAddressBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const profileTab = document.getElementById("profileTab");
+    const addressTab = document.getElementById("addressTab");
+    const profileInfo = document.getElementById("profileInfo");
+    const addressInfo = document.getElementById("addressInfo");
+    const editBtn = document.getElementById("editBtn");
+    const inputs = document.querySelectorAll("#profileInfo input");
+
+    // Tab switching
+    profileTab.onclick = () => {
+      profileInfo.classList.remove("hidden");
+      addressInfo.classList.add("hidden");
+      profileTab.classList.add("bg-primary", "text-white");
+      addressTab.classList.remove("bg-primary", "text-white");
+    };
+
+    addressTab.onclick = () => {
+      addressInfo.classList.remove("hidden");
+      profileInfo.classList.add("hidden");
+      addressTab.classList.add("bg-primary", "text-white");
+      profileTab.classList.remove("bg-primary", "text-white");
+    };
+
+    // Edit Profile
+    editBtn.onclick = () => {
+      const editing = editBtn.textContent === "Save";
+      if (editing) {
+        editBtn.textContent = "Edit Profile";
+        inputs.forEach(i => i.disabled = true);
+        alert("Profile updated successfully!");
+      } else {
+        editBtn.textContent = "Save";
+        inputs.forEach(i => i.disabled = false);
+      }
+    };
+
+    // Change Password Modal
+    const passwordModal = document.getElementById("passwordModal");
+    document.getElementById("changePasswordBtn").onclick = () => passwordModal.classList.remove("hidden");
+    document.getElementById("cancelPassBtn").onclick = () => passwordModal.classList.add("hidden");
+    document.getElementById("savePassBtn").onclick = () => {
+      const newPass = document.getElementById("newPass").value;
+      const confirmPass = document.getElementById("confirmPass").value;
+      if (newPass === confirmPass && newPass.trim() !== "") {
+        alert("Password changed successfully!");
+        passwordModal.classList.add("hidden");
+      } else {
+        alert("Passwords do not match!");
+      }
+    };
+
+    // Address Modal
+    const addressModal = document.getElementById("addressModal");
+    const noAddressMsg = document.getElementById("noAddressMsg");
+    const addressList = document.getElementById("addressList");
+    let editingAddress = null;
+
+    document.getElementById("addAddressBtn").onclick = () => {
+      editingAddress = null;
+      document.getElementById("addressModalTitle").textContent = "Add New Address";
+      clearAddressFields();
+      addressModal.classList.remove("hidden");
+    };
+
+    document.getElementById("cancelAddressBtn").onclick = () => {
+      addressModal.classList.add("hidden");
+    };
+
+    document.getElementById("saveAddressBtn").onclick = () => {
+      const name = document.getElementById("addressName").value;
+      const phone = document.getElementById("addressPhone").value;
+      const line = document.getElementById("addressLine").value;
+      const city = document.getElementById("addressCity").value;
+      const pincode = document.getElementById("addressPincode").value;
+
+      if (!name || !phone || !line || !city || !pincode) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      if (editingAddress) {
+        editingAddress.querySelector(".addr-name").textContent = name;
+        editingAddress.querySelector(".addr-line").textContent = `${line}, ${city} - ${pincode}`;
+        editingAddress.querySelector(".addr-phone").textContent = `📞 ${phone}`;
+      } else {
+        noAddressMsg?.remove();
+
+        const div = document.createElement("div");
+        div.className = "border border-gray-300 rounded-md p-4 flex justify-between items-start";
+        div.innerHTML = `
+          <div>
+            <p class="font-semibold addr-name">${name}</p>
+            <p class="text-gray-600 addr-line">${line}, ${city} - ${pincode}</p>
+            <p class="text-gray-600 addr-phone">📞 ${phone}</p>
+          </div>
+          <button class="editAddressBtn bg-primary text-white px-3 py-1 rounded-md hover:bg-secondary transition">Edit</button>
+        `;
+        addressList.appendChild(div);
+
+        div.querySelector(".editAddressBtn").onclick = () => editAddress(div);
+      }
+
+      addressModal.classList.add("hidden");
+      alert("Address saved successfully!");
+    };
+
+    function editAddress(div) {
+      editingAddress = div;
+      document.getElementById("addressModalTitle").textContent = "Edit Address";
+      const name = div.querySelector(".addr-name").textContent;
+      const lineParts = div.querySelector(".addr-line").textContent.split(",");
+      const phone = div.querySelector(".addr-phone").textContent.replace("📞 ", "");
+
+      document.getElementById("addressName").value = name;
+      document.getElementById("addressPhone").value = phone;
+      document.getElementById("addressLine").value = lineParts[0].trim();
+      document.getElementById("addressCity").value = lineParts[1]?.split("-")[0].trim();
+      document.getElementById("addressPincode").value = lineParts[1]?.split("-")[1]?.trim() || "";
+      addressModal.classList.remove("hidden");
+    }
+
+    function clearAddressFields() {
+      ["addressName", "addressPhone", "addressLine", "addressCity", "addressPincode"].forEach(id => {
+        document.getElementById(id).value = "";
+      });
+    }
+  </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      fetch('/header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+          if (typeof initializePage === 'function') initializePage();
+          if (typeof initializeHeader === 'function') initializeHeader();
+        })
+        .catch(error => console.error('Error loading header:', error));
+    });
+  </script>
+
+  <script src="/header.js"></script>
+</body>
+</html>

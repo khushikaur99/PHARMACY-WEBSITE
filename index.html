@@ -798,14 +798,98 @@
         <section class="container mx-auto py-14" id="articlesSection">
             <!-- Dynamic articles will be inserted here -->
         </section>
-        <!-- Why Choose Us Section -->
+        <!-- Why Choose Us Section
         <section class="bg-gradient-to-b from-gray-50 to-gray-100 py-16" id="whyChooseSection">
-            <!-- Dynamic why choose content will be inserted here -->
-        </section>
-        <!-- Footer Section -->
-        <footer class="bg-dark text-white py-8" id="footerSection">
-            <!-- Dynamic footer will be inserted here -->
-        </footer>
+            Dynamic why choose content will be inserted here
+        </section>  -->
+<!-- Footer Section -->
+<footer class="bg-white text-dark py-6 border-t border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 text-center md:text-left">
+      
+      <!-- Company Info & Logo -->
+      <div class="flex flex-col items-center md:items-start">
+        <img src="/IMG/LOGO-removebg-preview.png" alt="Company Logo" class="h-16 w-auto mb-2">
+        <p class="text-gray-600 text-sm leading-relaxed mb-2 max-w-xs">
+          “Delivering trusted healthcare and wellness solutions. We’re committed to providing quality medicines and exceptional care for every customer.”
+        </p>
+        <p class="text-primary text-sm font-medium">Excellence in Every Detail</p>
+      </div>
+      
+      <!-- Quick Links (Hidden on small screens) -->
+      <div class="hidden md:block">
+        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Home</a></li>
+          <li><a href="about.html" class="text-gray-600 hover:text-primary transition-colors text-sm">About Us</a></li>
+          <li><a href="/BABYCARE/baby.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Baby Care</a></li>
+          <li><a href="/CONTACT.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Contact Us</a></li>
+          <li><a href="/MOTHERCARE/mother.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Mother Care</a></li>
+        </ul>
+      </div>
+      
+      <!-- Policies -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Policies</h3>
+        <ul class="space-y-1">
+          <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Disclaimer</a></li>
+          <li><a href="privacy.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Privacy Policy</a></li>
+          <li><a href="refund.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Refund Policy</a></li>
+          <li><a href="terms.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Terms of Service</a></li>
+          <li><a href="disclaimer.html" class="text-gray-600 hover:text-primary transition-colors text-sm">Cancellation Policy</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact Info -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-base font-semibold mb-3 text-dark border-b-2 border-primary inline-block pb-1">Get in Touch</h3>
+        <div class="space-y-1 mb-3">
+          <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+            <i class="fas fa-map-marker-alt text-primary mt-0.5 mr-2 text-xs"></i>
+            <span>123 Business Street, Suite 100<br>Pimpri, Maharashtra, India</span>
+          </div>
+          <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+            <i class="fas fa-envelope text-primary mr-2 text-xs"></i>
+            <a href="mailto:info@yourcompany.com" class="hover:text-primary transition-colors">info@yourcompany.com</a>
+          </div>
+          <div class="flex items-center justify-center md:justify-start text-gray-600 text-sm">
+            <i class="fas fa-phone-alt text-primary mr-2 text-xs"></i>
+            <a href="tel:+911234567890" class="hover:text-primary transition-colors">+91 12345 67890</a>
+          </div>
+          <div class="flex items-start justify-center md:justify-start text-gray-600 text-sm">
+            <i class="fas fa-clock text-primary mt-0.5 mr-2 text-xs"></i>
+            <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+          </div>
+        </div>
+        
+        <!-- Social Media -->
+        <div class="flex justify-center md:justify-start space-x-2 mt-3">
+          <a href="https://instagram.com" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all transform hover:scale-110 text-sm">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://youtube.com" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all transform hover:scale-110 text-sm">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-200 pt-3 mt-4">
+      <div class="flex justify-center items-center text-xs text-gray-600 text-center">
+        <p>© <span id="year"></span> GOODNEEWZ. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Dynamically set current year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+
     </div>
     <script src="header.js"></script>
 
@@ -828,6 +912,7 @@
                 });
         });
     </script>
+  
 
         <script src="index.js"></script>
 </body>
